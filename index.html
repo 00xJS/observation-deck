@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observation Deck</title>
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --hover-orange: #e67300;
+            --border-gray: #ccc;
+            --focus-shadow: rgba(0, 123, 255, 0.5);
+            --error-red: #ff0000;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--hover-orange);
+        }
+
+        .inline-fields {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .dynamic-section {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .dynamic-section .file-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dynamic-section label {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 5px 0;
+        }
+
+        input,
+        select {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            max-width: 200px;
+        }
+
+        input:invalid,
+        select:invalid {
+            border-color: var(--error-red);
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 4px var(--focus-shadow);
+        }
+
+        h1,
+        h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .header-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--hover-orange);
+            font-size: 56px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px; /* Increased horizontal padding */
+            border-radius: 4px;
+            margin: 0;
+            z-index: 1;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        canvas,
+        #resultImage {
+            max-width: 100%;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        #resultImage {
+            display: none;
+        }
+
+        #downloadLink a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        #downloadLink a:hover {
+            background-color: var(--hover-orange);
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .project-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            transition: transform 0.2s;
+            width: 100%;
+            max-width: 180px;
+            min-height: 300px;
+            box-sizing: border-box;
+        }
+
+        .project-section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-section img {
+            width: 100%;
+            max-width: 140px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .project-section p {
+            flex-grow: 1;
+            margin: 8px 0;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            line-clamp: 4;
+        }
+
+        .project-section a {
+            text-decoration: none;
+            color: white;
+            background-color: var(--primary-blue);
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            font-size: 13px;
+        }
+
+        .project-section a:hover {
+            background-color: var(--hover-orange);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid var(--border-gray);
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+                margin: 10px;
+            }
+
+            .header-container {
+                height: 150px;
+            }
+
+            .header-banner {
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 48px;
+                padding: 3px 12px; /* Increased horizontal padding */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+                background: rgba(0, 0, 0, 0.3);
+                white-space: nowrap; /* Prevent text wrapping */
+            }
+
+            .project-section {
+                max-width: 160px;
+                min-height: 280px;
+                padding: 8px;
+            }
+
+            .project-section img {
+                max-width: 120px;
+                height: 70px;
+            }
+
+            .project-section p {
+                font-size: 11px;
+                -webkit-line-clamp: 3;
+                line-clamp: 3;
+            }
+
+            .project-section a {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Photo Banner -->
+        <header>
+            <div class="header-container">
+                <h1>Observation Deck</h1>
+                <img src="images/banner.png" alt="Header Banner" class="header-banner">
+            </div>
+        </header>
+
+        <!-- Project Showcase Sections -->
+        <div class="dynamic-section">
+            <!-- Project 1 -->
+            <div class="project-section">
+                <h3>Sundance DeGen</h3>
+                <img src="images/degen.png" alt="Sundance DeGen Preview">
+                <p>Event Description Generator for different Pokémon GO event types.</p>
+                <a href="https://sundance-dgen.netlify.app/" target="_self">Visit Project</a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-section">
+                <h3>I-Combinator</h3>
+                <img src="images/icombo.png" alt="I-Combinator Preview">
+                <p>A vertical & horizontal image combiner that is modular to accept multiple images.</p>
+                <a href="https://i-combinator.netlify.app/" target="_self">Visit Project</a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-section">
+                <h3>MickeyDeez Map</h3>
+                <img src="images/mickeys.png" alt="MickeyDeez Map Preview">
+                <p>A crowdsourced map of local sponsored locations in Pokémon GO.</p>
+                <a href="https://phoenix-mickydeez.netlify.app/" target="_self">Visit Project</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>JS | <a href="https://github.com/00xJS/observation-deck">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>
