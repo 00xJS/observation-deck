@@ -6,9 +6,11 @@
     <title>Observation Deck</title>
     <style>
         :root {
-            --primary-blue: #007bff;
-            --hover-orange: #e67300;
-            --border-gray: #ccc;
+            --primary-blue: #1b1f4b;
+            --accent-orange: #e8792b;
+            --accent-magenta: #c23e8c;
+            --hover-orange: #ff9a44;
+            --border-gray: #d4d0e0;
         }
 
         body {
@@ -28,13 +30,11 @@
         }
 
         .dynamic-section {
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             margin: 20px 0;
-            justify-content: center;
-            flex-wrap: nowrap;
-            overflow-x: auto;
+            justify-items: center;
         }
 
         h1,
@@ -57,12 +57,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: var(--hover-orange);
-            font-size: 56px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-            background: rgba(0, 0, 0, 0.3);
-            padding: 5px 15px;
-            border-radius: 4px;
+            color: #ffffff;
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            background: none;
+            padding: 0;
             margin: 0;
             z-index: 1;
             white-space: nowrap;
@@ -81,14 +83,17 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 10px;
+            padding: 15px;
             border: 1px solid var(--border-gray);
             border-radius: 8px;
             transition: transform 0.2s;
             width: 100%;
-            max-width: 180px;
-            min-height: 300px;
+            max-width: 350px;
             box-sizing: border-box;
+        }
+
+        .project-section:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
         }
 
         .project-section:hover {
@@ -98,8 +103,8 @@
 
         .project-section img {
             width: 100%;
-            max-width: 140px;
-            height: 80px;
+            max-width: 300px;
+            height: 160px;
             object-fit: cover;
             border-radius: 4px;
             margin-bottom: 8px;
@@ -113,7 +118,7 @@
         .project-section a {
             text-decoration: none;
             color: white;
-            background-color: var(--primary-blue);
+            background-color: var(--accent-orange);
             padding: 6px 12px;
             border-radius: 4px;
             transition: background-color 0.2s;
@@ -121,7 +126,7 @@
         }
 
         .project-section a:hover {
-            background-color: var(--hover-orange);
+            background-color: var(--accent-magenta);
         }
 
         .footer {
@@ -130,6 +135,14 @@
             padding: 10px;
             border-top: 1px solid var(--border-gray);
             color: #666;
+        }
+
+        .footer a {
+            color: var(--accent-orange);
+        }
+
+        .footer a:hover {
+            color: var(--accent-magenta);
         }
 
         @media (max-width: 600px) {
@@ -149,30 +162,30 @@
             }
 
             h1 {
-                font-size: 36px;
-                padding: 3px 12px;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-                background: rgba(0, 0, 0, 0.3);
+                font-size: 24px;
+                letter-spacing: 4px;
                 white-space: normal;
                 text-align: center;
                 max-width: 90%;
             }
 
             .dynamic-section {
+                grid-template-columns: 1fr;
                 gap: 15px;
-                flex-wrap: wrap;
-                overflow-x: visible;
             }
 
             .project-section {
-                max-width: 160px;
-                min-height: auto;
+                max-width: 100%;
                 padding: 12px;
             }
 
+            .project-section:last-child:nth-child(odd) {
+                grid-column: auto;
+            }
+
             .project-section img {
-                max-width: 120px;
-                height: 70px;
+                max-width: 100%;
+                height: 120px;
             }
 
             .project-section p {
@@ -233,6 +246,14 @@
                 <img src="images/dca.png" alt="DCA Analysis Preview">
                 <p>Showcasing the power of Dollar Cost Averaging Bitcoin.</p>
                 <a href="https://dca-btc-with-me.netlify.app/" target="_self">Visit Project</a>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-section">
+                <h3>Calculat-Bur</h3>
+                <img src="images/calculat-bur.png" alt="Calculat-Bur Preview">
+                <p>A real-time Bitcoin calculator with live price conversion and future value projections.</p>
+                <a href="https://calculat-bur.netlify.app/" target="_self">Visit Project</a>
             </div>
         </div>
 

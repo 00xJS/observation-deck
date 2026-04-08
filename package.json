@@ -1,0 +1,10 @@
+{
+  "name": "observation-deck",
+  "private": true,
+  "scripts": {
+    "screenshots": "node scripts/capture-screenshots.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.0.0"
+  }
+}
