@@ -2,11 +2,12 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 
 const projects = [
-  { name: 'degen', url: 'https://sundance-dgen.netlify.app/' },
-  { name: 'icombo', url: 'https://i-combinator.netlify.app/' },
-  { name: 'mickeys', url: 'https://phoenix-mickydeez.netlify.app/' },
-  { name: 'dca', url: 'https://dca-btc-with-me.netlify.app/' },
   { name: 'calculat-bur', url: 'https://calculat-bur.netlify.app/' },
+  { name: 'cashflow-comp', url: 'https://cashflow-comp.netlify.app/' },
+  { name: 'dca', url: 'https://dca-btc-with-me.netlify.app/' },
+  { name: 'icombo', url: 'https://i-combinator.netlify.app/' },
+  { name: 'degen', url: 'https://sundance-dgen.netlify.app/' },
+  { name: 'mickeys', url: 'https://phoenix-mickydeez.netlify.app/' },
 ];
 
 const IMAGES_DIR = path.join(__dirname, '..', 'images');
