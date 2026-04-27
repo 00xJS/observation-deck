@@ -2,7 +2,7 @@ name: Update Screenshots
 
 on:
   schedule:
-    - cron: '8 5 * * 4'
+    - cron: '0 6 * * 1'
   workflow_dispatch:
 
 jobs:
