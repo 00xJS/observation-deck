@@ -4,7 +4,7 @@ const path = require('path');
 const projects = [
   { name: 'cashflow-comp', url: 'https://cashflow-comp.netlify.app/' },
   { name: 'chronoticker', url: 'https://chronoticker.netlify.app/' },
-  { name: 'blockwatch',    url: 'https://blockwatch.netlify.app/' },
+  { name: 'blockwatch',    url: 'https://btcblockwatch.netlify.app/' },
   { name: 'calculat-bur',  url: 'https://calculat-bur.netlify.app/' },
   { name: 'dca',           url: 'https://dca-btc-with-me.netlify.app/' },
   { name: 'icombo',        url: 'https://i-combinator.netlify.app/' },
