@@ -1,18 +1,10 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+const fs = require('fs');
 
-const projects = [
-  { name: 'cashflow-comp', url: 'https://cashflow-comp.netlify.app/' },
-  { name: 'chronoticker', url: 'https://chronoticker.netlify.app/' },
-  { name: 'blockwatch',    url: 'https://btcblockwatch.netlify.app/' },
-  { name: 'calculat-bur',  url: 'https://calculat-bur.netlify.app/' },
-  { name: 'dca',           url: 'https://dca-btc-with-me.netlify.app/' },
-  { name: 'icombo',        url: 'https://i-combinator.netlify.app/' },
-  { name: 'degen',         url: 'https://sundance-dgen.netlify.app/' },
-  { name: 'mickeys',       url: 'https://phoenix-mickydeez.netlify.app/' },
-];
-
-const IMAGES_DIR = path.join(__dirname, '..', 'images');
+const ROOT = path.join(__dirname, '..');
+const IMAGES_DIR = path.join(ROOT, 'images');
+const projects = JSON.parse(fs.readFileSync(path.join(ROOT, 'projects.json'), 'utf8'));
 
 async function captureScreenshots() {
   const browser = await puppeteer.launch({
@@ -20,26 +12,49 @@ async function captureScreenshots() {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
+  const status = {
+    generatedAt: new Date().toISOString(),
+    projects: {},
+  };
+
   for (const project of projects) {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 800 });
+    await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 });
 
     try {
-      console.log(`Capturing: ${project.name} (${project.url})`);
-      await page.goto(project.url, { waitUntil: 'networkidle0', timeout: 30000 });
+      console.log(`Capturing: ${project.id} (${project.url})`);
+      const started = Date.now();
+      const response = await page.goto(project.url, { waitUntil: 'networkidle0', timeout: 30000 });
+      const responseMs = Date.now() - started;
       await new Promise((r) => setTimeout(r, 2000));
 
-      const outputPath = path.join(IMAGES_DIR, `${project.name}.png`);
-      await page.screenshot({ path: outputPath, fullPage: false });
-      console.log(`  Saved: ${outputPath}`);
+      const outputPath = path.join(IMAGES_DIR, `${project.id}.webp`);
+      await page.screenshot({ path: outputPath, type: 'webp', quality: 82, fullPage: false });
+
+      status.projects[project.id] = {
+        up: response !== null && response.ok(),
+        httpStatus: response ? response.status() : null,
+        responseMs,
+        capturedAt: new Date().toISOString(),
+      };
+      console.log(`  Saved: ${outputPath} (${status.projects[project.id].httpStatus}, ${responseMs}ms)`);
     } catch (err) {
-      console.error(`  Error capturing ${project.name}: ${err.message}`);
+      console.error(`  Error capturing ${project.id}: ${err.message}`);
+      status.projects[project.id] = {
+        up: false,
+        httpStatus: null,
+        responseMs: null,
+        capturedAt: new Date().toISOString(),
+        error: err.message,
+      };
     } finally {
       await page.close();
     }
   }
 
   await browser.close();
+  fs.writeFileSync(path.join(ROOT, 'status.json'), JSON.stringify(status, null, 2) + '\n');
+  console.log('Wrote status.json');
   console.log('Done.');
 }
 

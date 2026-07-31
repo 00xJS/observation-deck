@@ -4,287 +4,572 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observation Deck</title>
+    <meta name="description" content="Observation Deck — a hand-built fleet of live web tools by JS: market backtesting, Bitcoin dashboards, personal finance, and more.">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0d1c">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6fb">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Observation Deck">
+    <meta property="og:title" content="Observation Deck">
+    <meta property="og:description" content="A hand-built fleet of live web tools — markets, Bitcoin, and the odd side quest.">
+    <meta property="og:url" content="https://observation-deck.netlify.app/">
+    <meta property="og:image" content="https://observation-deck.netlify.app/images/banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Observation Deck">
+    <meta name="twitter:description" content="A hand-built fleet of live web tools — markets, Bitcoin, and the odd side quest.">
+    <meta name="twitter:image" content="https://observation-deck.netlify.app/images/banner.png">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
+
     <style>
         :root {
-            --primary-blue: #1b1f4b;
-            --accent-orange: #e8792b;
-            --accent-magenta: #c23e8c;
-            --hover-orange: #ff9a44;
-            --border-gray: #d4d0e0;
+            --bg: #0a0d1c;
+            --bg-raised: #10142e;
+            --card: #12163a;
+            --card-chrome: #0c0f26;
+            --border: rgba(255, 255, 255, 0.09);
+            --border-hover: rgba(255, 154, 68, 0.55);
+            --text: #e8eaf6;
+            --muted: #9ba1c5;
+            --faint: #6c7299;
+            --accent: #ff9a44;
+            --accent-deep: #e8792b;
+            --magenta: #c23e8c;
+            --live: #3ddc84;
+            --warn: #ffc24b;
+            --down: #ff6b6b;
+            --tag-bg: rgba(255, 154, 68, 0.10);
+            --tag-text: #ffb877;
+            --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+            --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
         }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f5f6fb;
+                --bg-raised: #ffffff;
+                --card: #ffffff;
+                --card-chrome: #eceef7;
+                --border: #dcdeeb;
+                --border-hover: rgba(232, 121, 43, 0.6);
+                --text: #1b1f4b;
+                --muted: #4d5378;
+                --faint: #6a7095;
+                --accent: #c95f16;
+                --accent-deep: #a84c09;
+                --tag-bg: rgba(232, 121, 43, 0.10);
+                --tag-text: #a3540e;
+                --live: #148a4d;
+                --down: #d64545;
+                --shadow: 0 10px 30px rgba(27, 31, 75, 0.10);
+            }
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .dynamic-section {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 20px 0;
-            justify-items: center;
-        }
-
-        h1,
-        h3 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .header-container {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-
-        h1 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ffffff;
-            font-size: 42px;
-            font-weight: 300;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-            background: none;
-            padding: 0;
             margin: 0;
-            z-index: 1;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Faint ambient glow behind everything */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(900px 480px at 15% -10%, rgba(232, 121, 43, 0.10), transparent 60%),
+                radial-gradient(800px 480px at 90% 0%, rgba(194, 62, 140, 0.09), transparent 60%);
+            pointer-events: none;
+        }
+
+        ::selection { background: var(--accent-deep); color: #fff; }
+
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 40px;
+        }
+
+        /* ---------- Header ---------- */
+
+        .hero {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .hero img.banner {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .hero .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 13, 28, 0.35) 0%, rgba(10, 13, 28, 0.72) 78%, rgba(10, 13, 28, 0.88) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(26px, 5vw, 44px);
+            font-weight: 275;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+        }
+
+        .hero .tagline {
+            margin: 10px 0 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(13px, 2.2vw, 15px);
+            font-weight: 400;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+            max-width: 560px;
+        }
+
+        /* ---------- Status strip ---------- */
+
+        .status-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 18px 0 26px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--bg-raised);
+            color: var(--muted);
             white-space: nowrap;
         }
 
-        .header-banner {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
+        .chip .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--faint);
+            flex: none;
         }
 
-        .project-section {
+        .chip.ok .dot { background: var(--live); box-shadow: 0 0 8px var(--live); }
+        .chip.ok { color: var(--live); }
+        .chip.warn .dot { background: var(--warn); box-shadow: 0 0 8px var(--warn); }
+        .chip.warn { color: var(--warn); }
+        .chip.btc { color: var(--accent); }
+        .chip.btc .dot { display: none; }
+        .chip.hidden { display: none; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+
+        .chip.ok .dot, .chip.warn .dot { animation: pulse 2.4s ease-in-out infinite; }
+
+        /* ---------- Project grid ---------- */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 15px;
-            border: 1px solid var(--border-gray);
-            border-radius: 8px;
-            transition: transform 0.2s;
-            width: 100%;
-            max-width: 350px;
-            box-sizing: border-box;
-        }
-
-        .project-section:last-child:nth-child(odd) {
-            grid-column: 1 / -1;
-        }
-
-        .project-section:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-section img {
-            width: 100%;
-            max-width: 300px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
-
-        .project-section p {
-            margin: 8px 0 12px;
-            font-size: 12px;
-        }
-
-        .project-section a {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
             text-decoration: none;
-            color: white;
-            background-color: var(--accent-orange);
-            padding: 6px 12px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            font-size: 13px;
+            color: inherit;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise 0.5s ease forwards;
         }
 
-        .project-section a:hover {
-            background-color: var(--accent-magenta);
+        @keyframes rise {
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow);
+        }
+
+        /* Browser chrome bar */
+        .chrome {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--card-chrome);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chrome .dots { display: flex; gap: 5px; flex: none; }
+
+        .chrome .dots span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: block;
+            opacity: 0.85;
+        }
+
+        .chrome .dots span:nth-child(1) { background: #ff5f57; }
+        .chrome .dots span:nth-child(2) { background: #febc2e; }
+        .chrome .dots span:nth-child(3) { background: #28c840; }
+
+        .chrome .domain {
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            color: var(--faint);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .shot {
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            background: var(--card-chrome);
+        }
+
+        .shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.35s ease;
+        }
+
+        .card:hover .shot img { transform: scale(1.03); }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 14px 16px 16px;
+            gap: 8px;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .title-row h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .live-badge {
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--live);
+            flex: none;
+        }
+
+        .live-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--live);
+            box-shadow: 0 0 6px var(--live);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+
+        .live-badge.down { color: var(--down); }
+        .live-badge.down .dot { background: var(--down); box-shadow: 0 0 6px var(--down); animation: none; }
+        .live-badge.unknown { display: none; }
+
+        .card-body p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--muted);
+            flex: 1;
+        }
+
+        .card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            border: 1px solid transparent;
+        }
+
+        .visit {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            white-space: nowrap;
+            flex: none;
+        }
+
+        .visit .arrow {
+            display: inline-block;
+            transition: transform 0.22s ease;
+        }
+
+        .card:hover .visit { color: var(--accent-deep); }
+        .card:hover .visit .arrow { transform: translate(2px, -2px); }
+
+        .grid-note {
+            text-align: center;
+            color: var(--faint);
+            font-size: 13px;
+            padding: 30px 0;
+        }
+
+        /* ---------- Footer ---------- */
 
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding: 10px;
-            border-top: 1px solid var(--border-gray);
-            color: #666;
+            margin-top: 36px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            color: var(--faint);
+            font-size: 13px;
         }
 
         .footer a {
-            color: var(--accent-orange);
+            color: var(--accent);
+            text-decoration: none;
         }
 
-        .footer a:hover {
-            color: var(--accent-magenta);
+        .footer a:hover { color: var(--magenta); }
+
+        /* ---------- Motion & small screens ---------- */
+
+        @media (prefers-reduced-motion: reduce) {
+            .card { animation: none; opacity: 1; transform: none; }
+            .chip .dot, .live-badge .dot { animation: none !important; }
+            .card:hover { transform: none; }
+            .card:hover .shot img { transform: none; }
         }
 
         @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-                margin: 10px;
-            }
-
-            .header-container {
-                height: 150px;
-                overflow: hidden;
-                border-radius: 8px;
-            }
-
-            .header-banner {
-                height: 150px;
-            }
-
-            h1 {
-                font-size: 24px;
-                letter-spacing: 4px;
-                white-space: normal;
-                text-align: center;
-                max-width: 90%;
-            }
-
-            .dynamic-section {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .project-section {
-                max-width: 100%;
-                padding: 12px;
-            }
-
-            .project-section:last-child:nth-child(odd) {
-                grid-column: auto;
-            }
-
-            .project-section img {
-                max-width: 100%;
-                height: 120px;
-            }
-
-            .project-section p {
-                font-size: 11px;
-                margin: 8px 0 12px;
-            }
-
-            .project-section a {
-                padding: 5px 10px;
-                font-size: 12px;
-            }
-
-            h3 {
-                font-size: 16px;
-            }
+            .wrap { padding: 14px 12px 28px; }
+            .hero img.banner { height: 180px; }
+            .grid { gap: 16px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header with Photo Banner -->
+    <div class="wrap">
         <header>
-            <div class="header-container">
-                <h1>Observation Deck</h1>
-                <img src="images/banner.png" alt="Header Banner" class="header-banner">
+            <div class="hero">
+                <img src="images/banner.png" alt="" class="banner">
+                <div class="overlay">
+                    <h1>Observation Deck</h1>
+                    <p class="tagline">A hand-built fleet of live web tools — markets, Bitcoin, and the odd side quest.</p>
+                </div>
+            </div>
+            <div class="status-strip" id="statusStrip">
+                <span class="chip" id="chipProjects"><span class="dot"></span><span>— projects</span></span>
+                <span class="chip" id="chipSystems"><span class="dot"></span><span>systems check…</span></span>
+                <span class="chip hidden" id="chipScan"><span class="dot"></span><span></span></span>
+                <span class="chip btc hidden" id="chipBtc"><span class="dot"></span><span></span></span>
             </div>
         </header>
 
-        <!-- Project Showcase Sections -->
-        <div class="dynamic-section">
-            <!-- Project 1 -->
-            <div class="project-section">
-                <h3>Cashflow Compass</h3>
-                <img src="images/cashflow-comp.png" alt="Cashflow Compass Preview">
-                <p>A personal finance tool to help navigate and visualize your cashflow.</p>
-                <a href="https://cashflow-comp.netlify.app/" target="_self">Visit Project</a>
+        <main>
+            <div class="grid" id="grid">
+                <noscript><p class="grid-note">Enable JavaScript to view the project deck, or browse the <a href="https://github.com/00xJS/observation-deck">source on GitHub</a>.</p></noscript>
             </div>
+        </main>
 
-            <!-- Project 2 -->
-            <div class="project-section">
-                <h3>Chronoticker</h3>
-                <img src="images/chronoticker.png" alt="Chronoticker Preview">
-                <p>Stock portfolio backtester — simulate any allocation against the S&amp;P 500 with rebalancing &amp; DCA.</p>
-                <a href="https://chronoticker.netlify.app/" target="_self">Visit Project</a>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-section">
-                <h3>Blockwatch</h3>
-                <img src="images/blockwatch.png" alt="Blockwatch Preview">
-                <p>Live Bitcoin on-chain dashboard — market, network health, and sentiment from keyless data sources.</p>
-                <a href="https://btcblockwatch.netlify.app/" target="_self">Visit Project</a>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="project-section">
-                <h3>Calculat-Bur</h3>
-                <img src="images/calculat-bur.png" alt="Calculat-Bur Preview">
-                <p>A real-time Bitcoin calculator with live price conversion and future value projections.</p>
-                <a href="https://calculat-bur.netlify.app/" target="_self">Visit Project</a>
-            </div>
-
-            <!-- Project 5 -->
-            <div class="project-section">
-                <h3>DCA Analysis</h3>
-                <img src="images/dca.png" alt="DCA Analysis Preview">
-                <p>Showcasing the power of Dollar Cost Averaging Bitcoin.</p>
-                <a href="https://dca-btc-with-me.netlify.app/" target="_self">Visit Project</a>
-            </div>
-
-            <!-- Project 6 -->
-            <div class="project-section">
-                <h3>I-Combinator</h3>
-                <img src="images/icombo.png" alt="I-Combinator Preview">
-                <p>A vertical & horizontal image combiner that is modular to accept multiple images.</p>
-                <a href="https://i-combinator.netlify.app/" target="_self">Visit Project</a>
-            </div>
-
-            <!-- Project 7 -->
-            <div class="project-section">
-                <h3>Sundance DeGen</h3>
-                <img src="images/degen.png" alt="Sundance DeGen Preview">
-                <p>Event Description Generator for different Pokémon GO event types.</p>
-                <a href="https://sundance-dgen.netlify.app/" target="_self">Visit Project</a>
-            </div>
-
-            <!-- Project 8 -->
-            <div class="project-section">
-                <h3>MickeyDeez Map</h3>
-                <img src="images/mickeys.png" alt="MickeyDeez Map Preview">
-                <p>A crowdsourced map of local sponsored locations in Pokémon GO.</p>
-                <a href="https://phoenix-mickydeez.netlify.app/" target="_self">Visit Project</a>
-            </div>
-        </div>
-
-        <!-- Footer -->
         <footer class="footer">
-            <p>JS | <a href="https://github.com/00xJS/observation-deck">GitHub</a></p>
+            <p>JS &middot; built by hand &middot; <a href="https://github.com/00xJS/observation-deck">GitHub</a></p>
         </footer>
     </div>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+
+        function relTime(iso) {
+            if (!iso) return null;
+            const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+            if (days <= 0) return 'today';
+            if (days === 1) return '1d ago';
+            return days + 'd ago';
+        }
+
+        function renderCard(project, stat, index) {
+            const domain = new URL(project.url).hostname;
+            const a = document.createElement('a');
+            a.className = 'card';
+            a.href = project.url;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.style.animationDelay = (index * 70) + 'ms';
+
+            let liveClass = 'unknown', liveText = '';
+            if (stat) {
+                liveClass = stat.up ? '' : 'down';
+                liveText = stat.up ? 'LIVE' : 'OFFLINE';
+            }
+
+            a.innerHTML = `
+                <div class="chrome">
+                    <div class="dots"><span></span><span></span><span></span></div>
+                    <span class="domain">${domain}</span>
+                </div>
+                <div class="shot">
+                    <img src="images/${project.id}.webp" alt="${project.name} preview" loading="lazy" width="1280" height="800">
+                </div>
+                <div class="card-body">
+                    <div class="title-row">
+                        <h3></h3>
+                        <span class="live-badge ${liveClass}"><span class="dot"></span>${liveText}</span>
+                    </div>
+                    <p></p>
+                    <div class="card-foot">
+                        <div class="tags"></div>
+                        <span class="visit">Visit <span class="arrow">&#8599;</span></span>
+                    </div>
+                </div>`;
+
+            a.querySelector('h3').textContent = project.name;
+            a.querySelector('.card-body p').textContent = project.description;
+            const tags = a.querySelector('.tags');
+            (project.tags || []).forEach((t) => {
+                const s = document.createElement('span');
+                s.className = 'tag';
+                s.textContent = t;
+                tags.appendChild(s);
+            });
+            return a;
+        }
+
+        async function loadJSON(path) {
+            try {
+                const res = await fetch(path, { cache: 'no-cache' });
+                if (!res.ok) return null;
+                return await res.json();
+            } catch { return null; }
+        }
+
+        async function boot() {
+            const [projects, status] = await Promise.all([
+                loadJSON('projects.json'),
+                loadJSON('status.json'),
+            ]);
+
+            const grid = $('grid');
+
+            if (!projects) {
+                grid.innerHTML = '<p class="grid-note">Could not load the deck manifest. Browse the <a href="https://github.com/00xJS/observation-deck">source on GitHub</a> instead.</p>';
+                return;
+            }
+
+            projects.forEach((p, i) => {
+                const stat = status && status.projects ? status.projects[p.id] : null;
+                grid.appendChild(renderCard(p, stat, i));
+            });
+
+            // Status strip
+            $('chipProjects').querySelector('span:last-child').textContent = projects.length + ' projects';
+            $('chipProjects').classList.add('ok');
+
+            const sys = $('chipSystems');
+            if (status && status.projects) {
+                const states = projects.map((p) => status.projects[p.id]).filter(Boolean);
+                const up = states.filter((s) => s.up).length;
+                if (up === states.length && states.length > 0) {
+                    sys.classList.add('ok');
+                    sys.querySelector('span:last-child').textContent = 'all systems live';
+                } else {
+                    sys.classList.add('warn');
+                    sys.querySelector('span:last-child').textContent = up + '/' + states.length + ' systems live';
+                }
+                const when = relTime(status.generatedAt);
+                if (when) {
+                    const scan = $('chipScan');
+                    scan.classList.remove('hidden');
+                    scan.querySelector('span:last-child').textContent = 'last scan ' + when;
+                }
+            } else {
+                sys.classList.add('hidden');
+            }
+
+            // Live BTC price (keyless, fails silently)
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await res.json();
+                const usd = data && data.bitcoin && data.bitcoin.usd;
+                if (usd) {
+                    const chip = $('chipBtc');
+                    chip.classList.remove('hidden');
+                    chip.querySelector('span:last-child').textContent =
+                        'BTC ' + usd.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+                }
+            } catch { /* no chip */ }
+        }
+
+        boot();
+    </script>
 </body>
 </html>

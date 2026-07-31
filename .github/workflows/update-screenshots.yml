@@ -21,10 +21,10 @@ jobs:
       - name: Capture screenshots
         run: npm run screenshots
 
-      - name: Commit updated screenshots
+      - name: Commit updated screenshots and status
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add images/
-          git diff --cached --quiet || git commit -m "chore: update project screenshots"
+          git add images/ status.json
+          git diff --cached --quiet || git commit -m "chore: refresh screenshots + deck status"
           git push
