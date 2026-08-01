@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observation Deck</title>
     <meta name="description" content="Observation Deck — a fleet of live web tools by JS: market backtesting, Bitcoin dashboards, personal finance, and more. Built from a curious mind that loves to learn.">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0d1c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6fb">
+    <meta name="theme-color" content="#0a0d1c">
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website">
@@ -36,6 +35,8 @@
 
     <style>
         :root {
+            color-scheme: dark;    /* dark-only deck: native controls, scrollbars, form widgets follow */
+
             --bg: #0a0d1c;
             --bg-raised: #10142e;
             --card: #12163a;
@@ -44,7 +45,7 @@
             --border-hover: rgba(255, 154, 68, 0.55);
             --text: #e8eaf6;
             --muted: #9ba1c5;
-            --faint: #6c7299;
+            --faint: #7b81aa;      /* 5.12:1 on --bg, 4.63:1 on --card — clears AA for small text */
             --accent: #ff9a44;
             --accent-deep: #e8792b;
             --magenta: #c23e8c;
@@ -55,27 +56,6 @@
             --tag-text: #ffb877;
             --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
             --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-        }
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg: #f5f6fb;
-                --bg-raised: #ffffff;
-                --card: #ffffff;
-                --card-chrome: #eceef7;
-                --border: #dcdeeb;
-                --border-hover: rgba(232, 121, 43, 0.6);
-                --text: #1b1f4b;
-                --muted: #4d5378;
-                --faint: #6a7095;
-                --accent: #c95f16;
-                --accent-deep: #a84c09;
-                --tag-bg: rgba(232, 121, 43, 0.10);
-                --tag-text: #a3540e;
-                --live: #148a4d;
-                --down: #d64545;
-                --shadow: 0 10px 30px rgba(27, 31, 75, 0.10);
-            }
         }
 
         * { box-sizing: border-box; }
@@ -103,7 +83,7 @@
             pointer-events: none;
         }
 
-        ::selection { background: var(--accent-deep); color: #fff; }
+        ::selection { background: var(--accent-deep); color: var(--bg); }
 
         a:focus-visible {
             outline: 2px solid var(--accent);
@@ -124,7 +104,7 @@
             z-index: 10;
             padding: 8px 14px;
             background: var(--card);
-            color: var(--accent-deep);
+            color: var(--accent);
             border: 1px solid var(--border);
             border-radius: 8px;
             text-decoration: none;
@@ -431,9 +411,18 @@
             text-decoration: none;
         }
 
-        .footer a:hover { color: var(--magenta); }
+        .footer a:hover { color: var(--accent-deep); }
 
         /* ---------- Motion & small screens ---------- */
+
+        /* Forced colors strips the hero's scrim and text-shadow but keeps the photo in
+           full color, leaving the title unreadable. Hide the photo, keep the hero box. */
+        @media (forced-colors: active) {
+            .hero img.banner { visibility: hidden; }
+            .hero .overlay { background: Canvas; }
+            .hero h1,
+            .hero .tagline { color: CanvasText; text-shadow: none; }
+        }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }

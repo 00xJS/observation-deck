@@ -20,6 +20,10 @@ async function captureScreenshots() {
   for (const project of projects) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1.5 });
+    // Pin dark: the fleet is dark-only, but sites migrated before that decision still
+    // carry light-mode CSS, and CI reports no OS preference (which resolves to light).
+    // Keeps captures deterministic here and on GitHub Actions.
+    await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
 
     try {
       console.log(`Capturing: ${project.id} (${project.url})`);

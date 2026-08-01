@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signal Lost — Observation Deck</title>
     <meta name="robots" content="noindex">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0d1c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6fb">
+    <meta name="theme-color" content="#0a0d1c">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
     <style>
         :root {
+            color-scheme: dark;
+
             --bg: #0a0d1c;
             --card: #12163a;
             --border: rgba(255, 255, 255, 0.09);
@@ -19,19 +20,6 @@
             --accent-deep: #e8792b;
             --down: #ff6b6b;
             --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-        }
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg: #f5f6fb;
-                --card: #ffffff;
-                --border: #dcdeeb;
-                --text: #1b1f4b;
-                --muted: #4d5378;
-                --accent: #c95f16;
-                --accent-deep: #a84c09;
-                --down: #d64545;
-            }
         }
 
         body {
