@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observation Deck</title>
-    <meta name="description" content="Observation Deck — a hand-built fleet of live web tools by JS: market backtesting, Bitcoin dashboards, personal finance, and more.">
+    <meta name="description" content="Observation Deck — a fleet of live web tools by JS: market backtesting, Bitcoin dashboards, personal finance, and more. Built from a curious mind that loves to learn.">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0d1c">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6fb">
 
@@ -12,13 +12,25 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Observation Deck">
     <meta property="og:title" content="Observation Deck">
-    <meta property="og:description" content="A hand-built fleet of live web tools — markets, Bitcoin, and the odd side quest.">
+    <meta property="og:description" content="A fleet of live web tools, built from a curious mind that loves to learn.">
     <meta property="og:url" content="https://observation-deck.netlify.app/">
     <meta property="og:image" content="https://observation-deck.netlify.app/images/banner.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Observation Deck">
-    <meta name="twitter:description" content="A hand-built fleet of live web tools — markets, Bitcoin, and the odd side quest.">
+    <meta name="twitter:description" content="A fleet of live web tools, built from a curious mind that loves to learn.">
     <meta name="twitter:image" content="https://observation-deck.netlify.app/images/banner.png">
+    <link rel="canonical" href="https://observation-deck.netlify.app/">
+    <link rel="preload" as="image" href="images/banner.png" fetchpriority="high">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Observation Deck",
+      "url": "https://observation-deck.netlify.app/",
+      "description": "A fleet of live web tools, built from a curious mind that loves to learn.",
+      "author": { "@type": "Person", "name": "JS", "url": "https://github.com/00xJS" }
+    }
+    </script>
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
 
@@ -103,6 +115,26 @@
             max-width: 1100px;
             margin: 0 auto;
             padding: 28px 20px 40px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 10;
+            padding: 8px 14px;
+            background: var(--card);
+            color: var(--accent-deep);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            left: 20px;
+            top: 12px;
         }
 
         /* ---------- Header ---------- */
@@ -404,6 +436,7 @@
         /* ---------- Motion & small screens ---------- */
 
         @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
             .card { animation: none; opacity: 1; transform: none; }
             .chip .dot, .live-badge .dot { animation: none !important; }
             .card:hover { transform: none; }
@@ -419,12 +452,13 @@
 </head>
 <body>
     <div class="wrap">
+        <a class="skip-link" href="#grid">Skip to projects</a>
         <header>
             <div class="hero">
                 <img src="images/banner.png" alt="" class="banner">
                 <div class="overlay">
                     <h1>Observation Deck</h1>
-                    <p class="tagline">A hand-built fleet of live web tools — markets, Bitcoin, and the odd side quest.</p>
+                    <p class="tagline">A fleet of live web tools, built from a curious mind that loves to learn.</p>
                 </div>
             </div>
             <div class="status-strip" id="statusStrip">
@@ -442,7 +476,7 @@
         </main>
 
         <footer class="footer">
-            <p>JS &middot; built by hand &middot; <a href="https://github.com/00xJS/observation-deck">GitHub</a></p>
+            <p>JS &middot; <a href="https://github.com/00xJS/observation-deck">GitHub</a></p>
         </footer>
     </div>
 
@@ -462,8 +496,6 @@
             const a = document.createElement('a');
             a.className = 'card';
             a.href = project.url;
-            a.target = '_blank';
-            a.rel = 'noopener';
             a.style.animationDelay = (index * 70) + 'ms';
 
             let liveClass = 'unknown', liveText = '';

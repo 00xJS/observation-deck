@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Lost — Observation Deck</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0d1c">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6fb">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
+    <style>
+        :root {
+            --bg: #0a0d1c;
+            --card: #12163a;
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #e8eaf6;
+            --muted: #9ba1c5;
+            --accent: #ff9a44;
+            --accent-deep: #e8792b;
+            --down: #ff6b6b;
+            --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f5f6fb;
+                --card: #ffffff;
+                --border: #dcdeeb;
+                --text: #1b1f4b;
+                --muted: #4d5378;
+                --accent: #c95f16;
+                --accent-deep: #a84c09;
+                --down: #d64545;
+            }
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(900px 480px at 15% -10%, rgba(232, 121, 43, 0.10), transparent 60%),
+                radial-gradient(800px 480px at 90% 0%, rgba(194, 62, 140, 0.09), transparent 60%);
+        }
+
+        .panel {
+            text-align: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 44px 36px;
+            margin: 20px;
+            max-width: 420px;
+        }
+
+        .code {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--down);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--down);
+            box-shadow: 0 0 8px var(--down);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .code .dot { animation: none; }
+        }
+
+        h1 {
+            margin: 14px 0 8px;
+            font-size: 26px;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        p { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        a:hover { color: var(--accent-deep); }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <span class="code"><span class="dot"></span>404 · signal lost</span>
+        <h1>Off the charts</h1>
+        <p>This coordinate isn't on the deck. The fleet is still out there, though.</p>
+        <a href="/">↩ Return to the Observation Deck</a>
+    </div>
+</body>
+</html>

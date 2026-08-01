@@ -19,7 +19,7 @@ async function captureScreenshots() {
 
   for (const project of projects) {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 });
+    await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1.5 });
 
     try {
       console.log(`Capturing: ${project.id} (${project.url})`);
@@ -29,7 +29,7 @@ async function captureScreenshots() {
       await new Promise((r) => setTimeout(r, 2000));
 
       const outputPath = path.join(IMAGES_DIR, `${project.id}.webp`);
-      await page.screenshot({ path: outputPath, type: 'webp', quality: 82, fullPage: false });
+      await page.screenshot({ path: outputPath, type: 'webp', quality: 78, fullPage: false });
 
       status.projects[project.id] = {
         up: response !== null && response.ok(),

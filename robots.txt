@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://observation-deck.netlify.app/sitemap.xml
