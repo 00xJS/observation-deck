@@ -1,5 +1,12 @@
 [
   {
+    "id": "pogo-metrics",
+    "name": "POGO Metrics",
+    "url": "https://pogo-metrics.netlify.app/",
+    "description": "Turn your official Niantic Pokémon GO data export into a private, in-browser dashboard of your trainer journey.",
+    "tags": ["Pokémon GO", "Data Viz"]
+  },
+  {
     "id": "cashflow-comp",
     "name": "Cashflow Compass",
     "url": "https://cashflow-comp.netlify.app/",
