@@ -7,6 +7,27 @@
     "tags": ["Pokémon GO", "Data Viz"]
   },
   {
+    "id": "silph-relay",
+    "name": "Silph Relay",
+    "url": "https://silph-relay.netlify.app/",
+    "description": "Feed analytics for a serverless Discord relay — how often six Pokémon accounts post, and how fast each post lands.",
+    "tags": ["Pokémon GO", "Automation", "Data Viz"]
+  },
+  {
+    "id": "icombo",
+    "name": "I-Combinator",
+    "url": "https://i-combinator.netlify.app/",
+    "description": "A vertical & horizontal image combiner that is modular to accept multiple images.",
+    "tags": ["Utility", "Images"]
+  },
+  {
+    "id": "blockwatch",
+    "name": "Blockwatch",
+    "url": "https://btcblockwatch.netlify.app/",
+    "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment from keyless data sources.",
+    "tags": ["Bitcoin", "Live Data"]
+  },
+  {
     "id": "cashflow-comp",
     "name": "Cashflow Compass",
     "url": "https://cashflow-comp.netlify.app/",
@@ -21,13 +42,6 @@
     "tags": ["Markets", "Backtesting"]
   },
   {
-    "id": "blockwatch",
-    "name": "Blockwatch",
-    "url": "https://btcblockwatch.netlify.app/",
-    "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment from keyless data sources.",
-    "tags": ["Bitcoin", "Live Data"]
-  },
-  {
     "id": "calculat-bur",
     "name": "Calculat-Bur",
     "url": "https://calculat-bur.netlify.app/",
@@ -40,13 +54,6 @@
     "url": "https://dca-btc-with-me.netlify.app/",
     "description": "Dollar Cost Averaging, replayed on real prices — switch between Bitcoin and the S&P 500.",
     "tags": ["Bitcoin", "Markets", "Investing"]
-  },
-  {
-    "id": "icombo",
-    "name": "I-Combinator",
-    "url": "https://i-combinator.netlify.app/",
-    "description": "A vertical & horizontal image combiner that is modular to accept multiple images.",
-    "tags": ["Utility", "Images"]
   },
   {
     "id": "degen",

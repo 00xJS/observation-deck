@@ -203,8 +203,6 @@
         .chip.ok { color: var(--live); }
         .chip.warn .dot { background: var(--warn); box-shadow: 0 0 8px var(--warn); }
         .chip.warn { color: var(--warn); }
-        .chip.btc { color: var(--accent); }
-        .chip.btc .dot { display: none; }
         .chip.hidden { display: none; }
 
         @keyframes pulse {
@@ -454,7 +452,6 @@
                 <span class="chip" id="chipProjects"><span class="dot"></span><span>— projects</span></span>
                 <span class="chip" id="chipSystems"><span class="dot"></span><span>systems check…</span></span>
                 <span class="chip hidden" id="chipScan"><span class="dot"></span><span></span></span>
-                <span class="chip btc hidden" id="chipBtc"><span class="dot"></span><span></span></span>
             </div>
         </header>
 
@@ -575,19 +572,6 @@
             } else {
                 sys.classList.add('hidden');
             }
-
-            // Live BTC price (keyless, fails silently)
-            try {
-                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
-                const data = await res.json();
-                const usd = data && data.bitcoin && data.bitcoin.usd;
-                if (usd) {
-                    const chip = $('chipBtc');
-                    chip.classList.remove('hidden');
-                    chip.querySelector('span:last-child').textContent =
-                        'BTC ' + usd.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-                }
-            } catch { /* no chip */ }
         }
 
         boot();
