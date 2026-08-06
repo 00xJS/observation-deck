@@ -10,28 +10,28 @@
     "id": "silph-relay",
     "name": "Silph Relay",
     "url": "https://silph-relay.netlify.app/",
-    "description": "Feed analytics for a serverless Discord relay — how often six Pokémon accounts post, and how fast each post lands.",
+    "description": "Feed analytics for a $0/month Discord relay — how often six Pokémon accounts post, and how fast each post lands.",
     "tags": ["Pokémon GO", "Automation", "Data Viz"]
   },
   {
     "id": "icombo",
     "name": "I-Combinator",
     "url": "https://i-combinator.netlify.app/",
-    "description": "A vertical & horizontal image combiner that is modular to accept multiple images.",
+    "description": "Combine images side by side or stacked, without cropping — drag, drop, reorder, and export in your browser.",
     "tags": ["Utility", "Images"]
   },
   {
     "id": "blockwatch",
     "name": "Blockwatch",
     "url": "https://btcblockwatch.netlify.app/",
-    "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment from keyless data sources.",
+    "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment, plus comparisons to gold and the national debt.",
     "tags": ["Bitcoin", "Live Data"]
   },
   {
     "id": "cashflow-comp",
     "name": "Cashflow Compass",
     "url": "https://cashflow-comp.netlify.app/",
-    "description": "A personal finance tool to help navigate and visualize your cashflow.",
+    "description": "See your financial future month by month, up to 3 years ahead — browser-only, with Excel round-trips.",
     "tags": ["Finance", "Data Viz"]
   },
   {
@@ -45,7 +45,7 @@
     "id": "calculat-bur",
     "name": "Calculat-Bur",
     "url": "https://calculat-bur.netlify.app/",
-    "description": "A real-time Bitcoin calculator with live price conversion and future value projections.",
+    "description": "Convert BTC to USD at live prices, then re-price that holding from $50K to $1M — arithmetic, not forecasts.",
     "tags": ["Bitcoin", "Calculator"]
   },
   {
@@ -59,14 +59,14 @@
     "id": "degen",
     "name": "Sundance DeGen",
     "url": "https://sundance-dgen.netlify.app/",
-    "description": "Event Description Generator for different Pokémon GO event types.",
+    "description": "Turn a month's Pokémon GO schedule into copy-ready Campfire meetup posts — artwork, catch CP, and shiny status filled in.",
     "tags": ["Pokémon GO", "Generator"]
   },
   {
     "id": "mickeys",
     "name": "MickeyDeez Map",
     "url": "https://phoenix-mickydeez.netlify.app/",
-    "description": "A crowdsourced map of local sponsored locations in Pokémon GO.",
+    "description": "A crowdsourced map of Phoenix's Pokémon GO–sponsored McDonald's — 31 stops, each verified as an active raid Gym.",
     "tags": ["Pokémon GO", "Maps"]
   }
 ]
