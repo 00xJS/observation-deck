@@ -4,69 +4,170 @@
     "name": "POGO Metrics",
     "url": "https://pogo-metrics.netlify.app/",
     "description": "Turn your official Niantic Pokémon GO data export into a private, in-browser dashboard of your trainer journey.",
-    "tags": ["Pokémon GO", "Data Viz"]
+    "tags": ["Pokémon GO", "Data Viz"],
+    "stack": ["Vanilla JS", "In-browser parsing", "SVG"],
+    "featured": true,
+    "caseStudy": {
+      "why": "Niantic will email you every scrap of data Pokémon GO holds on you — as a pile of raw files nobody can read. POGO Metrics turns that export into a dashboard of your trainer journey, without the data ever leaving your browser.",
+      "highlights": [
+        "Parses the official Niantic data export entirely client-side — nothing is uploaded",
+        "Distills years of gameplay into charts you can actually explore",
+        "Zero backend: static hosting, no accounts, no tracking"
+      ],
+      "learned": "Privacy as a feature — processing a sensitive export in the browser removes the scariest part of every “upload your data” tool."
+    }
   },
   {
     "id": "silph-relay",
     "name": "Silph Relay",
     "url": "https://silph-relay.netlify.app/",
     "description": "Feed analytics for a $0/month Discord relay — how often six Pokémon accounts post, and how fast each post lands.",
-    "tags": ["Pokémon GO", "Automation", "Data Viz"]
+    "tags": ["Pokémon GO", "Automation", "Data Viz"],
+    "stack": ["Vanilla JS", "localStorage", "Single file"],
+    "caseStudy": {
+      "why": "Six Pokémon accounts post into a Discord relay that costs $0/month to run. This dashboard answers the operational questions: how often does each feed post, and how fast does a post land?",
+      "highlights": [
+        "Tracks post frequency and delivery latency per feed",
+        "Runs on the same $0/month footprint as the relay itself",
+        "Single-file app with localStorage persistence"
+      ],
+      "learned": "Even a hobby automation deserves observability — measuring latency changed how the relay was tuned."
+    }
   },
   {
     "id": "icombo",
     "name": "I-Combinator",
     "url": "https://i-combinator.netlify.app/",
     "description": "Combine images side by side or stacked, without cropping — drag, drop, reorder, and export in your browser.",
-    "tags": ["Utility", "Images"]
+    "tags": ["Utility", "Images"],
+    "stack": ["Canvas API", "Drag & drop", "Vanilla JS"],
+    "caseStudy": {
+      "why": "Combining screenshots usually means opening an image editor for a ten-second job. I-Combinator does side-by-side or stacked combos in the browser — drag, drop, reorder, export.",
+      "highlights": [
+        "Canvas-based compositing with no cropping surprises",
+        "Drag-and-drop ordering with instant preview",
+        "Everything stays local — images never leave the machine"
+      ],
+      "learned": "The Canvas API is enough for a real image tool; the hard part is making layout behavior predictable."
+    }
   },
   {
     "id": "blockwatch",
     "name": "Blockwatch",
     "url": "https://btcblockwatch.netlify.app/",
     "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment, plus comparisons to gold and the national debt.",
-    "tags": ["Bitcoin", "Live Data"]
+    "tags": ["Bitcoin", "Live Data"],
+    "stack": ["Chart.js", "CoinGecko API", "mempool.space"],
+    "caseStudy": {
+      "why": "One screen for the Bitcoin questions that used to take five tabs: price, network health, sentiment, and how it all stacks up against gold and the national debt.",
+      "highlights": [
+        "Live market and on-chain data from keyless public APIs (CoinGecko, mempool.space)",
+        "Comparisons that give the numbers scale — gold, the US national debt",
+        "Fails gracefully when any upstream API is down"
+      ],
+      "learned": "Building resilient dashboards on free, keyless APIs — caching, fallbacks, and honest handling when upstream data goes stale."
+    }
   },
   {
     "id": "cashflow-comp",
     "name": "Cashflow Compass",
     "url": "https://cashflow-comp.netlify.app/",
     "description": "See your financial future month by month, up to 3 years ahead — browser-only, with Excel round-trips.",
-    "tags": ["Finance", "Data Viz"]
+    "tags": ["Finance", "Data Viz"],
+    "stack": ["Chart.js", "SheetJS", "Modular JS"],
+    "caseStudy": {
+      "why": "Spreadsheets can model your financial future, but they don’t show it. Cashflow Compass projects cashflow month by month, up to three years out — and keeps Excel round-trips working so nobody has to abandon their budget.",
+      "highlights": [
+        "36-month projection engine running entirely in the browser",
+        "Excel import and export via SheetJS — meet budgets where they already live",
+        "Projection engine kept separate from the UI, so features land cleanly"
+      ],
+      "learned": "Separating the engine from the interface paid for itself with every feature added afterward."
+    }
   },
   {
     "id": "chronoticker",
     "name": "Chronoticker",
     "url": "https://chronoticker.netlify.app/",
     "description": "Stock portfolio backtester — simulate any allocation against the S&P 500 with rebalancing & DCA.",
-    "tags": ["Markets", "Backtesting"]
+    "tags": ["Markets", "Backtesting"],
+    "stack": ["Chart.js", "Vanilla JS"],
+    "caseStudy": {
+      "why": "Would that allocation have beaten the S&P 500? Chronoticker replays portfolio allocations against real history — with rebalancing and dollar-cost averaging — so the answer is a simulation, not a hunch.",
+      "highlights": [
+        "Backtests any allocation against the S&P 500",
+        "Models rebalancing strategies and DCA schedules",
+        "Charts the full growth path, not just the end number"
+      ],
+      "learned": "Financial simulations live or die on edge cases — contribution timing and rebalance rules matter more than they look."
+    }
   },
   {
     "id": "calculat-bur",
     "name": "Calculat-Bur",
     "url": "https://calculat-bur.netlify.app/",
     "description": "Convert BTC to USD at live prices, then re-price that holding from $50K to $1M — arithmetic, not forecasts.",
-    "tags": ["Bitcoin", "Calculator"]
+    "tags": ["Bitcoin", "Calculator"],
+    "stack": ["Chart.js", "CoinGecko API"],
+    "caseStudy": {
+      "why": "A conversation-settler: what is this BTC holding worth right now, and what would it be worth at $50K to $1M per coin? Arithmetic at live prices — deliberately not forecasts.",
+      "highlights": [
+        "Live BTC pricing via the keyless CoinGecko API",
+        "Re-prices a holding across a $50K–$1M range instantly",
+        "Forecast-free on purpose: it’s a calculator, not a crystal ball"
+      ],
+      "learned": "Scoping a tool down to one honest job makes it more trustworthy — and somehow more useful."
+    }
   },
   {
     "id": "dca",
     "name": "DCA Analysis",
     "url": "https://dca-btc-with-me.netlify.app/",
     "description": "Dollar Cost Averaging, replayed on real prices — switch between Bitcoin and the S&P 500.",
-    "tags": ["Bitcoin", "Markets", "Investing"]
+    "tags": ["Bitcoin", "Markets", "Investing"],
+    "stack": ["Chart.js", "Vanilla JS"],
+    "caseStudy": {
+      "why": "Dollar-cost averaging is easy to preach and hard to picture. DCA Analysis replays a real DCA plan on real price history — Bitcoin or the S&P 500 — and shows exactly what would have happened.",
+      "highlights": [
+        "Replays DCA schedules against real historical prices",
+        "One toggle to switch between Bitcoin and the S&P 500",
+        "Honest accounting: totals, cost basis, and the rough patches too"
+      ],
+      "learned": "A replay of history persuades people in a way projections never do."
+    }
   },
   {
     "id": "degen",
     "name": "Sundance DeGen",
     "url": "https://sundance-dgen.netlify.app/",
     "description": "Turn a month's Pokémon GO schedule into copy-ready Campfire meetup posts — artwork, catch CP, and shiny status filled in.",
-    "tags": ["Pokémon GO", "Generator"]
+    "tags": ["Pokémon GO", "Generator"],
+    "stack": ["Vanilla JS", "Templating"],
+    "caseStudy": {
+      "why": "Writing Campfire meetup posts for a month of Pokémon GO events is repetitive community work. DeGen turns the schedule into copy-ready posts — artwork, catch CP, and shiny status filled in automatically.",
+      "highlights": [
+        "Generates a month of meetup posts from the event schedule",
+        "Auto-fills artwork, catch CP, and shiny availability",
+        "Output formatted and ready to paste into Campfire"
+      ],
+      "learned": "Automating the boring 20% of community organizing keeps the fun 80% sustainable."
+    }
   },
   {
     "id": "mickeys",
     "name": "MickeyDeez Map",
     "url": "https://phoenix-mickydeez.netlify.app/",
     "description": "A crowdsourced map of Phoenix's Pokémon GO–sponsored McDonald's — 31 stops, each verified as an active raid Gym.",
-    "tags": ["Pokémon GO", "Maps"]
+    "tags": ["Pokémon GO", "Maps"],
+    "stack": ["Leaflet", "Crowdsourced data"],
+    "caseStudy": {
+      "why": "Phoenix’s McDonald’s-sponsored PokéStops were scattered folklore. This map makes them a verified dataset: 31 stops, each confirmed as an active raid Gym.",
+      "highlights": [
+        "Interactive Leaflet map of all 31 sponsored locations",
+        "Every stop community-verified as an active raid Gym",
+        "Crowdsourced updates keep the dataset honest"
+      ],
+      "learned": "A small, verified dataset beats a big, stale one — curation is the product."
+    }
   }
 ]

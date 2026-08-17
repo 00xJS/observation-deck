@@ -85,7 +85,8 @@
 
         ::selection { background: var(--accent-deep); color: var(--bg); }
 
-        a:focus-visible {
+        a:focus-visible,
+        button:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 3px;
             border-radius: 4px;
@@ -130,7 +131,7 @@
         .hero img.banner {
             display: block;
             width: 100%;
-            height: 250px;
+            height: 200px;
             object-fit: cover;
         }
 
@@ -149,7 +150,7 @@
         .hero h1 {
             margin: 0;
             color: #ffffff;
-            font-size: clamp(26px, 5vw, 44px);
+            font-size: clamp(26px, 5vw, 42px);
             font-weight: 275;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -172,7 +173,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            margin: 18px 0 26px;
+            margin: 18px 0 0;
             font-family: var(--font-mono);
             font-size: 11px;
             letter-spacing: 0.08em;
@@ -212,6 +213,198 @@
 
         .chip.ok .dot, .chip.warn .dot { animation: pulse 2.4s ease-in-out infinite; }
 
+        /* ---------- Intro ---------- */
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin: 26px 0 34px;
+            padding: 18px 22px;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .intro-copy {
+            margin: 0;
+            font-size: 14.5px;
+            color: var(--muted);
+            max-width: 720px;
+        }
+
+        .intro-copy strong { color: var(--text); font-weight: 600; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+            background: var(--accent);
+            color: #1a1005;
+        }
+
+        .btn:hover { background: var(--accent-deep); }
+
+        .btn.ghost {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--accent);
+        }
+
+        .btn.ghost:hover { border-color: var(--border-hover); color: var(--tag-text); }
+
+        /* ---------- Section labels ---------- */
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--faint);
+            margin: 0 0 12px;
+        }
+
+        .section-label .accent { color: var(--accent); }
+
+        /* ---------- Featured project ---------- */
+
+        .featured-card {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise 0.5s ease forwards;
+        }
+
+        .featured-card .visual { display: flex; flex-direction: column; border-right: 1px solid var(--border); }
+
+        /* Absolutely-positioned fill: the image must not contribute intrinsic height,
+           or it inflates the grid row to the screenshot's natural size. */
+        .featured-card .shot { border-bottom: none; flex: 1; position: relative; min-height: 300px; }
+
+        .featured-card .shot a { display: block; position: absolute; inset: 0; }
+
+        .featured-card .shot img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: auto;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .featured-card .shot a:hover img { transform: scale(1.02); }
+
+        .featured-body {
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .featured-body h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 650;
+            letter-spacing: 0.01em;
+        }
+
+        .featured-body .why {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .highlights {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .highlights li {
+            font-size: 13px;
+            color: var(--muted);
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .highlights li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--live);
+            font-weight: 700;
+        }
+
+        .featured-foot {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* ---------- Filter bar ---------- */
+
+        .fleet-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-chip {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 6px 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--bg-raised);
+            color: var(--muted);
+            cursor: pointer;
+            transition: border-color 0.18s ease, color 0.18s ease;
+        }
+
+        .filter-chip:hover { border-color: var(--border-hover); color: var(--text); }
+
+        .filter-chip[aria-pressed="true"] {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--tag-bg);
+        }
+
+        .filter-chip .count { color: var(--faint); margin-left: 4px; }
+        .filter-chip[aria-pressed="true"] .count { color: var(--tag-text); }
+
         /* ---------- Project grid ---------- */
 
         .grid {
@@ -227,13 +420,14 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             overflow: hidden;
-            text-decoration: none;
             color: inherit;
             transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
             opacity: 0;
             transform: translateY(14px);
             animation: rise 0.5s ease forwards;
         }
+
+        .card.filtered-out { display: none; }
 
         @keyframes rise {
             to { opacity: 1; transform: translateY(0); }
@@ -294,6 +488,8 @@
             transition: transform 0.35s ease;
         }
 
+        .shot a { display: block; }
+
         .card:hover .shot img { transform: scale(1.03); }
 
         .card-body {
@@ -311,12 +507,14 @@
             gap: 10px;
         }
 
-        .title-row h3 {
-            margin: 0;
-            font-size: 17px;
-            font-weight: 600;
-            letter-spacing: 0.01em;
+        .title-row h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
+
+        .title-row h3 a {
+            color: inherit;
+            text-decoration: none;
         }
+
+        .title-row h3 a:hover { color: var(--tag-text); }
 
         .live-badge {
             font-family: var(--font-mono);
@@ -342,20 +540,26 @@
         .live-badge.down .dot { background: var(--down); box-shadow: 0 0 6px var(--down); animation: none; }
         .live-badge.unknown { display: none; }
 
-        .card-body p {
+        .card-body > p {
             margin: 0;
             font-size: 13px;
             color: var(--muted);
             flex: 1;
         }
 
-        .card-foot {
+        /* Ops stats line (from status.json) */
+        .ops {
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            letter-spacing: 0.04em;
+            color: var(--faint);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 4px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
+
+        .ops .ok { color: var(--live); }
+        .ops .slow { color: var(--warn); }
 
         .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
@@ -370,12 +574,42 @@
             border: 1px solid transparent;
         }
 
+        .tag.stack {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--muted);
+        }
+
+        .card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .case-btn {
+            font-size: 12.5px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 5px 13px;
+            cursor: pointer;
+            transition: border-color 0.18s ease, color 0.18s ease;
+        }
+
+        .case-btn:hover { border-color: var(--border-hover); color: var(--accent); }
+
         .visit {
             font-size: 13px;
             font-weight: 600;
             color: var(--accent);
             white-space: nowrap;
             flex: none;
+            text-decoration: none;
         }
 
         .visit .arrow {
@@ -383,14 +617,110 @@
             transition: transform 0.22s ease;
         }
 
-        .card:hover .visit { color: var(--accent-deep); }
-        .card:hover .visit .arrow { transform: translate(2px, -2px); }
+        .visit:hover { color: var(--accent-deep); }
+        .visit:hover .arrow { transform: translate(2px, -2px); }
 
         .grid-note {
             text-align: center;
             color: var(--faint);
             font-size: 13px;
             padding: 30px 0;
+        }
+
+        /* ---------- Case study dialog ---------- */
+
+        dialog.case {
+            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            max-width: 680px;
+            width: calc(100% - 32px);
+            max-height: calc(100vh - 64px);
+            overflow: auto;
+            box-shadow: var(--shadow);
+        }
+
+        dialog.case::backdrop {
+            background: rgba(5, 7, 16, 0.72);
+            backdrop-filter: blur(5px);
+        }
+
+        .case-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--card-chrome);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .case-head .domain {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--faint);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .case-close {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1;
+            padding: 5px 9px;
+            cursor: pointer;
+            flex: none;
+            transition: border-color 0.18s ease, color 0.18s ease;
+        }
+
+        .case-close:hover { border-color: var(--border-hover); color: var(--text); }
+
+        .case-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            object-position: top center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .case-body {
+            padding: 18px 22px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .case-body .title-row h2 { margin: 0; font-size: 21px; font-weight: 650; }
+
+        .case-body h4 {
+            margin: 0 0 6px;
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--faint);
+            font-weight: 600;
+        }
+
+        .case-body p { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+        .case-body .learned { font-style: italic; }
+
+        .case-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding-top: 4px;
         }
 
         /* ---------- Footer ---------- */
@@ -403,6 +733,8 @@
             color: var(--faint);
             font-size: 13px;
         }
+
+        .footer p { margin: 6px 0; }
 
         .footer a {
             color: var(--accent);
@@ -424,15 +756,24 @@
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .card { animation: none; opacity: 1; transform: none; }
+            .card, .featured-card { animation: none; opacity: 1; transform: none; }
             .chip .dot, .live-badge .dot { animation: none !important; }
             .card:hover { transform: none; }
-            .card:hover .shot img { transform: none; }
+            .card:hover .shot img, .featured-card .shot a:hover img { transform: none; }
+        }
+
+        @media (max-width: 840px) {
+            .featured-card { grid-template-columns: 1fr; }
+            .featured-card .visual { border-right: none; border-bottom: 1px solid var(--border); }
+            .featured-card .shot { position: static; min-height: 0; flex: none; }
+            .featured-card .shot a { position: static; }
+            .featured-card .shot img { aspect-ratio: 16 / 9; height: auto; }
+            .intro { flex-direction: column; align-items: flex-start; gap: 14px; }
         }
 
         @media (max-width: 600px) {
             .wrap { padding: 14px 12px 28px; }
-            .hero img.banner { height: 180px; }
+            .hero img.banner { height: 170px; }
             .grid { gap: 16px; }
         }
     </style>
@@ -453,21 +794,67 @@
                 <span class="chip" id="chipSystems"><span class="dot"></span><span>systems check…</span></span>
                 <span class="chip hidden" id="chipScan"><span class="dot"></span><span></span></span>
             </div>
+            <section class="intro" aria-label="About">
+                <p class="intro-copy"><strong>I'm JS.</strong> I build small, sharp web tools and keep them running — finance dashboards, market backtesters, image utilities, and Pokémon GO companions. Every project here is <strong>live right now</strong>, monitored by an automated screenshot-and-uptime pipeline, and built by hand in vanilla JS.</p>
+                <a class="btn ghost" href="https://github.com/00xJS" rel="me">GitHub <span aria-hidden="true">&#8599;</span></a>
+            </section>
         </header>
 
         <main>
+            <section id="featured" aria-label="Featured project"></section>
+
+            <div class="fleet-head">
+                <h2 class="section-label" style="margin:0"><span class="accent">//</span> The fleet</h2>
+                <div class="filters" id="filters" role="group" aria-label="Filter projects by tag"></div>
+            </div>
+
             <div class="grid" id="grid">
                 <noscript><p class="grid-note">Enable JavaScript to view the project deck, or browse the <a href="https://github.com/00xJS/observation-deck">source on GitHub</a>.</p></noscript>
             </div>
         </main>
 
+        <dialog class="case" id="caseDialog" aria-labelledby="caseTitle">
+            <div class="case-head">
+                <span class="domain" id="caseDomain"></span>
+                <button class="case-close" id="caseClose" aria-label="Close case study">&#10005;</button>
+            </div>
+            <div class="case-shot"><img id="caseShot" src="" alt=""></div>
+            <div class="case-body">
+                <div class="title-row">
+                    <h2 id="caseTitle"></h2>
+                    <span class="live-badge" id="caseLive"><span class="dot"></span><span id="caseLiveText"></span></span>
+                </div>
+                <p class="ops" id="caseOps"></p>
+                <div>
+                    <h4>Why it exists</h4>
+                    <p id="caseWhy"></p>
+                </div>
+                <div>
+                    <h4>Highlights</h4>
+                    <ul class="highlights" id="caseHighlights"></ul>
+                </div>
+                <div>
+                    <h4>What it taught me</h4>
+                    <p class="learned" id="caseLearned"></p>
+                </div>
+                <div class="tags" id="caseTags"></div>
+                <div class="case-foot">
+                    <a class="btn" id="caseVisit" href="#" >Visit site <span aria-hidden="true">&#8599;</span></a>
+                </div>
+            </div>
+        </dialog>
+
         <footer class="footer">
-            <p>JS &middot; <a href="https://github.com/00xJS/observation-deck">GitHub</a></p>
+            <p>JS &middot; <a href="https://github.com/00xJS">GitHub</a></p>
+            <p>Every screenshot and LIVE badge on this page refreshes weekly via an automated Puppeteer + GitHub Actions pipeline.</p>
         </footer>
     </div>
 
     <script>
         const $ = (id) => document.getElementById(id);
+
+        let PROJECTS = [];
+        let STATUS = null;
 
         function relTime(iso) {
             if (!iso) return null;
@@ -477,50 +864,227 @@
             return days + 'd ago';
         }
 
-        function renderCard(project, stat, index) {
-            const domain = new URL(project.url).hostname;
-            const a = document.createElement('a');
-            a.className = 'card';
-            a.href = project.url;
-            a.style.animationDelay = (index * 70) + 'ms';
+        function statFor(project) {
+            return STATUS && STATUS.projects ? STATUS.projects[project.id] : null;
+        }
 
-            let liveClass = 'unknown', liveText = '';
-            if (stat) {
-                liveClass = stat.up ? '' : 'down';
-                liveText = stat.up ? 'LIVE' : 'OFFLINE';
+        function liveState(stat) {
+            if (!stat) return { cls: 'unknown', text: '' };
+            return stat.up ? { cls: '', text: 'LIVE' } : { cls: 'down', text: 'OFFLINE' };
+        }
+
+        /* Ops line: response time + last scan, from status.json */
+        function opsHTML(stat) {
+            if (!stat) return '';
+            const parts = [];
+            if (typeof stat.responseMs === 'number') {
+                const cls = stat.responseMs <= 2000 ? 'ok' : 'slow';
+                parts.push(`<span class="${cls}">&#9650; ${stat.responseMs} ms</span>`);
             }
+            const when = relTime(stat.capturedAt);
+            if (when) parts.push(`<span>scanned ${when}</span>`);
+            return parts.join('');
+        }
 
-            a.innerHTML = `
+        function tagSpans(container, topics, stack) {
+            (topics || []).forEach((t) => {
+                const s = document.createElement('span');
+                s.className = 'tag';
+                s.textContent = t;
+                container.appendChild(s);
+            });
+            (stack || []).forEach((t) => {
+                const s = document.createElement('span');
+                s.className = 'tag stack';
+                s.textContent = t;
+                container.appendChild(s);
+            });
+        }
+
+        /* ---------- Cards ---------- */
+
+        function renderCard(project, index) {
+            const stat = statFor(project);
+            const domain = new URL(project.url).hostname;
+            const live = liveState(stat);
+
+            const card = document.createElement('article');
+            card.className = 'card';
+            card.dataset.tags = (project.tags || []).join('|');
+            card.style.animationDelay = (index * 70) + 'ms';
+
+            card.innerHTML = `
                 <div class="chrome">
                     <div class="dots"><span></span><span></span><span></span></div>
                     <span class="domain">${domain}</span>
                 </div>
                 <div class="shot">
-                    <img src="images/${project.id}.webp" alt="${project.name} preview" loading="lazy" width="1280" height="800">
+                    <a href="${project.url}" aria-label="Visit ${project.name}" tabindex="-1">
+                        <img src="images/${project.id}.webp" alt="${project.name} preview" loading="lazy" width="1280" height="800">
+                    </a>
                 </div>
                 <div class="card-body">
                     <div class="title-row">
-                        <h3></h3>
-                        <span class="live-badge ${liveClass}"><span class="dot"></span>${liveText}</span>
+                        <h3><a href="${project.url}"></a></h3>
+                        <span class="live-badge ${live.cls}"><span class="dot"></span>${live.text}</span>
                     </div>
                     <p></p>
+                    <p class="ops">${opsHTML(stat)}</p>
+                    <div class="tags"></div>
                     <div class="card-foot">
-                        <div class="tags"></div>
-                        <span class="visit">Visit <span class="arrow">&#8599;</span></span>
+                        <button class="case-btn" type="button">Case study</button>
+                        <a class="visit" href="${project.url}">Visit <span class="arrow" aria-hidden="true">&#8599;</span></a>
                     </div>
                 </div>`;
 
-            a.querySelector('h3').textContent = project.name;
-            a.querySelector('.card-body p').textContent = project.description;
-            const tags = a.querySelector('.tags');
-            (project.tags || []).forEach((t) => {
-                const s = document.createElement('span');
-                s.className = 'tag';
-                s.textContent = t;
-                tags.appendChild(s);
-            });
-            return a;
+            card.querySelector('h3 a').textContent = project.name;
+            card.querySelector('.card-body > p').textContent = project.description;
+            tagSpans(card.querySelector('.tags'), project.tags, project.stack);
+            card.querySelector('.case-btn').addEventListener('click', () => openCase(project));
+            return card;
         }
+
+        /* ---------- Featured slot ---------- */
+
+        function renderFeatured(project) {
+            const stat = statFor(project);
+            const domain = new URL(project.url).hostname;
+            const live = liveState(stat);
+            const cs = project.caseStudy || {};
+
+            const el = document.createElement('article');
+            el.className = 'featured-card';
+            el.dataset.tags = (project.tags || []).join('|');
+
+            el.innerHTML = `
+                <div class="visual">
+                    <div class="chrome">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span class="domain">${domain}</span>
+                    </div>
+                    <div class="shot">
+                        <a href="${project.url}" aria-label="Visit ${project.name}">
+                            <img src="images/${project.id}.webp" alt="${project.name} preview" fetchpriority="high" width="1280" height="800">
+                        </a>
+                    </div>
+                </div>
+                <div class="featured-body">
+                    <p class="section-label" style="margin:0"><span class="accent">&#9733;</span> Flagship</p>
+                    <div class="title-row">
+                        <h2></h2>
+                        <span class="live-badge ${live.cls}"><span class="dot"></span>${live.text}</span>
+                    </div>
+                    <p class="ops">${opsHTML(stat)}</p>
+                    <p class="why"></p>
+                    <ul class="highlights"></ul>
+                    <div class="tags"></div>
+                    <div class="featured-foot">
+                        <a class="btn" href="${project.url}">Visit site <span aria-hidden="true">&#8599;</span></a>
+                        <button class="btn ghost case-btn-featured" type="button">Full case study</button>
+                    </div>
+                </div>`;
+
+            el.querySelector('h2').textContent = project.name;
+            el.querySelector('.why').textContent = cs.why || project.description;
+            const ul = el.querySelector('.highlights');
+            (cs.highlights || []).slice(0, 3).forEach((h) => {
+                const li = document.createElement('li');
+                li.textContent = h;
+                ul.appendChild(li);
+            });
+            tagSpans(el.querySelector('.tags'), project.tags, project.stack);
+            el.querySelector('.case-btn-featured').addEventListener('click', () => openCase(project));
+            return el;
+        }
+
+        /* ---------- Tag filtering ---------- */
+
+        let activeFilter = 'All';
+
+        function applyFilter() {
+            const match = (el) => activeFilter === 'All' || (el.dataset.tags || '').split('|').includes(activeFilter);
+            document.querySelectorAll('.card, .featured-card').forEach((el) => {
+                el.classList.toggle('filtered-out', !match(el));
+                if (el.classList.contains('featured-card')) {
+                    el.style.display = match(el) ? '' : 'none';
+                }
+            });
+            document.querySelectorAll('.filter-chip').forEach((b) => {
+                b.setAttribute('aria-pressed', String(b.dataset.tag === activeFilter));
+            });
+        }
+
+        function renderFilters() {
+            const counts = new Map();
+            PROJECTS.forEach((p) => (p.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
+            const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+            const bar = $('filters');
+            const mk = (tag, count) => {
+                const b = document.createElement('button');
+                b.className = 'filter-chip';
+                b.type = 'button';
+                b.dataset.tag = tag;
+                b.setAttribute('aria-pressed', String(tag === activeFilter));
+                b.textContent = tag;
+                const c = document.createElement('span');
+                c.className = 'count';
+                c.textContent = count;
+                b.appendChild(c);
+                b.addEventListener('click', () => {
+                    activeFilter = (activeFilter === tag) ? 'All' : tag;
+                    applyFilter();
+                });
+                bar.appendChild(b);
+            };
+            mk('All', PROJECTS.length);
+            tags.forEach(([t, n]) => mk(t, n));
+        }
+
+        /* ---------- Case study dialog ---------- */
+
+        const dialog = $('caseDialog');
+
+        function openCase(project) {
+            const stat = statFor(project);
+            const live = liveState(stat);
+            const cs = project.caseStudy || {};
+
+            $('caseDomain').textContent = new URL(project.url).hostname;
+            $('caseShot').src = 'images/' + project.id + '.webp';
+            $('caseShot').alt = project.name + ' preview';
+            $('caseTitle').textContent = project.name;
+            const badge = $('caseLive');
+            badge.className = 'live-badge ' + live.cls;
+            $('caseLiveText').textContent = live.text;
+            $('caseOps').innerHTML = opsHTML(stat);
+            $('caseWhy').textContent = cs.why || project.description;
+            $('caseLearned').textContent = cs.learned || '';
+            $('caseLearned').parentElement.style.display = cs.learned ? '' : 'none';
+
+            const ul = $('caseHighlights');
+            ul.innerHTML = '';
+            (cs.highlights || []).forEach((h) => {
+                const li = document.createElement('li');
+                li.textContent = h;
+                ul.appendChild(li);
+            });
+            ul.parentElement.style.display = (cs.highlights || []).length ? '' : 'none';
+
+            const tags = $('caseTags');
+            tags.innerHTML = '';
+            tagSpans(tags, project.tags, project.stack);
+
+            $('caseVisit').href = project.url;
+            dialog.showModal();
+        }
+
+        $('caseClose').addEventListener('click', () => dialog.close());
+        dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) dialog.close();   /* backdrop click */
+        });
+
+        /* ---------- Boot ---------- */
 
         async function loadJSON(path) {
             try {
@@ -543,10 +1107,17 @@
                 return;
             }
 
-            projects.forEach((p, i) => {
-                const stat = status && status.projects ? status.projects[p.id] : null;
-                grid.appendChild(renderCard(p, stat, i));
+            PROJECTS = projects;
+            STATUS = status;
+
+            const featured = projects.find((p) => p.featured);
+            if (featured) $('featured').appendChild(renderFeatured(featured));
+
+            projects.filter((p) => !p.featured).forEach((p, i) => {
+                grid.appendChild(renderCard(p, i));
             });
+
+            renderFilters();
 
             // Status strip
             $('chipProjects').querySelector('span:last-child').textContent = projects.length + ' projects';
