@@ -1,65 +1,66 @@
 {
-  "generatedAt": "2026-08-10T07:41:38.185Z",
+  "generatedAt": "2026-08-17T06:55:26.186Z",
   "projects": {
     "pogo-metrics": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1573,
-      "capturedAt": "2026-08-10T07:41:42.081Z"
+      "responseMs": 1440,
+      "capturedAt": "2026-08-17T06:55:29.927Z"
     },
     "silph-relay": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1441,
-      "capturedAt": "2026-08-10T07:41:45.808Z"
+      "responseMs": 1029,
+      "capturedAt": "2026-08-17T06:55:33.253Z"
     },
     "icombo": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1647,
-      "capturedAt": "2026-08-10T07:41:49.709Z"
+      "responseMs": 1101,
+      "capturedAt": "2026-08-17T06:55:36.604Z"
     },
     "blockwatch": {
-      "up": true,
-      "httpStatus": 200,
-      "responseMs": 2059,
-      "capturedAt": "2026-08-10T07:41:54.058Z"
+      "up": false,
+      "httpStatus": null,
+      "responseMs": null,
+      "capturedAt": "2026-08-17T06:56:06.664Z",
+      "error": "Navigation timeout of 30000 ms exceeded"
     },
     "cashflow-comp": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1714,
-      "capturedAt": "2026-08-10T07:41:58.055Z"
+      "responseMs": 1102,
+      "capturedAt": "2026-08-17T06:56:10.082Z"
     },
     "chronoticker": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1868,
-      "capturedAt": "2026-08-10T07:42:02.178Z"
+      "responseMs": 3618,
+      "capturedAt": "2026-08-17T06:56:15.954Z"
     },
     "calculat-bur": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2303,
-      "capturedAt": "2026-08-10T07:42:06.756Z"
+      "responseMs": 893,
+      "capturedAt": "2026-08-17T06:56:19.101Z"
     },
     "dca": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2584,
-      "capturedAt": "2026-08-10T07:42:11.628Z"
+      "responseMs": 1669,
+      "capturedAt": "2026-08-17T06:56:23.056Z"
     },
     "degen": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1857,
-      "capturedAt": "2026-08-10T07:42:15.775Z"
+      "responseMs": 2268,
+      "capturedAt": "2026-08-17T06:56:27.590Z"
     },
     "mickeys": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1728,
-      "capturedAt": "2026-08-10T07:42:19.935Z"
+      "responseMs": 886,
+      "capturedAt": "2026-08-17T06:56:30.860Z"
     }
   }
 }
