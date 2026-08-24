@@ -1,65 +1,65 @@
 {
-  "generatedAt": "2026-08-18T00:49:43.206Z",
+  "generatedAt": "2026-08-24T06:58:24.681Z",
   "projects": {
     "pogo-metrics": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1503,
-      "capturedAt": "2026-08-18T00:49:47.024Z"
+      "responseMs": 1504,
+      "capturedAt": "2026-08-24T06:58:28.525Z"
     },
     "silph-relay": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1435,
-      "capturedAt": "2026-08-18T00:49:50.750Z"
+      "responseMs": 1422,
+      "capturedAt": "2026-08-24T06:58:32.244Z"
     },
     "icombo": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1567,
-      "capturedAt": "2026-08-18T00:49:54.565Z"
+      "responseMs": 1602,
+      "capturedAt": "2026-08-24T06:58:36.113Z"
     },
     "blockwatch": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2841,
-      "capturedAt": "2026-08-18T00:49:59.729Z"
+      "responseMs": 2415,
+      "capturedAt": "2026-08-24T06:58:40.807Z"
     },
     "cashflow-comp": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1581,
-      "capturedAt": "2026-08-18T00:50:03.629Z"
+      "responseMs": 1589,
+      "capturedAt": "2026-08-24T06:58:44.682Z"
     },
     "chronoticker": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 3210,
-      "capturedAt": "2026-08-18T00:50:09.084Z"
+      "responseMs": 1934,
+      "capturedAt": "2026-08-24T06:58:48.864Z"
     },
     "calculat-bur": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1586,
-      "capturedAt": "2026-08-18T00:50:12.933Z"
+      "responseMs": 1336,
+      "capturedAt": "2026-08-24T06:58:52.462Z"
     },
     "dca": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1602,
-      "capturedAt": "2026-08-18T00:50:16.805Z"
+      "responseMs": 1383,
+      "capturedAt": "2026-08-24T06:58:56.134Z"
     },
     "degen": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1747,
-      "capturedAt": "2026-08-18T00:50:20.851Z"
+      "responseMs": 1717,
+      "capturedAt": "2026-08-24T06:59:00.156Z"
     },
     "mickeys": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1411,
-      "capturedAt": "2026-08-18T00:50:24.639Z"
+      "responseMs": 1414,
+      "capturedAt": "2026-08-24T06:59:03.934Z"
     }
   }
 }
