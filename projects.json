@@ -123,17 +123,34 @@
     "id": "dca",
     "name": "DCA Analysis",
     "url": "https://dca-btc-with-me.netlify.app/",
-    "description": "Dollar Cost Averaging, replayed on real prices — switch between Bitcoin and the S&P 500.",
+    "description": "Dollar Cost Averaging, replayed on real Bitcoin prices — drag the start date and watch the average cost move.",
     "tags": ["Bitcoin", "Markets", "Investing"],
     "stack": ["Chart.js", "Vanilla JS"],
     "caseStudy": {
-      "why": "Dollar-cost averaging is easy to preach and hard to picture. DCA Analysis replays a real DCA plan on real price history — Bitcoin or the S&P 500 — and shows exactly what would have happened.",
+      "why": "Dollar-cost averaging is easy to preach and hard to picture. DCA Analysis replays a real DCA plan against Bitcoin's own price history and shows exactly what would have happened.",
       "highlights": [
         "Replays DCA schedules against real historical prices",
-        "One toggle to switch between Bitcoin and the S&P 500",
+        "Drag the start date and watch the average cost move",
         "Honest accounting: totals, cost basis, and the rough patches too"
       ],
       "learned": "A replay of history persuades people in a way projections never do."
+    }
+  },
+  {
+    "id": "project401k",
+    "name": "Project 401k",
+    "url": "https://project401k.netlify.app/",
+    "description": "401(k)-style dollar cost averaging into the S&P 500 — SPY closes, employer match, dividends reinvested.",
+    "tags": ["Markets", "Investing", "Retirement"],
+    "stack": ["Chart.js", "Vanilla JS"],
+    "caseStudy": {
+      "why": "A payroll contribution is the most common investment plan there is, and the hardest to picture. Project 401k replays one against SPY's real closes — your contribution, the employer match, dividends reinvested — and shows what the account would actually be worth.",
+      "highlights": [
+        "Replays contribution schedules against SPY closes back to 1993",
+        "Counts the employer match separately from your own money",
+        "Reinvests dividends and shows the shares they bought"
+      ],
+      "learned": "Leaving dividends out understated a 26-year plan by $165,790 — the honest version needed the data, not a footnote."
     }
   },
   {
