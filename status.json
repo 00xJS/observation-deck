@@ -1,71 +1,90 @@
 {
-  "generatedAt": "2026-10-26T12:23:07.050Z",
+  "generatedAt": "2026-10-29T07:47:36.720Z",
   "projects": {
-    "pogo-metrics": {
-      "up": true,
-      "httpStatus": 200,
-      "responseMs": 2266,
-      "capturedAt": "2026-10-26T12:23:12.054Z"
+    "sr1-map-studio": {
+      "up": false,
+      "httpStatus": null,
+      "responseMs": null,
+      "capturedAt": "2026-10-29T07:48:06.795Z",
+      "error": "Navigation timeout of 30000 ms exceeded"
     },
-    "silph-relay": {
+    "sr1-creator": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1844,
-      "capturedAt": "2026-10-26T12:23:16.211Z"
-    },
-    "icombo": {
-      "up": true,
-      "httpStatus": 200,
-      "responseMs": 1756,
-      "capturedAt": "2026-10-26T12:23:20.229Z"
-    },
-    "blockwatch": {
-      "up": true,
-      "httpStatus": 200,
-      "responseMs": 7179,
-      "capturedAt": "2026-10-26T12:23:29.741Z"
-    },
-    "cashflow-comp": {
-      "up": true,
-      "httpStatus": 200,
-      "responseMs": 2002,
-      "capturedAt": "2026-10-26T12:23:34.030Z"
+      "responseMs": 2285,
+      "capturedAt": "2026-10-29T07:48:11.243Z"
     },
     "chronoticker": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 3330,
-      "capturedAt": "2026-10-26T12:23:39.643Z"
+      "responseMs": 1813,
+      "capturedAt": "2026-10-29T07:48:15.348Z"
     },
-    "calculat-bur": {
+    "blockwatch": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2219,
-      "capturedAt": "2026-10-26T12:23:44.159Z"
+      "responseMs": 2054,
+      "capturedAt": "2026-10-29T07:48:19.747Z"
     },
-    "dca": {
+    "cashflow-comp": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2109,
-      "capturedAt": "2026-10-26T12:23:48.541Z"
+      "responseMs": 1604,
+      "capturedAt": "2026-10-29T07:48:23.650Z"
     },
     "project401k": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2058,
-      "capturedAt": "2026-10-26T12:23:52.932Z"
+      "responseMs": 1954,
+      "capturedAt": "2026-10-29T07:48:27.992Z"
+    },
+    "calculat-bur": {
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 1927,
+      "capturedAt": "2026-10-29T07:48:32.222Z"
+    },
+    "dca": {
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 1609,
+      "capturedAt": "2026-10-29T07:48:36.130Z"
+    },
+    "pogo-metrics": {
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 1809,
+      "capturedAt": "2026-10-29T07:48:40.643Z"
+    },
+    "trainer-model": {
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 2003,
+      "capturedAt": "2026-10-29T07:48:44.982Z"
+    },
+    "silph-relay": {
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 1471,
+      "capturedAt": "2026-10-29T07:48:48.729Z"
     },
     "degen": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2204,
-      "capturedAt": "2026-10-26T12:23:57.444Z"
+      "responseMs": 1944,
+      "capturedAt": "2026-10-29T07:48:52.943Z"
     },
     "mickeys": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1783,
-      "capturedAt": "2026-10-26T12:24:01.544Z"
+      "responseMs": 1414,
+      "capturedAt": "2026-10-29T07:48:56.690Z"
+    },
+    "icombo": {
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 1663,
+      "capturedAt": "2026-10-29T07:49:00.630Z"
     }
   }
 }

@@ -1,190 +1,756 @@
-[
-  {
-    "id": "pogo-metrics",
-    "name": "POGO Metrics",
-    "url": "https://pogo-metrics.netlify.app/",
-    "description": "Turn your official Niantic Pokémon GO data export into a private, in-browser dashboard of your trainer journey.",
-    "tags": ["Pokémon GO", "Data Viz"],
-    "stack": ["Vanilla JS", "In-browser parsing", "SVG"],
-    "featured": true,
-    "caseStudy": {
-      "why": "Niantic will email you every scrap of data Pokémon GO holds on you — as a pile of raw files nobody can read. POGO Metrics turns that export into a dashboard of your trainer journey, without the data ever leaving your browser.",
-      "highlights": [
-        "Parses the official Niantic data export entirely client-side — nothing is uploaded",
-        "Distills years of gameplay into charts you can actually explore",
-        "Zero backend: static hosting, no accounts, no tracking"
-      ],
-      "learned": "Privacy as a feature — processing a sensitive export in the browser removes the scariest part of every “upload your data” tool."
-    }
+{
+  "profile": {
+    "name": "JS",
+    "handle": "00xJS",
+    "stats": [
+      {"value": "2,300+", "label": "commits this year"}
+    ],
+    "links": {"github": "https://github.com/00xJS"}
   },
-  {
-    "id": "silph-relay",
-    "name": "Silph Relay",
-    "url": "https://silph-relay.netlify.app/",
-    "description": "Feed analytics for a $0/month Discord relay — how often six Pokémon accounts post, and how fast each post lands.",
-    "tags": ["Pokémon GO", "Automation", "Data Viz"],
-    "stack": ["Vanilla JS", "localStorage", "Single file"],
-    "caseStudy": {
-      "why": "Six Pokémon accounts post into a Discord relay that costs $0/month to run. This dashboard answers the operational questions: how often does each feed post, and how fast does a post land?",
-      "highlights": [
-        "Tracks post frequency and delivery latency per feed",
-        "Runs on the same $0/month footprint as the relay itself",
-        "Single-file app with localStorage persistence"
-      ],
-      "learned": "Even a hobby automation deserves observability — measuring latency changed how the relay was tuned."
+  "constellations": [
+    {
+      "id": "fieldwork",
+      "name": "At Work",
+      "subtitle": "The day job",
+      "color": "#f2a65a",
+      "blurb": "The day job: automations, analyses, maps and data audits that keep a food bank's partner network accurate and help feed two-thirds of Arizona."
+    },
+    {
+      "id": "stilwater",
+      "name": "Saints Row Modding",
+      "subtitle": "Reverse engineering & mods",
+      "color": "#c79bff",
+      "blurb": "The Saints Row (2006) engine, reverse-engineered into 48 research reports — then a map editor, a character creator, mods and a Mac port."
+    },
+    {
+      "id": "ledger",
+      "name": "Markets & Finance",
+      "subtitle": "Backtests, dashboards & calculators",
+      "color": "#f5d061",
+      "blurb": "Questions about money answered with real history instead of hunches."
+    },
+    {
+      "id": "trainer",
+      "name": "Pokémon GO",
+      "subtitle": "Community & data",
+      "color": "#5ec8ff",
+      "blurb": "Running a local Pokémon GO community turned into data projects: dashboards, maps, generators and a Discord relay."
+    },
+    {
+      "id": "apps",
+      "name": "Apps",
+      "subtitle": "iPhone & web apps",
+      "color": "#ff7eb6",
+      "blurb": "Full apps that run on an iPhone: a household planner shipped in five weeks, and a 4X strategy game against 249 AI commanders."
+    },
+    {
+      "id": "tools",
+      "name": "Tools & Experiments",
+      "subtitle": "Utilities, ports & hacks",
+      "color": "#6ee7a8",
+      "blurb": "Small tools and deep dives: an image combiner, a browser extension, old games ported to Apple Silicon, a PSP audio streamer and an early data notebook."
     }
-  },
-  {
-    "id": "icombo",
-    "name": "I-Combinator",
-    "url": "https://i-combinator.netlify.app/",
-    "description": "Combine images side by side or stacked, without cropping — drag, drop, reorder, and export in your browser.",
-    "tags": ["Utility", "Images"],
-    "stack": ["Canvas API", "Drag & drop", "Vanilla JS"],
-    "caseStudy": {
-      "why": "Combining screenshots usually means opening an image editor for a ten-second job. I-Combinator does side-by-side or stacked combos in the browser — drag, drop, reorder, export.",
-      "highlights": [
-        "Canvas-based compositing with no cropping surprises",
-        "Drag-and-drop ordering with instant preview",
-        "Everything stays local — images never leave the machine"
-      ],
-      "learned": "The Canvas API is enough for a real image tool; the hard part is making layout behavior predictable."
+  ],
+  "projects": [
+    {
+      "id": "azfoodhelp",
+      "name": "AZFoodHelp Inquiry Automation",
+      "constellation": "fieldwork",
+      "kind": "Automation + dashboard",
+      "work": true,
+      "description": "A 6-phase Power Automate system that routes every AZFoodHelp.org inquiry to the right team, logs it, and reports on it in a live Power BI dashboard.",
+      "stack": ["Power Automate", "SharePoint", "Excel", "Power BI"],
+      "flagship": true,
+      "caseStudy": {
+        "why": "Contact-form emails for AZFoodHelp.org were sorted by hand. The goal: route every inquiry to the right team automatically, measure how fast each gets answered, and show it all live — without a minute of downtime while it was built.",
+        "highlights": [
+          "Keyword classifier built from 897 historical submissions, routing 10 categories (Home Delivery, Volunteers, Food Donations, Finance, Partnerships…)",
+          "Three flow versions iterated with the previous one still live, so routing never went down",
+          "12-column SharePoint intake log: Arizona-time timestamps, response times, and a quality flag with manual override",
+          "Power BI dashboard with 5 KPI cards and 8× daily scheduled refresh — manual email handling dropped to near zero"
+        ],
+        "learned": "Deeply nested conditions broke the flow; flattening them to run in sequence made it both reliable and easier to explain to stakeholders."
+      }
+    },
+    {
+      "id": "grocery-rescue",
+      "name": "Grocery Rescue Network Map",
+      "constellation": "fieldwork",
+      "kind": "GIS + grant support",
+      "work": true,
+      "description": "A multi-layer ArcGIS map of agencies, donors and grocery-rescue partners across 76,000 square miles — and a visual case for grants: who can store food, who can't, and where capacity would grow the network.",
+      "stack": ["ArcGIS", "Excel", "Grant support"],
+      "caseStudy": {
+        "why": "The food resourcing team needs one picture for two jobs: deciding where to source food, and showing funders why a grant matters. That means seeing where partners are, what each can store, and where the need is that no partner reaches yet.",
+        "highlights": [
+          "Layers agency locations, food donor sites, grocery-rescue partners and Feeding America opportunity data",
+          "Shows which partners have cold, frozen or dry storage — and which have none — so a grant request can point to specific gaps",
+          "Heat map of zip-code-level web inquiries over agency coverage, surfacing high-need areas with no nearby service",
+          "Turns 'where should capacity go next?' into a map the team can put in front of funders and leadership"
+        ],
+        "learned": "A map turns 'we think there's a gap' into a place a funder can point at."
+      }
+    },
+    {
+      "id": "shutdown-map",
+      "name": "Federal Shutdown Impact Map",
+      "constellation": "fieldwork",
+      "kind": "GIS analysis",
+      "work": true,
+      "description": "Built during the federal government shutdown: an ArcGIS map of where affected federal workers are, how many at each location, and the closest agency partners — so the food bank knew where to send additional resources.",
+      "stack": ["ArcGIS", "Geospatial analysis", "Emergency response"],
+      "caseStudy": {
+        "why": "When the federal government shut down, federal workers went without pay and the food bank needed to know where that need would land. The question: who is affected, where are they, and which agency partners are closest?",
+        "highlights": [
+          "Mapped the federal locations whose staff would be affected by the shutdown",
+          "Showed how many people work at each location",
+          "Layered in the closest agency partners to each site",
+          "Pointed to where additional resources needed to go"
+        ],
+        "learned": "In a fast-moving crisis, a map answers 'where do we send help?' faster than any spreadsheet."
+      }
+    },
+    {
+      "id": "erp-audit",
+      "name": "ERP Migration Audit",
+      "constellation": "fieldwork",
+      "kind": "Data migration audit",
+      "work": true,
+      "description": "Owned the agency data sheet for an ERP migration end to end: built the document, pulled the data, made sure every field was filled and captured, and fielded the questions.",
+      "stack": ["Excel", "Data quality", "Stakeholder support"],
+      "caseStudy": {
+        "why": "An ERP migration is only as good as the data that goes into it. The agency records needed one clean, complete, agreed structure before user acceptance testing — and someone to own it from template to sign-off.",
+        "highlights": [
+          "Created the document: worked with stakeholders to identify every required column and structured it to management's spec",
+          "Pulled the data: researched and populated values from existing agency records",
+          "Checked completeness: audited the sheet so every required field was filled and captured before UAT",
+          "Fielded questions: point of contact after distribution for field values, data expectations and entry rules"
+        ],
+        "learned": "Most migration risk is in definitions, not data — agreeing what a field means comes first."
+      }
+    },
+    {
+      "id": "hhp-analysis",
+      "name": "Households-to-Pounds Analysis",
+      "constellation": "fieldwork",
+      "kind": "Analysis + dashboard",
+      "work": true,
+      "description": "Are agency partners overserving, underserving or just right? Stitched a year of distribution reports and a full agency poundage report into one dataset with an agency ID key, then built an interactive dashboard for stakeholders.",
+      "stack": ["Report consolidation", "Data modeling", "Interactive dashboard"],
+      "caseStudy": {
+        "why": "Pounds distributed only mean something next to the households they reach. The question was whether each agency partner is overserving, underserving or just right — and the answer was spread across a year of distribution reports plus one very large poundage report.",
+        "highlights": [
+          "Stitched 24 reports from across the year tracking agency distributions",
+          "Joined them with a large report of all agency poundage",
+          "Built an agency ID key so every partner lines up from report to report",
+          "Compared households served to pounds received to classify each partner as overserving, underserving or just right",
+          "Interactive dashboard so stakeholders can explore the results themselves"
+        ],
+        "learned": "The agency ID key was the unglamorous part — and the part that made every report joinable."
+      }
+    },
+    {
+      "id": "l2f-audit",
+      "name": "Link2Feed System Audit",
+      "constellation": "fieldwork",
+      "kind": "Data reconciliation",
+      "work": true,
+      "description": "After the ERP switch, the Link2Feed neighbor database still carried old-system IDs, addresses and contacts. Reconciled Link2Feed against NetSuite and updated every agency card in the network by hand.",
+      "stack": ["Link2Feed", "NetSuite", "Data reconciliation"],
+      "caseStudy": {
+        "why": "Agency partners log every neighbor visit in Link2Feed. After the move to the new ERP, its agency records still matched the old system — old IDs, outdated addresses and contacts — so they no longer lined up with NetSuite.",
+        "highlights": [
+          "Exported all Link2Feed agency data and all NetSuite agency data",
+          "Synthesized the two to find mismatched IDs, addresses and contacts",
+          "Updated every agency card in the network manually so both systems agree"
+        ],
+        "learned": "A migration isn't finished at the ERP — every system that points at it needs cleaning up too."
+      }
+    },
+    {
+      "id": "appointment-audit",
+      "name": "Appointment Plan Audit",
+      "constellation": "fieldwork",
+      "kind": "Operations data audit",
+      "work": true,
+      "description": "After the ERP switch, pallet counts on some appointment plans — but not all — had been doubled to work around a pallet-volume rounding issue, which hid what agencies actually receive. Exported every plan, worked through each with its rep and Transportation, then imported 1,200+ corrections.",
+      "stack": ["NetSuite", "Data cleanup", "Stakeholder sign-off"],
+      "caseStudy": {
+        "why": "The new ERP rounded pallet volumes in a way that didn't match real distributions, and doubling pallet counts on some plans had been tried as a workaround. Because only some plans were changed, there was no blanket fix — and the actual distribution amounts for each agency were no longer clear.",
+        "highlights": [
+          "Exported every appointment plan in the system",
+          "Worked out which plans had doubled counts and which didn't — a plan-by-plan check, not a blanket undo",
+          "Sat with each rep to understand their caseload",
+          "Met with Transportation to approve and confirm the changes",
+          "Imported 1,200+ updates manually"
+        ],
+        "learned": "Fixing data that several teams depend on takes agreement from each of them — the corrections only stuck because every rep and Transportation signed off."
+      }
+    },
+    {
+      "id": "vivery-audit",
+      "name": "Vivery Data Audit",
+      "constellation": "fieldwork",
+      "kind": "Directory data audit",
+      "work": true,
+      "description": "Vivery powers the find-food-near-you search on AZFoodHelp, but no one was managing its accuracy. Pulled all of it through the API and audited every organization, location and program in a three-level hierarchy.",
+      "stack": ["Vivery API", "Data audit", "Hierarchy modeling"],
+      "caseStudy": {
+        "why": "Neighbors use Vivery on AZFoodHelp to find the closest food pantry instead of hunting for one. The system had been left undermanaged — no one owned updates or accuracy.",
+        "highlights": [
+          "Exported all system data through an API pull",
+          "Built a three-level hierarchy spreadsheet to audit every organization, location and program",
+          "Corrected stale records and added new agency sites across the 76,000-square-mile service area"
+        ],
+        "learned": "A public directory needs an owner — accuracy starts slipping the moment nobody's checking."
+      }
+    },
+    {
+      "id": "sr1-map-studio",
+      "name": "SR1 Map Studio",
+      "constellation": "stilwater",
+      "kind": "Web app",
+      "url": "https://sr1-mapstudio.netlify.app/",
+      "repo": "sr1-map-studio-web",
+      "image": "images/sr1-map-studio.webp",
+      "started": "2026-10-22",
+      "flagship": true,
+      "description": "Build Saints Row 1 multiplayer maps in the browser, then press Install in game and play them in Saints Reborn.",
+      "stack": ["TypeScript", "Three.js", "Reverse engineering"],
+      "caseStudy": {
+        "why": "Saints Row (2006) never had a map editor. Map Studio is one — in the browser, with nothing to install — and it exports straight into the running game.",
+        "highlights": [
+          "Map wizard: 9 settings × 10 layouts, previewed from above, always fair for both teams",
+          "57 ready-made maps sized like the retail ones, and ~670 placeable pieces",
+          "Walk-in rooms, real textures, photo-to-building and graffiti tagging",
+          "Built on 48 research reports into the engine's formats"
+        ],
+        "learned": "Reverse engineering is the slow part; once the formats are understood, a friendly editor is the fun part."
+      }
+    },
+    {
+      "id": "sr1-creator",
+      "name": "SR1 Creator",
+      "constellation": "stilwater",
+      "kind": "Web app",
+      "url": "https://sr1-playercreator.netlify.app/",
+      "repo": "SR1-Creator",
+      "image": "images/sr1-creator.jpg",
+      "started": "2026-10-22",
+      "description": "The Saints Row character creator rebuilt in the browser with the game's real meshes and morphs — plus photo-to-character fitting.",
+      "stack": ["Three.js", "WebGL", "MediaPipe"],
+      "caseStudy": {
+        "why": "The game's character creator, outside the game — so you can design and share a character, or fit one to photos, then enter the values in the real menu.",
+        "highlights": [
+          "Parses the game's packfiles, Xbox 360 textures, meshes and morph targets in the browser — ships no game data",
+          "Skin, hair and eye shaders ported from the game's own pixel shaders",
+          "Photo fit: 478 face landmarks per photo solve one set of face sliders across several photos"
+        ],
+        "learned": "Matching a 2006 renderer means mirroring its quirks exactly — including its load-time fix-ups."
+      }
+    },
+    {
+      "id": "sr-save-editor",
+      "name": "SR Save Editor",
+      "constellation": "stilwater",
+      "kind": "Desktop app",
+      "private": true,
+      "started": "2026-10-04",
+      "description": "Save editor for Saints Reborn on Mac and Windows: cash, weapons, wardrobe, garage, neighbourhoods, homies and the online character.",
+      "stack": ["C#", "Mac + Windows"],
+      "caseStudy": {
+        "why": "A save editor is the friendliest mod there is — change your story save without touching game files.",
+        "highlights": [
+          "Story save: cash and respect, weapon wheel, wardrobe, garage, crib cache, neighbourhoods and homies",
+          "Online character: cash, owned clothing and outfit",
+          "Same features on Mac and Windows"
+        ]
+      }
+    },
+    {
+      "id": "sr-tweak-menu",
+      "name": "SR Tweak Menu",
+      "constellation": "stilwater",
+      "kind": "Game mod",
+      "repo": "SR-Tweak-Menu",
+      "started": "2026-10-09",
+      "description": "An in-game cheat menu for Saints Reborn: god mode, wanted level, rocket ammo, vehicle and people spawner, bodyguards, emotes, free camera and more.",
+      "stack": ["Lua", "Keyboard + controller"],
+      "caseStudy": {
+        "why": "Every open-world game deserves a trainer you can drive with a controller.",
+        "highlights": [
+          "Opens on F5, or RB + D-pad Down on a controller",
+          "God mode, wanted level, rocket and fire ammo, vehicle and people spawner, bodyguards, emotes",
+          "Works on the Windows and Mac builds"
+        ]
+      }
+    },
+    {
+      "id": "sr-teleport",
+      "name": "Teleport to Waypoint",
+      "constellation": "stilwater",
+      "kind": "Game mod",
+      "repo": "SR-Teleport-to-Waypoint",
+      "started": "2026-10-10",
+      "description": "Drop a waypoint on the map and you're there — on the rooftop, with your car and homies. No more driving across Stilwater.",
+      "stack": ["Lua", "C++ add-on"],
+      "caseStudy": {
+        "why": "The fun part of Stilwater is rarely the drive to it.",
+        "highlights": [
+          "Lands on the highest surface at the spot — roads, rooftops, the top of the Ultor dome",
+          "Your car and homies come with you",
+          "Only your own green waypoint triggers it, never a mission marker"
+        ]
+      }
+    },
+    {
+      "id": "sr-more-homies",
+      "name": "More Homies",
+      "constellation": "stilwater",
+      "kind": "Game mod",
+      "repo": "SR-More-Homies-Mod",
+      "image": "images/more-homies.webp",
+      "started": "2026-10-09",
+      "description": "Recruit up to 10 homies instead of 3, with all ten heads on the HUD — and bigger gang wars to use them in.",
+      "stack": ["Lua", "INI settings"],
+      "caseStudy": {
+        "why": "The game's party list already held ten followers; the game just never let you fill it.",
+        "highlights": ["Keeps the game's own progression, just with a higher cap", "HUD shows all ten follower heads", "Experimental entourage mode for up to 30"]
+      }
+    },
+    {
+      "id": "saintsreborn-mac",
+      "name": "Saints Reborn on Mac",
+      "constellation": "stilwater",
+      "kind": "Mac port",
+      "repo": "SaintsReborn-Mac",
+      "started": "2026-10-04",
+      "description": "Play Saints Row (Xbox 360, 2006) on Apple Silicon Macs: a double-click installer that builds the game from your own disc, plus a mod launcher app.",
+      "stack": ["C++", "macOS", "Apple Silicon"],
+      "caseStudy": {
+        "why": "Saints Reborn brought the 360 game to Windows. This brings it to the Mac — free, from your own disc, with no game files in the repo.",
+        "highlights": [
+          "Double-click installer that downloads the free tools and builds the game",
+          "Launcher app that opens the mod loader — tick mods, press Play",
+          "GPU and frame-rate tuning, with fixes merged back upstream"
+        ]
+      }
+    },
+    {
+      "id": "chronoticker",
+      "name": "Chronoticker",
+      "constellation": "ledger",
+      "kind": "Web app",
+      "url": "https://chronoticker.netlify.app/",
+      "repo": "Chronoticker",
+      "started": "2026-04-28",
+      "flagship": true,
+      "description": "Stock portfolio backtester — simulate any allocation against the S&P 500 with rebalancing & DCA.",
+      "stack": ["Chart.js", "Yahoo Finance", "Vanilla JS"],
+      "caseStudy": {
+        "why": "Would that allocation have beaten the S&P 500? Chronoticker replays portfolio allocations against real history — with rebalancing and dollar-cost averaging — so the answer is a simulation, not a hunch.",
+        "highlights": [
+          "Backtests any allocation against the S&P 500",
+          "Models rebalancing strategies and DCA schedules",
+          "Charts the full growth path, not just the end number"
+        ],
+        "learned": "Financial simulations live or die on edge cases — contribution timing and rebalance rules matter more than they look."
+      }
+    },
+    {
+      "id": "blockwatch",
+      "name": "Blockwatch",
+      "constellation": "ledger",
+      "kind": "Live dashboard",
+      "url": "https://btcblockwatch.netlify.app/",
+      "repo": "Blockwatch",
+      "started": "2026-04-28",
+      "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment, plus comparisons to gold and the national debt.",
+      "stack": ["Chart.js", "CoinGecko API", "mempool.space"],
+      "caseStudy": {
+        "why": "One screen for the Bitcoin questions that used to take five tabs: price, network health, sentiment, and how it all stacks up against gold and the national debt.",
+        "highlights": [
+          "Live market and on-chain data from keyless public APIs (CoinGecko, mempool.space)",
+          "Comparisons that give the numbers scale — gold, the US national debt",
+          "Fails gracefully when any upstream API is down"
+        ],
+        "learned": "Building resilient dashboards on free, keyless APIs — caching, fallbacks, and honest handling when upstream data goes stale."
+      }
+    },
+    {
+      "id": "cashflow-comp",
+      "name": "Cashflow Compass",
+      "constellation": "ledger",
+      "kind": "Web app",
+      "url": "https://cashflow-comp.netlify.app/",
+      "repo": "cashflow-compass",
+      "started": "2026-04-26",
+      "description": "See your financial future month by month, up to 3 years ahead — browser-only, with Excel round-trips.",
+      "stack": ["Chart.js", "SheetJS", "Modular JS"],
+      "caseStudy": {
+        "why": "Spreadsheets can model your financial future, but they don’t show it. Cashflow Compass projects cashflow month by month, up to three years out — and keeps Excel round-trips working so nobody has to abandon their budget.",
+        "highlights": [
+          "36-month projection engine running entirely in the browser",
+          "Excel import and export via SheetJS — meet budgets where they already live",
+          "Projection engine kept separate from the UI, so features land cleanly"
+        ],
+        "learned": "Separating the engine from the interface paid for itself with every feature added afterward."
+      }
+    },
+    {
+      "id": "project401k",
+      "name": "Project 401k",
+      "constellation": "ledger",
+      "kind": "Web app",
+      "url": "https://project401k.netlify.app/",
+      "repo": "project-401k",
+      "started": "2026-04-06",
+      "description": "401(k)-style dollar cost averaging into the S&P 500 — SPY closes, employer match, dividends reinvested.",
+      "stack": ["Chart.js", "Vanilla JS"],
+      "caseStudy": {
+        "why": "A payroll contribution is the most common investment plan there is, and the hardest to picture. Project 401k replays one against SPY's real closes — your contribution, the employer match, dividends reinvested — and shows what the account would actually be worth.",
+        "highlights": [
+          "Replays contribution schedules against SPY closes back to 1993",
+          "Counts the employer match separately from your own money",
+          "Reinvests dividends and shows the shares they bought"
+        ],
+        "learned": "Leaving dividends out understated a 26-year plan by $165,790 — the honest version needed the data, not a footnote."
+      }
+    },
+    {
+      "id": "calculat-bur",
+      "name": "Calculat-Bur",
+      "constellation": "ledger",
+      "kind": "Calculator",
+      "url": "https://calculat-bur.netlify.app/",
+      "repo": "calculat-bur",
+      "started": "2026-04-08",
+      "description": "Convert BTC to USD at live prices, then re-price that holding from $50K to $1M — arithmetic, not forecasts.",
+      "stack": ["Chart.js", "CoinGecko API"],
+      "caseStudy": {
+        "why": "A conversation-settler: what is this BTC holding worth right now, and what would it be worth at $50K to $1M per coin? Arithmetic at live prices — deliberately not forecasts.",
+        "highlights": [
+          "Live BTC pricing via the keyless CoinGecko API",
+          "Re-prices a holding across a $50K–$1M range instantly",
+          "Forecast-free on purpose: it’s a calculator, not a crystal ball"
+        ],
+        "learned": "Scoping a tool down to one honest job makes it more trustworthy — and somehow more useful."
+      }
+    },
+    {
+      "id": "dca",
+      "name": "DCA Analysis",
+      "constellation": "ledger",
+      "kind": "Web app",
+      "url": "https://dca-btc-with-me.netlify.app/",
+      "repo": "dca-analysis",
+      "started": "2025-02-11",
+      "description": "Dollar Cost Averaging, replayed on real Bitcoin prices — drag the start date and watch the average cost move.",
+      "stack": ["Chart.js", "Vanilla JS"],
+      "caseStudy": {
+        "why": "Dollar-cost averaging is easy to preach and hard to picture. DCA Analysis replays a real DCA plan against Bitcoin's own price history and shows exactly what would have happened.",
+        "highlights": [
+          "Replays DCA schedules against real historical prices",
+          "Drag the start date and watch the average cost move",
+          "Honest accounting: totals, cost basis, and the rough patches too"
+        ],
+        "learned": "A replay of history persuades people in a way projections never do."
+      }
+    },
+    {
+      "id": "pogo-metrics",
+      "name": "POGO Metrics",
+      "constellation": "trainer",
+      "kind": "Web app",
+      "url": "https://pogo-metrics.netlify.app/",
+      "repo": "POGO-Metrics",
+      "started": "2026-08-02",
+      "flagship": true,
+      "description": "Turn your official Niantic Pokémon GO data export into a private, in-browser dashboard of your trainer journey.",
+      "stack": ["Vanilla JS", "In-browser parsing", "SVG"],
+      "caseStudy": {
+        "why": "Niantic will email you every scrap of data Pokémon GO holds on you — as a pile of raw files nobody can read. POGO Metrics turns that export into a dashboard of your trainer journey, without the data ever leaving your browser.",
+        "highlights": [
+          "Parses the official Niantic data export entirely client-side — nothing is uploaded",
+          "Distills years of gameplay into charts you can actually explore",
+          "Zero backend: static hosting, no accounts, no tracking"
+        ],
+        "learned": "Privacy as a feature — processing a sensitive export in the browser removes the scariest part of every “upload your data” tool."
+      }
+    },
+    {
+      "id": "abc-analysis",
+      "hidden": true,
+      "name": "ABC Applied Analysis",
+      "constellation": "trainer",
+      "kind": "ASU capstone",
+      "private": true,
+      "started": "2025-02-10",
+      "description": "ASU analytics capstone: building Buckeye's Pokémon GO community from scratch, then measuring which events and formats actually brought players out.",
+      "stack": ["Excel", "Data viz", "Campfire check-ins"],
+      "caseStudy": {
+        "why": "Buckeye, Arizona had no organized Pokémon GO community. The capstone for ASU's Applied Business Data Analytics certificate was to build one — and use the check-in data to find out what worked.",
+        "highlights": [
+          "Scheduled events as soon as they were announced instead of 1–3 days out, so families could plan",
+          "Standardized event posts (via Sundance DeGen) and a single central raid meeting point",
+          "Check-in analysis found Gigantamax events drew the most players — 31 on average"
+        ],
+        "learned": "Community building is an operations problem: consistency and lead time beat hype."
+      }
+    },
+    {
+      "id": "trainer-model",
+      "name": "POGO Trainer Model",
+      "constellation": "trainer",
+      "kind": "Data study",
+      "url": "https://pogo-metrics.netlify.app/trainer-model.html",
+      "repo": "pogo-trainer-model",
+      "started": "2025-02-08",
+      "description": "Started as a linear regression in a notebook; became an interactive study of 883 trainers across two eras of the level cap — including where the first model went wrong.",
+      "stack": ["Regression", "Jupyter → JS", "Data viz"],
+      "caseStudy": {
+        "why": "Can trainer level predict battles won, distance walked and Pokémon caught? One friends list, recorded under the old level-50 cap and again under the new cap of 80, gave a real dataset to find out.",
+        "highlights": [
+          "390 trainers under the cap-50 era, 493 under cap-80",
+          "Explorer to switch fits (linear, log-linear, median) and outlier handling and watch the model move",
+          "A 'model report card' grading the original regression against alternatives — and reality"
+        ],
+        "learned": "The level-50 wall capped every level-based model; admitting where the first model failed became the most interesting result."
+      }
+    },
+    {
+      "id": "silph-relay",
+      "name": "Silph Relay",
+      "constellation": "trainer",
+      "kind": "Automation",
+      "url": "https://silph-relay.netlify.app/",
+      "repo": "silph-relay",
+      "started": "2026-03-25",
+      "description": "A $0/month Discord relay — six Pokémon X accounts pushed to two channels in under a minute, with an analytics dashboard.",
+      "stack": ["Python", "GitHub Actions", "Discord webhooks"],
+      "caseStudy": {
+        "why": "Six Pokémon accounts post into a Discord relay that costs $0/month to run — no X API, no server. The dashboard answers the operational questions: how often does each feed post, and how fast does a post land?",
+        "highlights": [
+          "GitHub Actions plus a free cron trigger — no server, no paid API",
+          "Tracks post frequency and delivery latency per feed",
+          "Static analytics dashboard on the same $0 footprint"
+        ],
+        "learned": "Even a hobby automation deserves observability — measuring latency changed how the relay was tuned."
+      }
+    },
+    {
+      "id": "degen",
+      "name": "Sundance DeGen",
+      "constellation": "trainer",
+      "kind": "Generator",
+      "url": "https://sundance-dgen.netlify.app/",
+      "repo": "sundance-dgen",
+      "started": "2025-01-28",
+      "description": "Turn a month's Pokémon GO schedule into copy-ready Campfire meetup posts — artwork, catch CP, and shiny status filled in.",
+      "stack": ["Vanilla JS", "Templating"],
+      "caseStudy": {
+        "why": "Writing Campfire meetup posts for a month of Pokémon GO events is repetitive community work. DeGen turns the schedule into copy-ready posts — artwork, catch CP, and shiny status filled in automatically.",
+        "highlights": [
+          "Generates a month of meetup posts from a markdown schedule",
+          "Auto-fills artwork, catch CP, and shiny availability",
+          "Output formatted and ready to paste into Campfire"
+        ],
+        "learned": "Automating the boring 20% of community organizing keeps the fun 80% sustainable."
+      }
+    },
+    {
+      "id": "mickeys",
+      "name": "MickeyDeez Map",
+      "constellation": "trainer",
+      "kind": "Map",
+      "url": "https://phoenix-mickydeez.netlify.app/",
+      "repo": "phoenix-mickeydeez",
+      "started": "2025-01-23",
+      "description": "A crowdsourced map of Phoenix's Pokémon GO–sponsored McDonald's — 31 stops, each verified as an active raid Gym.",
+      "stack": ["Python", "Folium", "Leaflet"],
+      "caseStudy": {
+        "why": "Phoenix’s McDonald’s-sponsored PokéStops were scattered folklore. This map makes them a verified dataset: 31 stops, each confirmed as an active raid Gym.",
+        "highlights": [
+          "Interactive Leaflet map of all 31 sponsored locations",
+          "Every stop community-verified as an active raid Gym",
+          "Geocoded for route planning, built with Python and Folium"
+        ],
+        "learned": "A small, verified dataset beats a big, stale one — curation is the product."
+      }
+    },
+    {
+      "id": "novacore",
+      "name": "Galaxy Royale",
+      "constellation": "apps",
+      "kind": "iPhone game",
+      "repo": "novacore",
+      "image": "images/novacore.webp",
+      "imageFit": "portrait",
+      "started": "2026-07-30",
+      "flagship": true,
+      "description": "A mobile 4X where one human fights 249 simulated commanders in a 2500×2500-tile galaxy that keeps living while you sleep.",
+      "stack": ["Unity 6", "C#", "Supabase"],
+      "caseStudy": {
+        "why": "A research question: could a mobile 4X go from a blank folder to running on my own iPhone, designed and redesigned conversationally with an AI coding assistant? The answer was yes — three times over.",
+        "highlights": [
+          "249 AI commanders that play by the same rules you do",
+          "One persistent galaxy that simulates a live MMO server, single-player",
+          "Three incarnations: a TypeScript prototype, an online Unity build, and this final form"
+        ],
+        "learned": "Started as Novacore and became Galaxy Royale — the rename is part of the story. Rough edges are part of the artifact."
+      }
+    },
+    {
+      "id": "smalltown-hustle",
+      "hidden": true,
+      "name": "Smalltown Hustle",
+      "constellation": "apps",
+      "kind": "Browser game",
+      "private": true,
+      "started": "2026-10-08",
+      "description": "A life-sim RPG in the spirit of the Flash era: one small city, a 24-hour day, and ambitions honest work can't afford.",
+      "stack": ["Phaser 4", "TypeScript", "Vite"],
+      "caseStudy": {
+        "why": "An original take on the Flash-era life RPGs, built so the whole economy can be tuned without touching code.",
+        "highlights": [
+          "Every tunable number — jobs, prices, rates — lives in one economy file",
+          "Seeded RNG that rolls at sleep, so reloading can't reroll the day",
+          "Work, study, gamble or smuggle your way to one of several endings"
+        ]
+      }
+    },
+    {
+      "id": "food-banker",
+      "hidden": true,
+      "name": "The Food Banker",
+      "constellation": "apps",
+      "kind": "iPhone game",
+      "private": true,
+      "started": "2026-09-30",
+      "description": "An operations sim about how a food bank moves food, money, people and data — and how it grows from one warehouse to a network.",
+      "stack": ["Unity 6", "C#", "iOS"],
+      "caseStudy": {
+        "why": "The day job, as a game: a cutaway food bank where every room only works with volunteers in it.",
+        "highlights": [
+          "Rooms from the dock to the pickup lane that run continuously",
+          "Grows from a warehouse to a distribution center, storefront and rural sites",
+          "Seasons and a yearly challenge in its legacy years"
+        ]
+      }
+    },
+    {
+      "id": "drafter",
+      "name": "Drafter",
+      "constellation": "apps",
+      "kind": "Web + iPhone app",
+      "private": true,
+      "started": "2026-08-29",
+      "flagship": true,
+      "description": "A household planner and journal — tasks, calendar, money, meals, people and a daily journal — shipped for web and iPhone in five weeks.",
+      "stack": ["TypeScript", "Supabase", "iOS", "MCP"],
+      "caseStudy": {
+        "why": "One app for running a home: tasks, calendar, money, meals, people, places, wardrobe and a journal — offline-first, shared with the household.",
+        "highlights": [
+          "Web and iPhone app shipped in five weeks",
+          "MCP server with ~47 tools, so AI assistants can work with your records — with the permissions you give them",
+          "LLM-powered Q&A over personal records; Google and Outlook calendar sync"
+        ],
+        "learned": "Local-first sync needs an honest conflict story — 'Keep mine' beats silently losing an edit."
+      }
+    },
+    {
+      "id": "remotejoy-audio",
+      "name": "RemoteJoy Audio",
+      "constellation": "tools",
+      "kind": "Homebrew",
+      "repo": "remotejoy-audio",
+      "started": "2026-08-19",
+      "flagship": true,
+      "description": "Stream a real PSP's screen and game audio to a Mac over one USB cable — the first PSP screen-streamer to carry audio.",
+      "stack": ["C", "PSP kernel plugin", "libretro"],
+      "caseStudy": {
+        "why": "Every PSP streaming tool carried video only; the standard advice was a 3.5 mm cable into a capture card. This captures the audio inside the PSP and sends it down the same USB cable.",
+        "highlights": [
+          "Kernel plugin hooks the PSP's audio output calls and mixes all 8 hardware channels at the right levels",
+          "Video and audio multiplexed over USB bulk transfers",
+          "libretro client in RetroArch, native on Apple Silicon"
+        ],
+        "learned": "Capturing one channel gives you part of a soundtrack — mixing every channel on a real-time timeline is what makes it sound right."
+      }
+    },
+    {
+      "id": "empire-earth",
+      "name": "Empire Earth on macOS",
+      "constellation": "tools",
+      "kind": "Mac port",
+      "repo": "Empire-Earth",
+      "started": "2026-09-17",
+      "description": "Run your own GOG copy of Empire Earth Gold on an Apple Silicon Mac, full screen, with free tools — and armies of up to 10,000 units.",
+      "stack": ["C", "Wine", "DXVK + MoltenVK"],
+      "caseStudy": {
+        "why": "A 2001 classic, playable on a modern Mac without CrossOver or Parallels.",
+        "highlights": [
+          "Full screen at native resolution, Cmd+Tab, and notch-aware layouts",
+          "~130 FPS in thousand-unit battles on an M2 Pro, with game maths moved to modern CPU instructions",
+          "Unit limit raised to 10,000, with drag-select that takes the whole box"
+        ]
+      }
+    },
+    {
+      "id": "icombo",
+      "name": "I-Combinator",
+      "constellation": "tools",
+      "kind": "Web app",
+      "url": "https://i-combinator.netlify.app/",
+      "repo": "I-Combinator",
+      "started": "2025-07-17",
+      "description": "Combine images side by side or stacked, without cropping — drag, drop, reorder, and export in your browser.",
+      "stack": ["Canvas API", "Drag & drop", "Vanilla JS"],
+      "caseStudy": {
+        "why": "Combining screenshots usually means opening an image editor for a ten-second job. I-Combinator does side-by-side or stacked combos in the browser — drag, drop, reorder, export.",
+        "highlights": [
+          "Canvas-based compositing with no cropping surprises",
+          "Drag-and-drop ordering with instant preview",
+          "Everything stays local — images never leave the machine"
+        ],
+        "learned": "The Canvas API is enough for a real image tool; the hard part is making layout behavior predictable."
+      }
+    },
+    {
+      "id": "edge-as-chrome",
+      "name": "Edge as Chrome",
+      "constellation": "tools",
+      "kind": "Browser extension",
+      "repo": "edge-as-chrome",
+      "started": "2026-10-01",
+      "description": "An Edge extension that makes Edge identify as Chrome on the sites you choose, so 'unsupported browser' messages go away.",
+      "stack": ["JavaScript", "Manifest V3"],
+      "caseStudy": {
+        "why": "Some sites refuse Edge for no reason other than its name.",
+        "highlights": [
+          "Rewrites the User-Agent header, Sec-CH-UA client hints and navigator values",
+          "Per-site: every other site still sees normal Edge",
+          "One click to turn it on for the current site"
+        ]
+      }
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "HomeTech Offer Analysis",
+      "constellation": "tools",
+      "kind": "Notebook",
+      "repo": "project-breadcrumbs",
+      "started": "2025-02-08",
+      "description": "Exploratory analysis of customer device ownership — and which probing questions actually lead to protection-plan sales.",
+      "stack": ["Python", "Pandas", "Jupyter"],
+      "caseStudy": {
+        "why": "Does the device a customer asks about predict the other devices they own — and which questions turn that into a protection-plan sale?",
+        "highlights": [
+          "EDA on a synthetic customer dataset",
+          "Device-ownership profiles, from customers with many devices to those with none",
+          "Compared probing questions by conversion rate"
+        ]
+      }
     }
-  },
-  {
-    "id": "blockwatch",
-    "name": "Blockwatch",
-    "url": "https://btcblockwatch.netlify.app/",
-    "description": "Live Bitcoin on-chain dashboard — market, network health, and sentiment, plus comparisons to gold and the national debt.",
-    "tags": ["Bitcoin", "Live Data"],
-    "stack": ["Chart.js", "CoinGecko API", "mempool.space"],
-    "caseStudy": {
-      "why": "One screen for the Bitcoin questions that used to take five tabs: price, network health, sentiment, and how it all stacks up against gold and the national debt.",
-      "highlights": [
-        "Live market and on-chain data from keyless public APIs (CoinGecko, mempool.space)",
-        "Comparisons that give the numbers scale — gold, the US national debt",
-        "Fails gracefully when any upstream API is down"
-      ],
-      "learned": "Building resilient dashboards on free, keyless APIs — caching, fallbacks, and honest handling when upstream data goes stale."
-    }
-  },
-  {
-    "id": "cashflow-comp",
-    "name": "Cashflow Compass",
-    "url": "https://cashflow-comp.netlify.app/",
-    "description": "See your financial future month by month, up to 3 years ahead — browser-only, with Excel round-trips.",
-    "tags": ["Finance", "Data Viz"],
-    "stack": ["Chart.js", "SheetJS", "Modular JS"],
-    "caseStudy": {
-      "why": "Spreadsheets can model your financial future, but they don’t show it. Cashflow Compass projects cashflow month by month, up to three years out — and keeps Excel round-trips working so nobody has to abandon their budget.",
-      "highlights": [
-        "36-month projection engine running entirely in the browser",
-        "Excel import and export via SheetJS — meet budgets where they already live",
-        "Projection engine kept separate from the UI, so features land cleanly"
-      ],
-      "learned": "Separating the engine from the interface paid for itself with every feature added afterward."
-    }
-  },
-  {
-    "id": "chronoticker",
-    "name": "Chronoticker",
-    "url": "https://chronoticker.netlify.app/",
-    "description": "Stock portfolio backtester — simulate any allocation against the S&P 500 with rebalancing & DCA.",
-    "tags": ["Markets", "Backtesting"],
-    "stack": ["Chart.js", "Vanilla JS"],
-    "caseStudy": {
-      "why": "Would that allocation have beaten the S&P 500? Chronoticker replays portfolio allocations against real history — with rebalancing and dollar-cost averaging — so the answer is a simulation, not a hunch.",
-      "highlights": [
-        "Backtests any allocation against the S&P 500",
-        "Models rebalancing strategies and DCA schedules",
-        "Charts the full growth path, not just the end number"
-      ],
-      "learned": "Financial simulations live or die on edge cases — contribution timing and rebalance rules matter more than they look."
-    }
-  },
-  {
-    "id": "calculat-bur",
-    "name": "Calculat-Bur",
-    "url": "https://calculat-bur.netlify.app/",
-    "description": "Convert BTC to USD at live prices, then re-price that holding from $50K to $1M — arithmetic, not forecasts.",
-    "tags": ["Bitcoin", "Calculator"],
-    "stack": ["Chart.js", "CoinGecko API"],
-    "caseStudy": {
-      "why": "A conversation-settler: what is this BTC holding worth right now, and what would it be worth at $50K to $1M per coin? Arithmetic at live prices — deliberately not forecasts.",
-      "highlights": [
-        "Live BTC pricing via the keyless CoinGecko API",
-        "Re-prices a holding across a $50K–$1M range instantly",
-        "Forecast-free on purpose: it’s a calculator, not a crystal ball"
-      ],
-      "learned": "Scoping a tool down to one honest job makes it more trustworthy — and somehow more useful."
-    }
-  },
-  {
-    "id": "dca",
-    "name": "DCA Analysis",
-    "url": "https://dca-btc-with-me.netlify.app/",
-    "description": "Dollar Cost Averaging, replayed on real Bitcoin prices — drag the start date and watch the average cost move.",
-    "tags": ["Bitcoin", "Markets", "Investing"],
-    "stack": ["Chart.js", "Vanilla JS"],
-    "caseStudy": {
-      "why": "Dollar-cost averaging is easy to preach and hard to picture. DCA Analysis replays a real DCA plan against Bitcoin's own price history and shows exactly what would have happened.",
-      "highlights": [
-        "Replays DCA schedules against real historical prices",
-        "Drag the start date and watch the average cost move",
-        "Honest accounting: totals, cost basis, and the rough patches too"
-      ],
-      "learned": "A replay of history persuades people in a way projections never do."
-    }
-  },
-  {
-    "id": "project401k",
-    "name": "Project 401k",
-    "url": "https://project401k.netlify.app/",
-    "description": "401(k)-style dollar cost averaging into the S&P 500 — SPY closes, employer match, dividends reinvested.",
-    "tags": ["Markets", "Investing", "Retirement"],
-    "stack": ["Chart.js", "Vanilla JS"],
-    "caseStudy": {
-      "why": "A payroll contribution is the most common investment plan there is, and the hardest to picture. Project 401k replays one against SPY's real closes — your contribution, the employer match, dividends reinvested — and shows what the account would actually be worth.",
-      "highlights": [
-        "Replays contribution schedules against SPY closes back to 1993",
-        "Counts the employer match separately from your own money",
-        "Reinvests dividends and shows the shares they bought"
-      ],
-      "learned": "Leaving dividends out understated a 26-year plan by $165,790 — the honest version needed the data, not a footnote."
-    }
-  },
-  {
-    "id": "degen",
-    "name": "Sundance DeGen",
-    "url": "https://sundance-dgen.netlify.app/",
-    "description": "Turn a month's Pokémon GO schedule into copy-ready Campfire meetup posts — artwork, catch CP, and shiny status filled in.",
-    "tags": ["Pokémon GO", "Generator"],
-    "stack": ["Vanilla JS", "Templating"],
-    "caseStudy": {
-      "why": "Writing Campfire meetup posts for a month of Pokémon GO events is repetitive community work. DeGen turns the schedule into copy-ready posts — artwork, catch CP, and shiny status filled in automatically.",
-      "highlights": [
-        "Generates a month of meetup posts from the event schedule",
-        "Auto-fills artwork, catch CP, and shiny availability",
-        "Output formatted and ready to paste into Campfire"
-      ],
-      "learned": "Automating the boring 20% of community organizing keeps the fun 80% sustainable."
-    }
-  },
-  {
-    "id": "mickeys",
-    "name": "MickeyDeez Map",
-    "url": "https://phoenix-mickydeez.netlify.app/",
-    "description": "A crowdsourced map of Phoenix's Pokémon GO–sponsored McDonald's — 31 stops, each verified as an active raid Gym.",
-    "tags": ["Pokémon GO", "Maps"],
-    "stack": ["Leaflet", "Crowdsourced data"],
-    "caseStudy": {
-      "why": "Phoenix’s McDonald’s-sponsored PokéStops were scattered folklore. This map makes them a verified dataset: 31 stops, each confirmed as an active raid Gym.",
-      "highlights": [
-        "Interactive Leaflet map of all 31 sponsored locations",
-        "Every stop community-verified as an active raid Gym",
-        "Crowdsourced updates keep the dataset honest"
-      ],
-      "learned": "A small, verified dataset beats a big, stale one — curation is the product."
-    }
-  }
-]
+  ]
+}
