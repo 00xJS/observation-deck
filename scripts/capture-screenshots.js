@@ -31,7 +31,10 @@ async function captureScreenshots() {
     try {
       console.log(`Capturing: ${project.id} (${project.url})`);
       const started = Date.now();
-      const response = await page.goto(project.url, { waitUntil: 'networkidle0', timeout: 30000 });
+      // A liveness-only check (project ships its own image) just needs the page to load;
+      // heavy apps like the map editor never go network-idle.
+      const waitUntil = project.image ? 'load' : 'networkidle0';
+      const response = await page.goto(project.url, { waitUntil, timeout: 30000 });
       const responseMs = Date.now() - started;
       await new Promise((r) => setTimeout(r, 2000));
 

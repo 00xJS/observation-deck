@@ -2,11 +2,10 @@
   "generatedAt": "2026-10-29T07:47:36.720Z",
   "projects": {
     "sr1-map-studio": {
-      "up": false,
-      "httpStatus": null,
-      "responseMs": null,
-      "capturedAt": "2026-10-29T07:48:06.795Z",
-      "error": "Navigation timeout of 30000 ms exceeded"
+      "up": true,
+      "httpStatus": 200,
+      "responseMs": 1225,
+      "capturedAt": "2026-10-29T08:25:24.741407Z"
     },
     "sr1-creator": {
       "up": true,
