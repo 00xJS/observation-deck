@@ -3,1149 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Observation Deck</title>
-    <meta name="description" content="Observation Deck — a fleet of live web tools by JS: market backtesting, Bitcoin dashboards, personal finance, and more. Built from a curious mind that loves to learn.">
-    <meta name="theme-color" content="#0a0d1c">
+    <title>Observation Deck — JS</title>
+    <meta name="description" content="Observation Deck — every project JS (00xJS) has built on one board: data and automation work, live market and Pokémon GO tools, Saints Row reverse engineering, games, retro ports and everyday tools.">
+    <meta name="theme-color" content="#0a0c0f">
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Observation Deck">
-    <meta property="og:title" content="Observation Deck">
-    <meta property="og:description" content="A fleet of live web tools, built from a curious mind that loves to learn.">
+    <meta property="og:title" content="Observation Deck — JS">
+    <meta property="og:description" content="Everything I've built, on one board — with live status for every site.">
     <meta property="og:url" content="https://observation-deck.netlify.app/">
-    <meta property="og:image" content="https://observation-deck.netlify.app/images/banner.png">
+    <meta property="og:image" content="https://observation-deck.netlify.app/images/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Observation Deck — everything I've built, on one board">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Observation Deck">
-    <meta name="twitter:description" content="A fleet of live web tools, built from a curious mind that loves to learn.">
-    <meta name="twitter:image" content="https://observation-deck.netlify.app/images/banner.png">
+    <meta name="twitter:title" content="Observation Deck — JS">
+    <meta name="twitter:description" content="Everything I've built, on one board — with live status for every site.">
+    <meta name="twitter:image" content="https://observation-deck.netlify.app/images/og.jpg">
     <link rel="canonical" href="https://observation-deck.netlify.app/">
-    <link rel="preload" as="image" href="images/banner.png" fetchpriority="high">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Observation Deck",
       "url": "https://observation-deck.netlify.app/",
-      "description": "A fleet of live web tools, built from a curious mind that loves to learn.",
+      "description": "Everything I've built, on one board — with live status for every site.",
       "author": { "@type": "Person", "name": "JS", "url": "https://github.com/00xJS" }
     }
     </script>
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             color-scheme: dark;    /* dark-only deck: native controls, scrollbars, form widgets follow */
 
-            --bg: #0a0d1c;
-            --bg-raised: #10142e;
-            --card: #12163a;
-            --card-chrome: #0c0f26;
-            --border: rgba(255, 255, 255, 0.09);
-            --border-hover: rgba(255, 154, 68, 0.55);
-            --text: #e8eaf6;
-            --muted: #9ba1c5;
-            --faint: #7b81aa;      /* 5.12:1 on --bg, 4.63:1 on --card — clears AA for small text */
-            --accent: #ff9a44;
-            --accent-deep: #e8792b;
-            --magenta: #c23e8c;
-            --live: #3ddc84;
-            --warn: #ffc24b;
-            --down: #ff6b6b;
-            --tag-bg: rgba(255, 154, 68, 0.10);
-            --tag-text: #ffb877;
-            --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
-            --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+            --bg: #0a0c0f;
+            --panel: #111419;
+            --panel-2: #161a21;
+            --line: rgba(255, 255, 255, 0.07);
+            --line-2: rgba(255, 255, 255, 0.14);
+            --text: #e9edf2;
+            --muted: #9aa4b2;
+            --faint: #7c8695;      /* 5:1 on --bg — clears AA for small text */
+            --accent: #c6f45b;
+            --live: #4ade80;
+            --warn: #fbbf24;
+            --down: #f87171;
+            --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+            --sans: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
         }
 
         * { box-sizing: border-box; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        body.locked { overflow: hidden; }
+        a { color: inherit; }
+        button { font-family: inherit; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        ::selection { background: var(--accent); color: var(--bg); }
 
-        html { scroll-behavior: smooth; }
+        .wrap { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
+        .skip-link { position: absolute; left: -9999px; top: 0; z-index: 50; padding: 8px 14px; background: var(--panel); color: var(--accent); border: 1px solid var(--line-2); border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
+        .skip-link:focus { left: 20px; top: 10px; }
 
-        /* Faint ambient glow behind everything */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background:
-                radial-gradient(900px 480px at 15% -10%, rgba(232, 121, 43, 0.10), transparent 60%),
-                radial-gradient(800px 480px at 90% 0%, rgba(194, 62, 140, 0.09), transparent 60%);
-            pointer-events: none;
-        }
+        /* ---------- Top bar ---------- */
 
-        ::selection { background: var(--accent-deep); color: var(--bg); }
-
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-            border-radius: 4px;
-        }
-
-        .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 28px 20px 40px;
-        }
-
-        .skip-link {
-            position: absolute;
-            left: -9999px;
-            top: 0;
-            z-index: 10;
-            padding: 8px 14px;
-            background: var(--card);
-            color: var(--accent);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            left: 20px;
-            top: 12px;
-        }
+        .bar { border-bottom: 1px solid var(--line); background: rgba(10, 12, 15, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+        .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 52px; gap: 12px; }
+        .logo { font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; }
+        .logo b { color: var(--accent); }
+        .sys { font-family: var(--mono); font-size: 11.5px; color: var(--muted); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); flex: none; }
+        .pulse.ok { background: var(--live); box-shadow: 0 0 10px var(--live); animation: pulse 2s infinite; }
+        .pulse.warn { background: var(--warn); box-shadow: 0 0 10px var(--warn); animation: pulse 2s infinite; }
+        @keyframes pulse { 50% { opacity: 0.35; } }
 
         /* ---------- Header ---------- */
 
-        .hero {
-            position: relative;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-
-        .hero img.banner {
-            display: block;
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .hero .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(10, 13, 28, 0.35) 0%, rgba(10, 13, 28, 0.72) 78%, rgba(10, 13, 28, 0.88) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .hero h1 {
-            margin: 0;
-            color: #ffffff;
-            font-size: clamp(26px, 5vw, 42px);
-            font-weight: 275;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
-        }
-
-        .hero .tagline {
-            margin: 10px 0 0;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: clamp(13px, 2.2vw, 15px);
-            font-weight: 400;
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-            max-width: 560px;
-        }
-
-        /* ---------- Status strip ---------- */
-
-        .status-strip {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 18px 0 0;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 12px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            background: var(--bg-raised);
-            color: var(--muted);
-            white-space: nowrap;
-        }
-
-        .chip .dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--faint);
-            flex: none;
-        }
-
-        .chip.ok .dot { background: var(--live); box-shadow: 0 0 8px var(--live); }
-        .chip.ok { color: var(--live); }
-        .chip.warn .dot { background: var(--warn); box-shadow: 0 0 8px var(--warn); }
-        .chip.warn { color: var(--warn); }
-        .chip.hidden { display: none; }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.35; }
-        }
-
-        .chip.ok .dot, .chip.warn .dot { animation: pulse 2.4s ease-in-out infinite; }
-
-        /* ---------- Intro ---------- */
-
-        .intro {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            margin: 26px 0 34px;
-            padding: 18px 22px;
-            background: var(--bg-raised);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-        }
-
-        .intro-copy {
-            margin: 0;
-            font-size: 14.5px;
-            color: var(--muted);
-            max-width: 720px;
-        }
-
-        .intro-copy strong { color: var(--text); font-weight: 600; }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 9px 18px;
-            border-radius: 999px;
-            border: 1px solid transparent;
-            font-size: 13.5px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-            background: var(--accent);
-            color: #1a1005;
-        }
-
-        .btn:hover { background: var(--accent-deep); }
-
-        .btn.ghost {
-            background: transparent;
-            border-color: var(--border);
-            color: var(--accent);
-        }
-
-        .btn.ghost:hover { border-color: var(--border-hover); color: var(--tag-text); }
-
-        /* ---------- Section labels ---------- */
-
-        .section-label {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--faint);
-            margin: 0 0 12px;
-        }
-
-        .section-label .accent { color: var(--accent); }
-
-        /* ---------- Featured project ---------- */
-
-        .featured-card {
-            display: grid;
-            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow);
-            opacity: 0;
-            transform: translateY(14px);
-            animation: rise 0.5s ease forwards;
-        }
-
-        .featured-card .visual { display: flex; flex-direction: column; border-right: 1px solid var(--border); }
-
-        /* Absolutely-positioned fill: the image must not contribute intrinsic height,
-           or it inflates the grid row to the screenshot's natural size. */
-        .featured-card .shot { border-bottom: none; flex: 1; position: relative; min-height: 300px; }
-
-        .featured-card .shot a { display: block; position: absolute; inset: 0; }
-
-        .featured-card .shot img {
-            width: 100%;
-            height: 100%;
-            aspect-ratio: auto;
-            object-fit: cover;
-            object-position: top center;
-        }
-
-        .featured-card .shot a:hover img { transform: scale(1.02); }
-
-        .featured-body {
-            padding: 22px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .featured-body h2 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 650;
-            letter-spacing: 0.01em;
-        }
-
-        .featured-body .why {
-            margin: 0;
-            font-size: 14px;
-            color: var(--muted);
-        }
-
-        .highlights {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-        .highlights li {
-            font-size: 13px;
-            color: var(--muted);
-            padding-left: 22px;
-            position: relative;
-        }
-
-        .highlights li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--live);
-            font-weight: 700;
-        }
-
-        .featured-foot {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: auto;
-            padding-top: 6px;
-            flex-wrap: wrap;
-        }
-
-        /* ---------- Filter bar ---------- */
-
-        .fleet-head {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .filter-chip {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            padding: 6px 13px;
-            border-radius: 999px;
-            border: 1px solid var(--border);
-            background: var(--bg-raised);
-            color: var(--muted);
-            cursor: pointer;
-            transition: border-color 0.18s ease, color 0.18s ease;
-        }
-
-        .filter-chip:hover { border-color: var(--border-hover); color: var(--text); }
-
-        .filter-chip[aria-pressed="true"] {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--tag-bg);
-        }
-
-        .filter-chip .count { color: var(--faint); margin-left: 4px; }
-        .filter-chip[aria-pressed="true"] .count { color: var(--tag-text); }
-
-        /* ---------- Project grid ---------- */
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 22px;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            color: inherit;
-            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-            opacity: 0;
-            transform: translateY(14px);
-            animation: rise 0.5s ease forwards;
-        }
-
-        .card.filtered-out { display: none; }
-
-        @keyframes rise {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow);
-        }
-
-        /* Browser chrome bar */
-        .chrome {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            background: var(--card-chrome);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .chrome .dots { display: flex; gap: 5px; flex: none; }
-
-        .chrome .dots span {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            display: block;
-            opacity: 0.85;
-        }
-
-        .chrome .dots span:nth-child(1) { background: #ff5f57; }
-        .chrome .dots span:nth-child(2) { background: #febc2e; }
-        .chrome .dots span:nth-child(3) { background: #28c840; }
-
-        .chrome .domain {
-            font-family: var(--font-mono);
-            font-size: 10.5px;
-            color: var(--faint);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .shot {
-            overflow: hidden;
-            border-bottom: 1px solid var(--border);
-            background: var(--card-chrome);
-        }
-
-        .shot img {
-            display: block;
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 10;
-            object-fit: cover;
-            object-position: top center;
-            transition: transform 0.35s ease;
-        }
-
-        .shot a { display: block; }
-
-        .card:hover .shot img { transform: scale(1.03); }
-
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 14px 16px 16px;
-            gap: 8px;
-        }
-
-        .title-row {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .title-row h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
-
-        .title-row h3 a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .title-row h3 a:hover { color: var(--tag-text); }
-
-        .live-badge {
-            font-family: var(--font-mono);
-            font-size: 9.5px;
-            letter-spacing: 0.1em;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--live);
-            flex: none;
-        }
-
-        .live-badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--live);
-            box-shadow: 0 0 6px var(--live);
-            animation: pulse 2.4s ease-in-out infinite;
-        }
-
-        .live-badge.down { color: var(--down); }
-        .live-badge.down .dot { background: var(--down); box-shadow: 0 0 6px var(--down); animation: none; }
-        .live-badge.unknown { display: none; }
-
-        .card-body > p {
-            margin: 0;
-            font-size: 13px;
-            color: var(--muted);
-            flex: 1;
-        }
-
-        /* Ops stats line (from status.json) */
-        .ops {
-            font-family: var(--font-mono);
-            font-size: 10.5px;
-            letter-spacing: 0.04em;
-            color: var(--faint);
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .ops .ok { color: var(--live); }
-        .ops .slow { color: var(--warn); }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-        .tag {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            letter-spacing: 0.05em;
-            padding: 3px 9px;
-            border-radius: 999px;
-            background: var(--tag-bg);
-            color: var(--tag-text);
-            border: 1px solid transparent;
-        }
-
-        .tag.stack {
-            background: transparent;
-            border-color: var(--border);
-            color: var(--muted);
-        }
-
-        .card-foot {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 4px;
-        }
-
-        .case-btn {
-            font-size: 12.5px;
-            font-weight: 600;
-            font-family: inherit;
-            color: var(--muted);
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            padding: 5px 13px;
-            cursor: pointer;
-            transition: border-color 0.18s ease, color 0.18s ease;
-        }
-
-        .case-btn:hover { border-color: var(--border-hover); color: var(--accent); }
-
-        .visit {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent);
-            white-space: nowrap;
-            flex: none;
-            text-decoration: none;
-        }
-
-        .visit .arrow {
-            display: inline-block;
-            transition: transform 0.22s ease;
-        }
-
-        .visit:hover { color: var(--accent-deep); }
-        .visit:hover .arrow { transform: translate(2px, -2px); }
-
-        .grid-note {
-            text-align: center;
-            color: var(--faint);
-            font-size: 13px;
-            padding: 30px 0;
-        }
-
-        /* ---------- Case study dialog ---------- */
-
-        dialog.case {
-            padding: 0;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: var(--card);
-            color: var(--text);
-            max-width: 680px;
-            width: calc(100% - 32px);
-            max-height: calc(100vh - 64px);
-            overflow: auto;
-            box-shadow: var(--shadow);
-        }
-
-        dialog.case::backdrop {
-            background: rgba(5, 7, 16, 0.72);
-            backdrop-filter: blur(5px);
-        }
-
-        .case-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 10px 14px;
-            background: var(--card-chrome);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .case-head .domain {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--faint);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .case-close {
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1;
-            padding: 5px 9px;
-            cursor: pointer;
-            flex: none;
-            transition: border-color 0.18s ease, color 0.18s ease;
-        }
-
-        .case-close:hover { border-color: var(--border-hover); color: var(--text); }
-
-        .case-shot img {
-            display: block;
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            object-position: top center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .case-body {
-            padding: 18px 22px 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .case-body .title-row h2 { margin: 0; font-size: 21px; font-weight: 650; }
-
-        .case-body h4 {
-            margin: 0 0 6px;
-            font-family: var(--font-mono);
-            font-size: 10.5px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--faint);
-            font-weight: 600;
-        }
-
-        .case-body p { margin: 0; font-size: 13.5px; color: var(--muted); }
-
-        .case-body .learned { font-style: italic; }
-
-        .case-foot {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            flex-wrap: wrap;
-            padding-top: 4px;
-        }
+        header.intro { padding: 30px 0 18px; }
+        .who { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
+        header.intro h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
+        header.intro p.lede { margin: 6px 0 0; color: var(--muted); max-width: 640px; }
+
+        /* ---------- KPI tiles ---------- */
+
+        .kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+        .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+        .kpi .l { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+        .kpi .v { font-size: 26px; font-weight: 600; margin-top: 2px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .kpi .v.sm { font-size: 18px; padding-top: 5px; }
+        .kpi .v.ok { color: var(--live); }
+        .kpi .v.warn { color: var(--warn); }
+        .kpi .s { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .bars { display: flex; gap: 3px; height: 6px; margin-top: 8px; border-radius: 3px; overflow: hidden; }
+        .bars span { display: block; height: 100%; }
+
+        /* ---------- Controls ---------- */
+
+        .controls { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 22px 0 14px; }
+        .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+        .seg button { background: var(--panel); border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 6px 11px; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+        .seg button:hover { color: var(--text); border-color: var(--line-2); }
+        .seg button[aria-pressed="true"] { color: var(--bg); background: var(--accent); border-color: var(--accent); font-weight: 600; }
+        .seg .dot { width: 8px; height: 8px; border-radius: 2px; }
+        .seg .n { font-family: var(--mono); font-size: 11px; opacity: 0.7; }
+        .search { display: flex; gap: 8px; }
+        .search input, .search select { background: var(--panel); border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 7px 10px; font: inherit; font-size: 13px; }
+        .search input { width: 210px; }
+        .search input::placeholder { color: var(--faint); }
+
+        /* ---------- Bento grid ---------- */
+
+        .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 150px; grid-auto-flow: dense; gap: 10px; padding-bottom: 40px; }
+        .tile { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; text-align: left; color: inherit; padding: 0; transition: border-color 0.15s, transform 0.15s; min-width: 0; font-size: inherit; }
+        .tile:hover { border-color: var(--c); transform: translateY(-2px); }
+        .tile.big { grid-column: span 2; grid-row: span 2; }
+        .tile.tall { grid-row: span 2; }
+        .tile .img { flex: 1; min-height: 0; background: var(--panel-2); overflow: hidden; position: relative; }
+        .tile .img img, .tile .img svg { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.3s ease; }
+        .tile:hover .img img { transform: scale(1.03); }
+        .tile .img img.contain { object-fit: contain; object-position: center; }
+        .tile .meta { padding: 10px 12px 11px; display: flex; flex-direction: column; gap: 3px; }
+        .top { display: flex; justify-content: space-between; gap: 8px; align-items: center; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--faint); }
+        .cat { display: inline-flex; align-items: center; gap: 6px; color: var(--c); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cat::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--c); flex: none; }
+        .tile h3 { margin: 0; font-size: 15.5px; font-weight: 600; }
+        .tile.big h3 { font-size: 20px; }
+        .tile p { margin: 0; font-size: 12.5px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .tile.compact { justify-content: space-between; padding: 12px; border-left: 3px solid var(--c); }
+        .tile.compact .meta { padding: 0; }
+        .tile.compact p { -webkit-line-clamp: 3; }
+        .st { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+        .st::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .st.live { color: var(--live); }
+        .st.down { color: var(--down); }
+        .st.priv { color: #b39dff; }
+        .st.work { color: #fdba74; }
+        .st.oss { color: var(--muted); }
+        .empty { grid-column: 1 / -1; color: var(--faint); text-align: center; padding: 40px 0; font-family: var(--mono); font-size: 13px; }
+
+        /* ---------- Drawer ---------- */
+
+        .scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 30; }
+        .scrim.on { opacity: 1; pointer-events: auto; }
+        .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(480px, 100%); background: var(--panel); border-left: 1px solid var(--line-2); z-index: 31; transform: translateX(100%); visibility: hidden; transition: transform 0.25s ease, visibility 0s 0.25s; overflow-y: auto; }
+        .drawer.on { transform: none; visibility: visible; transition: transform 0.25s ease; }
+        .drawer .head { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; background: var(--panel); border-bottom: 1px solid var(--line); z-index: 1; font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+        .drawer .head span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .drawer .x { background: none; border: 1px solid var(--line-2); color: var(--muted); border-radius: 6px; padding: 3px 9px; cursor: pointer; font-family: var(--mono); font-size: 11.5px; flex: none; }
+        .drawer .x:hover { color: var(--text); border-color: var(--accent); }
+        .drawer .shot { aspect-ratio: 16 / 10; background: var(--panel-2); }
+        .drawer .shot img, .drawer .shot svg { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+        .drawer .shot img.contain { object-fit: contain; }
+        .drawer .body { padding: 16px 18px 26px; display: flex; flex-direction: column; gap: 14px; }
+        .drawer .top { font-size: 11px; color: var(--c); letter-spacing: 0.08em; }
+        .drawer h2 { margin: 2px 0 0; font-size: 22px; }
+        .drawer h4 { margin: 0 0 4px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+        .drawer p { margin: 0; color: var(--muted); font-size: 14px; }
+        .drawer ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13.5px; display: flex; flex-direction: column; gap: 5px; }
+        .drawer ul li::marker { color: var(--c); }
+        .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+        .fact { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-width: 0; }
+        .fact .l { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+        .fact .v { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip { font-family: var(--mono); font-size: 11px; border: 1px solid var(--line-2); border-radius: 6px; padding: 2px 8px; color: var(--muted); }
+        .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 600; text-decoration: none; background: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
+        .btn:hover { filter: brightness(1.08); }
+        .btn.ghost { background: transparent; color: var(--text); border-color: var(--line-2); }
+        .btn.ghost:hover { border-color: var(--accent); }
+        .note { font-size: 12.5px; color: var(--faint); }
 
         /* ---------- Footer ---------- */
 
-        .footer {
-            text-align: center;
-            margin-top: 36px;
-            padding-top: 18px;
-            border-top: 1px solid var(--border);
-            color: var(--faint);
-            font-size: 13px;
+        footer { border-top: 1px solid var(--line); padding: 18px 0 30px; color: var(--faint); font-size: 12.5px; font-family: var(--mono); }
+        footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+        footer a { color: var(--muted); }
+        footer a:hover { color: var(--accent); }
+
+        /* ---------- Small screens & motion ---------- */
+
+        @media (max-width: 1000px) {
+            .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .kpis .kpi:nth-child(n+4) { display: none; }
         }
-
-        .footer p { margin: 6px 0; }
-
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
+        @media (max-width: 720px) {
+            .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 140px; }
+            .search { width: 100%; }
+            .search input { flex: 1; width: auto; }
         }
-
-        .footer a:hover { color: var(--accent-deep); }
-
-        /* ---------- Motion & small screens ---------- */
-
-        /* Forced colors strips the hero's scrim and text-shadow but keeps the photo in
-           full color, leaving the title unreadable. Hide the photo, keep the hero box. */
-        @media (forced-colors: active) {
-            .hero img.banner { visibility: hidden; }
-            .hero .overlay { background: Canvas; }
-            .hero h1,
-            .hero .tagline { color: CanvasText; text-shadow: none; }
+        @media (max-width: 480px) {
+            .wrap { padding: 0 16px; }
+            .grid { grid-template-columns: 1fr; }
+            .tile.big { grid-column: span 1; }
+            .kpi { padding: 10px; }
+            .kpi .v { font-size: 20px; }
+            .kpi .s { display: none; }
+            .sys .txt { display: none; }
         }
-
         @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            .card, .featured-card { animation: none; opacity: 1; transform: none; }
-            .chip .dot, .live-badge .dot { animation: none !important; }
-            .card:hover { transform: none; }
-            .card:hover .shot img, .featured-card .shot a:hover img { transform: none; }
-        }
-
-        @media (max-width: 840px) {
-            .featured-card { grid-template-columns: 1fr; }
-            .featured-card .visual { border-right: none; border-bottom: 1px solid var(--border); }
-            .featured-card .shot { position: static; min-height: 0; flex: none; }
-            .featured-card .shot a { position: static; }
-            .featured-card .shot img { aspect-ratio: 16 / 9; height: auto; }
-            .intro { flex-direction: column; align-items: flex-start; gap: 14px; }
-        }
-
-        @media (max-width: 600px) {
-            .wrap { padding: 14px 12px 28px; }
-            .hero img.banner { height: 170px; }
-            .grid { gap: 16px; }
+            .pulse.ok, .pulse.warn { animation: none; }
+            .tile:hover, .tile:hover .img img { transform: none; }
+            .drawer, .drawer.on, .scrim { transition: none; }
         }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#grid">Skip to projects</a>
+
+    <div class="bar">
+        <div class="wrap">
+            <a class="logo" href="#">🔭 OBSERVATION <b>/</b> DECK</a>
+            <div class="sys" role="status"><span class="pulse" id="sysDot"></span><span class="txt" id="sysText">checking systems…</span></div>
+        </div>
+    </div>
+
     <div class="wrap">
-        <a class="skip-link" href="#grid">Skip to projects</a>
-        <header>
-            <div class="hero">
-                <img src="images/banner.png" alt="" class="banner">
-                <div class="overlay">
-                    <h1>Observation Deck</h1>
-                    <p class="tagline">A fleet of live web tools, built from a curious mind that loves to learn.</p>
-                </div>
-            </div>
-            <div class="status-strip" id="statusStrip">
-                <span class="chip" id="chipProjects"><span class="dot"></span><span>— projects</span></span>
-                <span class="chip" id="chipSystems"><span class="dot"></span><span>systems check…</span></span>
-                <span class="chip hidden" id="chipScan"><span class="dot"></span><span></span></span>
-            </div>
-            <section class="intro" aria-label="About">
-                <p class="intro-copy"><strong>Data beats hunches</strong> — every tool below backtests real history, watches a live feed, or charts a real export.</p>
-                <a class="btn ghost" href="https://github.com/00xJS" rel="me">GitHub <span aria-hidden="true">&#8599;</span></a>
-            </section>
+        <header class="intro">
+            <p class="who" id="who">JS · 00xJS</p>
+            <h1>Everything I've built, on one board.</h1>
+            <p class="lede">Data work by day, web tools and reverse engineering by night. Filter by interest, search by stack, and click any tile for the story behind it.</p>
         </header>
 
-        <main>
-            <section id="featured" aria-label="Featured project"></section>
+        <section class="kpis" id="kpis" aria-label="Portfolio stats"></section>
 
-            <div class="fleet-head">
-                <h2 class="section-label" style="margin:0"><span class="accent">//</span> The fleet</h2>
-                <div class="filters" id="filters" role="group" aria-label="Filter projects by tag"></div>
+        <div class="controls">
+            <div class="seg" id="seg" role="group" aria-label="Filter by interest"></div>
+            <div class="search">
+                <input id="q" type="search" placeholder="Search name or stack…" aria-label="Search projects">
+                <select id="sort" aria-label="Sort projects">
+                    <option value="featured">Featured</option>
+                    <option value="newest">Newest</option>
+                    <option value="name">A–Z</option>
+                </select>
             </div>
+        </div>
 
-            <div class="grid" id="grid">
-                <noscript><p class="grid-note">Enable JavaScript to view the project deck, or browse the <a href="https://github.com/00xJS/observation-deck">source on GitHub</a>.</p></noscript>
-            </div>
+        <main class="grid" id="grid" aria-live="polite">
+            <noscript><p class="empty">Enable JavaScript to view the deck, or browse the <a href="https://github.com/00xJS">projects on GitHub</a>.</p></noscript>
         </main>
-
-        <dialog class="case" id="caseDialog" aria-labelledby="caseTitle">
-            <div class="case-head">
-                <span class="domain" id="caseDomain"></span>
-                <button class="case-close" id="caseClose" aria-label="Close case study">&#10005;</button>
-            </div>
-            <div class="case-shot"><img id="caseShot" src="" alt=""></div>
-            <div class="case-body">
-                <div class="title-row">
-                    <h2 id="caseTitle"></h2>
-                    <span class="live-badge" id="caseLive"><span class="dot"></span><span id="caseLiveText"></span></span>
-                </div>
-                <p class="ops" id="caseOps"></p>
-                <div>
-                    <h4>Why it exists</h4>
-                    <p id="caseWhy"></p>
-                </div>
-                <div>
-                    <h4>Highlights</h4>
-                    <ul class="highlights" id="caseHighlights"></ul>
-                </div>
-                <div>
-                    <h4>What it taught me</h4>
-                    <p class="learned" id="caseLearned"></p>
-                </div>
-                <div class="tags" id="caseTags"></div>
-                <div class="case-foot">
-                    <a class="btn" id="caseVisit" href="#" >Visit site <span aria-hidden="true">&#8599;</span></a>
-                </div>
-            </div>
-        </dialog>
-
-        <footer class="footer">
-            <p>JS &middot; <a href="https://github.com/00xJS">GitHub</a></p>
-            <p>Every screenshot and LIVE badge on this page refreshes weekly via an automated Puppeteer + GitHub Actions pipeline.</p>
-        </footer>
     </div>
+
+    <footer>
+        <div class="wrap">
+            <span>JS · <a href="https://github.com/00xJS" rel="me">GitHub</a></span>
+            <span>Screenshots, live status and repo stats refresh weekly via GitHub Actions</span>
+        </div>
+    </footer>
+
+    <div class="scrim" id="scrim"></div>
+    <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true" tabindex="-1"></aside>
 
     <script>
         const $ = (id) => document.getElementById(id);
+        const GH = 'https://github.com/00xJS/';
+        const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const load = (p) => fetch(p, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+        const rel = (iso) => {
+            if (!iso) return '';
+            const d = Math.floor((Date.now() - new Date(iso)) / 864e5);
+            return d <= 0 ? 'today' : d === 1 ? '1d ago' : d < 60 ? d + 'd ago' : Math.round(d / 30) + 'mo ago';
+        };
 
-        let PROJECTS = [];
-        let STATUS = null;
+        let D = null;          // projects.json
+        let S = null;          // status.json — liveness + response time, weekly
+        let G = null;          // github.json — stars + last push, weekly
+        const CAT = new Map();
+        const BY_ID = new Map();
+        let filter = 'all';
+        let lastTile = null;
 
-        function relTime(iso) {
-            if (!iso) return null;
-            const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
-            if (days <= 0) return 'today';
-            if (days === 1) return '1d ago';
-            return days + 'd ago';
+        const img = (p) => (p.image ? p.image : p.url ? 'images/' + p.id + '.webp' : null);
+        const stat = (p) => (p.url && S && S.projects ? S.projects[p.id] : null);
+        const repo = (p) => (p.repo && G && G.repos ? G.repos[p.repo] : null);
+
+        function status(p) {
+            if (p.work) return '';   // the At Work section label already says it
+            if (p.private) return '<span class="st priv">private</span>';
+            const s = stat(p);
+            if (s) return s.up ? '<span class="st live">live</span>' : '<span class="st down">down</span>';
+            return '<span class="st oss">open source</span>';
         }
 
-        function statFor(project) {
-            return STATUS && STATUS.projects ? STATUS.projects[project.id] : null;
-        }
-
-        function liveState(stat) {
-            if (!stat) return { cls: 'unknown', text: '' };
-            return stat.up ? { cls: '', text: 'LIVE' } : { cls: 'down', text: 'OFFLINE' };
-        }
-
-        /* Ops line: response time + last scan, from status.json */
-        function opsHTML(stat) {
-            if (!stat) return '';
-            const parts = [];
-            if (typeof stat.responseMs === 'number') {
-                const cls = stat.responseMs <= 2000 ? 'ok' : 'slow';
-                parts.push(`<span class="${cls}">&#9650; ${stat.responseMs} ms</span>`);
+        /* Stand-in visual for projects without a screenshot: a bar chart in the project's colour */
+        function chartSVG(p, color) {
+            let h = 7;
+            for (const ch of p.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+            const rnd = () => ((h = (h * 1103515245 + 12345) >>> 0) / 4294967296);
+            let bars = '';
+            for (let i = 0; i < 24; i++) {
+                const v = 20 + rnd() * 70 + i * 2;
+                bars += `<rect x="${12 + i * 16}" y="${190 - v}" width="10" height="${v}" rx="2" fill="${color}" opacity="${(0.35 + i / 40).toFixed(2)}"/>`;
             }
-            const when = relTime(stat.capturedAt);
-            if (when) parts.push(`<span>scanned ${when}</span>`);
-            return parts.join('');
+            return `<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <rect width="400" height="210" fill="#161a21"/>
+                ${[50, 90, 130, 170].map((y) => `<line x1="0" x2="400" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.06)"/>`).join('')}
+                ${bars}
+                <text x="200" y="28" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="${color}">${esc(p.kind.toUpperCase())}</text>
+            </svg>`;
         }
 
-        function tagSpans(container, topics, stack) {
-            (topics || []).forEach((t) => {
-                const s = document.createElement('span');
-                s.className = 'tag';
-                s.textContent = t;
-                container.appendChild(s);
-            });
-            (stack || []).forEach((t) => {
-                const s = document.createElement('span');
-                s.className = 'tag stack';
-                s.textContent = t;
-                container.appendChild(s);
-            });
+        /* Screenshot (or the chart if there is none / it fails to load) */
+        function visual(box, p, color, alt) {
+            const src = img(p);
+            if (!src) { box.innerHTML = chartSVG(p, color); return; }
+            box.innerHTML = `<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" class="${p.imageFit === 'portrait' ? 'contain' : ''}">`;
+            box.querySelector('img').addEventListener('error', () => { box.innerHTML = chartSVG(p, color); }, { once: true });
         }
 
-        /* ---------- Cards ---------- */
+        /* ---------- Tiles ---------- */
 
-        function renderCard(project, index) {
-            const stat = statFor(project);
-            const domain = new URL(project.url).hostname;
-            const live = liveState(stat);
-
-            const card = document.createElement('article');
-            card.className = 'card';
-            card.dataset.tags = (project.tags || []).join('|');
-            card.style.animationDelay = (index * 70) + 'ms';
-
-            card.innerHTML = `
-                <div class="chrome">
-                    <div class="dots"><span></span><span></span><span></span></div>
-                    <span class="domain">${domain}</span>
-                </div>
-                <div class="shot">
-                    <a href="${project.url}" aria-label="Visit ${project.name}" tabindex="-1">
-                        <img src="images/${project.id}.webp" alt="${project.name} preview" loading="lazy" width="1280" height="800">
-                    </a>
-                </div>
-                <div class="card-body">
-                    <div class="title-row">
-                        <h3><a href="${project.url}"></a></h3>
-                        <span class="live-badge ${live.cls}"><span class="dot"></span>${live.text}</span>
-                    </div>
-                    <p></p>
-                    <p class="ops">${opsHTML(stat)}</p>
-                    <div class="tags"></div>
-                    <div class="card-foot">
-                        <button class="case-btn" type="button">Case study</button>
-                        <a class="visit" href="${project.url}">Visit <span class="arrow" aria-hidden="true">&#8599;</span></a>
-                    </div>
-                </div>`;
-
-            card.querySelector('h3 a').textContent = project.name;
-            card.querySelector('.card-body > p').textContent = project.description;
-            tagSpans(card.querySelector('.tags'), project.tags, project.stack);
-            card.querySelector('.case-btn').addEventListener('click', () => openCase(project));
-            return card;
+        function tile(p) {
+            const c = CAT.get(p.constellation);
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.id = 'p-' + p.id;
+            b.style.setProperty('--c', c.color);
+            const size = p.flagship ? 'big' : img(p) ? 'tall' : 'compact';
+            b.className = 'tile ' + size;
+            const meta = `<div class="meta">
+                <div class="top"><span class="cat">${esc(c.name)}</span>${status(p)}</div>
+                <h3>${esc(p.name)}</h3>
+                <p>${esc(p.description)}</p>
+            </div>`;
+            if (size === 'compact') {
+                b.innerHTML = `${meta}<div class="top">${esc(p.kind)}</div>`;
+            } else {
+                b.innerHTML = `<div class="img"></div>${meta}`;
+                visual(b.querySelector('.img'), p, c.color, '');
+            }
+            b.addEventListener('click', () => openDrawer(p, b));
+            return b;
         }
 
-        /* ---------- Featured slot ---------- */
-
-        function renderFeatured(project) {
-            const stat = statFor(project);
-            const domain = new URL(project.url).hostname;
-            const live = liveState(stat);
-            const cs = project.caseStudy || {};
-
-            const el = document.createElement('article');
-            el.className = 'featured-card';
-            el.dataset.tags = (project.tags || []).join('|');
-
-            el.innerHTML = `
-                <div class="visual">
-                    <div class="chrome">
-                        <div class="dots"><span></span><span></span><span></span></div>
-                        <span class="domain">${domain}</span>
-                    </div>
-                    <div class="shot">
-                        <a href="${project.url}" aria-label="Visit ${project.name}">
-                            <img src="images/${project.id}.webp" alt="${project.name} preview" fetchpriority="high" width="1280" height="800">
-                        </a>
-                    </div>
-                </div>
-                <div class="featured-body">
-                    <p class="section-label" style="margin:0"><span class="accent">&#9733;</span> Flagship</p>
-                    <div class="title-row">
-                        <h2></h2>
-                        <span class="live-badge ${live.cls}"><span class="dot"></span>${live.text}</span>
-                    </div>
-                    <p class="ops">${opsHTML(stat)}</p>
-                    <p class="why"></p>
-                    <ul class="highlights"></ul>
-                    <div class="tags"></div>
-                    <div class="featured-foot">
-                        <a class="btn" href="${project.url}">Visit site <span aria-hidden="true">&#8599;</span></a>
-                        <button class="btn ghost case-btn-featured" type="button">Full case study</button>
-                    </div>
-                </div>`;
-
-            el.querySelector('h2').textContent = project.name;
-            el.querySelector('.why').textContent = cs.why || project.description;
-            const ul = el.querySelector('.highlights');
-            (cs.highlights || []).slice(0, 3).forEach((h) => {
-                const li = document.createElement('li');
-                li.textContent = h;
-                ul.appendChild(li);
-            });
-            tagSpans(el.querySelector('.tags'), project.tags, project.stack);
-            el.querySelector('.case-btn-featured').addEventListener('click', () => openCase(project));
-            return el;
+        function render() {
+            const q = $('q').value.trim().toLowerCase();
+            const sort = $('sort').value;
+            let list = D.projects
+                .filter((p) => filter === 'all' || p.constellation === filter)
+                .filter((p) => !q || [p.name, p.description, p.kind, ...(p.stack || [])].join(' ').toLowerCase().includes(q));
+            if (sort === 'newest') list = [...list].sort((a, b) => (b.started || '').localeCompare(a.started || ''));
+            if (sort === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+            const grid = $('grid');
+            grid.innerHTML = '';
+            list.forEach((p) => grid.appendChild(tile(p)));
+            if (!list.length) grid.innerHTML = '<p class="empty">No projects match that search.</p>';
         }
 
-        /* ---------- Tag filtering ---------- */
+        /* ---------- KPIs + system status ---------- */
 
-        let activeFilter = 'All';
+        function kpis() {
+            const P = D.projects;
+            const sites = P.filter((p) => p.url);
+            const checked = sites.filter(stat);
+            const up = checked.filter((p) => stat(p).up).length;
+            const allUp = checked.length > 0 && up === checked.length;
+            const pushed = P.filter(repo).sort((a, b) => repo(b).pushedAt.localeCompare(repo(a).pushedAt))[0];
+            // Live count from github.json when the weekly sync has one; the manifest's figure otherwise
+            const live = G && G.commits && G.commits.year === new Date().getFullYear() ? G.commits : null;
+            const commits = live
+                ? { value: live.total.toLocaleString('en-US'), scope: live.scope }
+                : (D.profile.stats || []).find((s) => /commit/.test(s.label));
+            const bars = D.constellations.map((c) => {
+                const n = P.filter((p) => p.constellation === c.id).length;
+                return n ? `<span title="${esc(c.name)}: ${n}" style="flex:${n};background:${c.color}"></span>` : '';
+            }).join('');
 
-        function applyFilter() {
-            const match = (el) => activeFilter === 'All' || (el.dataset.tags || '').split('|').includes(activeFilter);
-            document.querySelectorAll('.card, .featured-card').forEach((el) => {
-                el.classList.toggle('filtered-out', !match(el));
-                if (el.classList.contains('featured-card')) {
-                    el.style.display = match(el) ? '' : 'none';
-                }
-            });
-            document.querySelectorAll('.filter-chip').forEach((b) => {
-                b.setAttribute('aria-pressed', String(b.dataset.tag === activeFilter));
-            });
+            $('kpis').innerHTML = `
+                <div class="kpi"><div class="l">Projects</div><div class="v">${P.length}</div><div class="bars" aria-hidden="true">${bars}</div></div>
+                <div class="kpi"><div class="l">Live sites</div><div class="v ${checked.length ? (allUp ? 'ok' : 'warn') : ''}">${checked.length ? `${up}/${sites.length}` : '—'}</div><div class="s">${S ? 'scanned ' + rel(S.generatedAt) : 'no scan yet'}</div></div>
+                <div class="kpi"><div class="l">Interests</div><div class="v">${D.constellations.length}</div><div class="s">from GIS to game engines</div></div>
+                <div class="kpi"><div class="l">${commits && commits.scope === 'public' ? 'Public commits' : 'Commits'} this year</div><div class="v">${esc(commits ? commits.value : '—')}</div></div>
+                <div class="kpi"><div class="l">Latest push</div><div class="v sm">${pushed ? esc(pushed.name) : '—'}</div><div class="s">${pushed ? rel(repo(pushed).pushedAt) : ''}</div></div>`;
+
+            if (checked.length) {
+                $('sysDot').classList.add(allUp ? 'ok' : 'warn');
+                $('sysText').textContent = `${allUp ? 'all systems live' : `${up}/${sites.length} sites live`} · scan ${rel(S.generatedAt)}`;
+            } else {
+                $('sysText').textContent = 'status unavailable';
+            }
         }
 
-        function renderFilters() {
-            const counts = new Map();
-            PROJECTS.forEach((p) => (p.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
-            const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-
-            const bar = $('filters');
-            const mk = (tag, count) => {
+        function seg() {
+            const box = $('seg');
+            const mk = (id, label, n, color) => {
                 const b = document.createElement('button');
-                b.className = 'filter-chip';
                 b.type = 'button';
-                b.dataset.tag = tag;
-                b.setAttribute('aria-pressed', String(tag === activeFilter));
-                b.textContent = tag;
-                const c = document.createElement('span');
-                c.className = 'count';
-                c.textContent = count;
-                b.appendChild(c);
+                b.dataset.id = id;
+                b.setAttribute('aria-pressed', String(id === filter));
+                b.innerHTML = `${color ? `<span class="dot" style="background:${color}"></span>` : ''}${esc(label)} <span class="n">${n}</span>`;
                 b.addEventListener('click', () => {
-                    activeFilter = (activeFilter === tag) ? 'All' : tag;
-                    applyFilter();
+                    filter = id;
+                    box.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.id === id)));
+                    render();
                 });
-                bar.appendChild(b);
+                box.appendChild(b);
             };
-            mk('All', PROJECTS.length);
-            tags.forEach(([t, n]) => mk(t, n));
-        }
-
-        /* ---------- Case study dialog ---------- */
-
-        const dialog = $('caseDialog');
-
-        function openCase(project) {
-            const stat = statFor(project);
-            const live = liveState(stat);
-            const cs = project.caseStudy || {};
-
-            $('caseDomain').textContent = new URL(project.url).hostname;
-            $('caseShot').src = 'images/' + project.id + '.webp';
-            $('caseShot').alt = project.name + ' preview';
-            $('caseTitle').textContent = project.name;
-            const badge = $('caseLive');
-            badge.className = 'live-badge ' + live.cls;
-            $('caseLiveText').textContent = live.text;
-            $('caseOps').innerHTML = opsHTML(stat);
-            $('caseWhy').textContent = cs.why || project.description;
-            $('caseLearned').textContent = cs.learned || '';
-            $('caseLearned').parentElement.style.display = cs.learned ? '' : 'none';
-
-            const ul = $('caseHighlights');
-            ul.innerHTML = '';
-            (cs.highlights || []).forEach((h) => {
-                const li = document.createElement('li');
-                li.textContent = h;
-                ul.appendChild(li);
+            mk('all', 'All', D.projects.length);
+            D.constellations.forEach((c) => {
+                const n = D.projects.filter((p) => p.constellation === c.id).length;
+                if (n) mk(c.id, c.name, n, c.color);
             });
-            ul.parentElement.style.display = (cs.highlights || []).length ? '' : 'none';
-
-            const tags = $('caseTags');
-            tags.innerHTML = '';
-            tagSpans(tags, project.tags, project.stack);
-
-            $('caseVisit').href = project.url;
-            dialog.showModal();
         }
 
-        $('caseClose').addEventListener('click', () => dialog.close());
-        dialog.addEventListener('click', (e) => {
-            if (e.target === dialog) dialog.close();   /* backdrop click */
+        /* ---------- Drawer ---------- */
+
+        const drawer = $('drawer');
+
+        function openDrawer(p, from) {
+            const c = CAT.get(p.constellation);
+            const cs = p.caseStudy || {};
+            const s = stat(p), r = repo(p);
+            lastTile = from || null;
+
+            const facts = [['Kind', p.kind]];
+            if (s) facts.push(['Response', s.responseMs + ' ms']);
+            if (r) facts.push(['Last push', rel(r.pushedAt)]);
+            if (facts.length < 3 && r && r.stars) facts.push(['Stars', '★ ' + r.stars]);
+            if (facts.length < 3) facts.push(['Started', p.started ? p.started.slice(0, 7) : (p.work ? 'At work' : '—')]);
+            const where = p.url ? new URL(p.url).hostname : p.repo ? 'github.com/00xJS/' + p.repo : p.work ? p.work : 'private build';
+
+            drawer.style.setProperty('--c', c.color);
+            drawer.innerHTML = `
+                <div class="head"><span>${esc(where)}</span><button class="x" type="button" id="dx" aria-label="Close">esc ✕</button></div>
+                <div class="shot"></div>
+                <div class="body">
+                    <div><div class="top"><span>${esc(c.name)} · ${esc(c.subtitle)}</span>${status(p)}</div><h2 id="dTitle">${esc(p.name)}</h2></div>
+                    <div class="facts">${facts.slice(0, 3).map(([l, v]) => `<div class="fact"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('')}</div>
+                    <div><h4>Why it exists</h4><p>${esc(cs.why || p.description)}</p></div>
+                    ${(cs.highlights || []).length ? `<div><h4>Highlights</h4><ul>${cs.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul></div>` : ''}
+                    ${cs.learned ? `<div><h4>What it taught me</h4><p><em>${esc(cs.learned)}</em></p></div>` : ''}
+                    <div class="chips">${(p.stack || []).map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+                    <div class="actions">
+                        ${p.url ? `<a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">Open site ↗</a>` : ''}
+                        ${p.repo ? `<a class="btn ${p.url ? 'ghost' : ''}" href="${GH + esc(p.repo)}" target="_blank" rel="noopener">Source on GitHub ↗</a>` : ''}
+                        ${p.work ? `<span class="note">Internal project at ${esc(p.work)} — no public link.</span>` : p.private ? '<span class="note">Private repository — source isn\'t public.</span>' : ''}
+                    </div>
+                </div>`;
+            visual(drawer.querySelector('.shot'), p, c.color, p.name + ' screenshot');
+
+            drawer.classList.add('on');
+            drawer.setAttribute('aria-hidden', 'false');
+            $('scrim').classList.add('on');
+            document.body.classList.add('locked');
+            drawer.scrollTop = 0;
+            $('dx').addEventListener('click', closeDrawer);
+            $('dx').focus();
+            history.replaceState(null, '', '#p-' + p.id);
+        }
+
+        function closeDrawer() {
+            if (!drawer.classList.contains('on')) return;
+            drawer.classList.remove('on');
+            drawer.setAttribute('aria-hidden', 'true');
+            $('scrim').classList.remove('on');
+            document.body.classList.remove('locked');
+            history.replaceState(null, '', location.pathname + location.search);
+            if (lastTile && document.body.contains(lastTile)) lastTile.focus();
+        }
+
+        $('scrim').addEventListener('click', closeDrawer);
+        document.addEventListener('keydown', (e) => {
+            if (!drawer.classList.contains('on')) return;
+            if (e.key === 'Escape') { closeDrawer(); return; }
+            if (e.key === 'Tab') {
+                // Keep focus inside the open drawer
+                const f = [...drawer.querySelectorAll('a[href], button')];
+                if (!f.length) return;
+                const first = f[0], last = f[f.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
         });
+        $('q').addEventListener('input', render);
+        $('sort').addEventListener('change', render);
 
         /* ---------- Boot ---------- */
 
-        async function loadJSON(path) {
-            try {
-                const res = await fetch(path, { cache: 'no-cache' });
-                if (!res.ok) return null;
-                return await res.json();
-            } catch { return null; }
-        }
-
-        async function boot() {
-            const [projects, status] = await Promise.all([
-                loadJSON('projects.json'),
-                loadJSON('status.json'),
-            ]);
-
-            const grid = $('grid');
-
-            if (!projects) {
-                grid.innerHTML = '<p class="grid-note">Could not load the deck manifest. Browse the <a href="https://github.com/00xJS/observation-deck">source on GitHub</a> instead.</p>';
+        (async () => {
+            [D, S, G] = await Promise.all([load('projects.json'), load('status.json'), load('github.json')]);
+            if (!D || !Array.isArray(D.projects)) {
+                $('grid').innerHTML = '<p class="empty">Could not load the deck manifest. Browse the <a href="https://github.com/00xJS">projects on GitHub</a> instead.</p>';
                 return;
             }
+            D.projects = D.projects.filter((p) => !p.hidden);   // hidden: kept in the manifest, not shown
+            D.constellations.forEach((c) => CAT.set(c.id, c));
+            D.projects.forEach((p) => BY_ID.set(p.id, p));
+            if (D.profile) $('who').textContent = `${D.profile.name} · ${D.profile.handle}`;
 
-            PROJECTS = projects;
-            STATUS = status;
+            kpis();
+            seg();
+            render();
 
-            const featured = projects.find((p) => p.featured);
-            if (featured) $('featured').appendChild(renderFeatured(featured));
-
-            projects.filter((p) => !p.featured).forEach((p, i) => {
-                grid.appendChild(renderCard(p, i));
-            });
-
-            renderFilters();
-
-            // Status strip
-            $('chipProjects').querySelector('span:last-child').textContent = projects.length + ' projects';
-            $('chipProjects').classList.add('ok');
-
-            const sys = $('chipSystems');
-            if (status && status.projects) {
-                const states = projects.map((p) => status.projects[p.id]).filter(Boolean);
-                const up = states.filter((s) => s.up).length;
-                if (up === states.length && states.length > 0) {
-                    sys.classList.add('ok');
-                    sys.querySelector('span:last-child').textContent = 'all systems live';
-                } else {
-                    sys.classList.add('warn');
-                    sys.querySelector('span:last-child').textContent = up + '/' + states.length + ' systems live';
-                }
-                const when = relTime(status.generatedAt);
-                if (when) {
-                    const scan = $('chipScan');
-                    scan.classList.remove('hidden');
-                    scan.querySelector('span:last-child').textContent = 'last scan ' + when;
-                }
-            } else {
-                sys.classList.add('hidden');
-            }
-        }
-
-        boot();
+            // Deep link: #p-<id> opens that project
+            const m = location.hash.match(/^#p-(.+)$/);
+            if (m && BY_ID.has(m[1])) openDrawer(BY_ID.get(m[1]), $('p-' + m[1]));
+        })();
     </script>
 </body>
 </html>

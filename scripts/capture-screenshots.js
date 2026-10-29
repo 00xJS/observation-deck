@@ -4,7 +4,10 @@ const fs = require('fs');
 
 const ROOT = path.join(__dirname, '..');
 const IMAGES_DIR = path.join(ROOT, 'images');
-const projects = JSON.parse(fs.readFileSync(path.join(ROOT, 'projects.json'), 'utf8'));
+// Only projects with a live URL get checked. Those with their own `image` get a
+// liveness check but keep that image instead of a fresh screenshot.
+const projects = JSON.parse(fs.readFileSync(path.join(ROOT, 'projects.json'), 'utf8'))
+  .projects.filter((p) => p.url);
 
 async function captureScreenshots() {
   const browser = await puppeteer.launch({
@@ -33,15 +36,17 @@ async function captureScreenshots() {
       await new Promise((r) => setTimeout(r, 2000));
 
       const outputPath = path.join(IMAGES_DIR, `${project.id}.webp`);
-      await page.screenshot({ path: outputPath, type: 'webp', quality: 78, fullPage: false });
+      if (!project.image) {
+        await page.screenshot({ path: outputPath, type: 'webp', quality: 78, fullPage: false });
+      }
 
       status.projects[project.id] = {
-        up: response !== null && response.ok(),
+        up: response !== null && (response.ok() || response.status() === 304),  // 304: cached by an earlier page on the same host
         httpStatus: response ? response.status() : null,
         responseMs,
         capturedAt: new Date().toISOString(),
       };
-      console.log(`  Saved: ${outputPath} (${status.projects[project.id].httpStatus}, ${responseMs}ms)`);
+      console.log(`  ${project.image ? 'Checked' : 'Saved: ' + outputPath} (${status.projects[project.id].httpStatus}, ${responseMs}ms)`);
     } catch (err) {
       console.error(`  Error capturing ${project.id}: ${err.message}`);
       status.projects[project.id] = {

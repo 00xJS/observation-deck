@@ -2,7 +2,8 @@
   "name": "observation-deck",
   "private": true,
   "scripts": {
-    "screenshots": "node scripts/capture-screenshots.js"
+    "screenshots": "node scripts/capture-screenshots.js",
+    "github": "node scripts/sync-github.js"
   },
   "devDependencies": {
     "puppeteer": "^24.0.0"
