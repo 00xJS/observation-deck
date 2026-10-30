@@ -31,24 +31,23 @@ async function syncGithub() {
     }
   }
 
-  // Commits this year. The search only sees repos the token can read: with a
-  // personal STATS_TOKEN that includes private repos, with the Actions token only
-  // public ones. Compare against an anonymous search to label which it is.
-  const since = `${new Date().getUTCFullYear()}-01-01`;
-  const q = `search/commits?q=author:${OWNER}+committer-date:>=${since}&per_page=1`;
-  try {
-    const count = async (h) => {
-      const res = await fetch(`https://api.github.com/${q}`, { headers: h });
+  // Contributions in the last year: the same figure as the profile's graph. Private
+  // contributions are included because the profile shows them, so any token works
+  // (GraphQL just needs one).
+  if (headers.Authorization) {
+    try {
+      const query = `{ user(login: "${OWNER}") { contributionsCollection { contributionCalendar { totalContributions } } } }`;
+      const res = await fetch('https://api.github.com/graphql', { method: 'POST', headers, body: JSON.stringify({ query }) });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return (await res.json()).total_count;
-    };
-    const anon = { Accept: headers.Accept, 'User-Agent': headers['User-Agent'] };
-    const publicCount = await count(anon);
-    const total = headers.Authorization ? await count(headers) : publicCount;
-    out.commits = { year: Number(since.slice(0, 4)), total, scope: total > publicCount ? 'all' : 'public' };
-    console.log(`  commits since ${since}: ${total} (${out.commits.scope})`);
-  } catch (err) {
-    console.error(`  Error counting commits: ${err.message}`);
+      const body = await res.json();
+      if (body.errors) throw new Error(body.errors[0].message);
+      out.contributions = { total: body.data.user.contributionsCollection.contributionCalendar.totalContributions };
+      console.log(`  contributions in the last year: ${out.contributions.total}`);
+    } catch (err) {
+      console.error(`  Error counting contributions: ${err.message}`);
+    }
+  } else {
+    console.log('  no GITHUB_TOKEN, skipping contributions');
   }
 
   fs.writeFileSync(path.join(ROOT, 'github.json'), JSON.stringify(out, null, 2) + '\n');

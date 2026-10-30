@@ -367,10 +367,9 @@
             const allUp = checked.length > 0 && up === checked.length;
             const pushed = P.filter(repo).sort((a, b) => repo(b).pushedAt.localeCompare(repo(a).pushedAt))[0];
             // Live count from github.json when the weekly sync has one; the manifest's figure otherwise
-            const live = G && G.commits && G.commits.year === new Date().getFullYear() ? G.commits : null;
-            const commits = live
-                ? { value: live.total.toLocaleString('en-US'), scope: live.scope }
-                : (D.profile.stats || []).find((s) => /commit/.test(s.label));
+            const contrib = G && G.contributions
+                ? { value: G.contributions.total.toLocaleString('en-US') }
+                : (D.profile.stats || []).find((s) => /contribution/.test(s.label));
             const bars = D.constellations.map((c) => {
                 const n = P.filter((p) => p.constellation === c.id).length;
                 return n ? `<span title="${esc(c.name)}: ${n}" style="flex:${n};background:${c.color}"></span>` : '';
@@ -380,7 +379,7 @@
                 <div class="kpi"><div class="l">Projects</div><div class="v">${P.length}</div><div class="bars" aria-hidden="true">${bars}</div></div>
                 <div class="kpi"><div class="l">Live sites</div><div class="v ${checked.length ? (allUp ? 'ok' : 'warn') : ''}">${checked.length ? `${up}/${sites.length}` : '—'}</div><div class="s">${S ? 'scanned ' + rel(S.generatedAt) : 'no scan yet'}</div></div>
                 <div class="kpi"><div class="l">Interests</div><div class="v">${D.constellations.length}</div><div class="s">from GIS to game engines</div></div>
-                <div class="kpi"><div class="l">${commits && commits.scope === 'public' ? 'Public commits' : 'Commits'} this year</div><div class="v">${esc(commits ? commits.value : '—')}</div></div>
+                <div class="kpi"><div class="l">Contributions</div><div class="v">${esc(contrib ? contrib.value : '—')}</div><div class="s">in the last year</div></div>
                 <div class="kpi"><div class="l">Latest push</div><div class="v sm">${pushed ? esc(pushed.name) : '—'}</div><div class="s">${pushed ? rel(repo(pushed).pushedAt) : ''}</div></div>`;
 
             if (checked.length) {

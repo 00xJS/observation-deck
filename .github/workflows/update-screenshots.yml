@@ -24,7 +24,7 @@ jobs:
       - name: Sync repo stats
         run: npm run github
         env:
-          GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}   # STATS_TOKEN (optional, read-only PAT) lets the commit count include private repos
+          GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Commit updated screenshots and status
         run: |
