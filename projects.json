@@ -23,6 +23,13 @@
       "blurb": "The Saints Row (2006) engine, reverse-engineered into 48 research reports — then a map editor, a character creator, mods and a Mac port."
     },
     {
+      "id": "upstream",
+      "name": "Open Source",
+      "subtitle": "Contributions to other projects",
+      "color": "#8fa8ff",
+      "blurb": "Pull requests to other people's projects: co-op multiplayer for a Saints Row revival, and GPU and reliability fixes for a suite of open-source Rust creative apps."
+    },
+    {
       "id": "ledger",
       "name": "Markets & Finance",
       "subtitle": "Backtests, dashboards & calculators",
@@ -41,7 +48,7 @@
       "name": "Apps",
       "subtitle": "iPhone & web apps",
       "color": "#ff7eb6",
-      "blurb": "Full apps that run on an iPhone: a household planner shipped in five weeks, and a 4X strategy game against 249 AI commanders."
+      "blurb": "Full apps that run on an iPhone: a household planner that AI assistants can help run, and a 4X strategy game against 249 AI commanders."
     },
     {
       "id": "tools",
@@ -69,7 +76,7 @@
           "12-column SharePoint intake log: Arizona-time timestamps, response times, and a quality flag with manual override",
           "Power BI dashboard with 5 KPI cards and 8× daily scheduled refresh — manual email handling dropped to near zero"
         ],
-        "learned": "Deeply nested conditions broke the flow; flattening them to run in sequence made it both reliable and easier to explain to stakeholders."
+        "learned": "Simple beats clever. One long chain of nested conditions kept breaking; splitting it into plain steps made it reliable and easy to explain."
       }
     },
     {
@@ -126,7 +133,7 @@
           "Checked completeness: audited the sheet so every required field was filled and captured before UAT",
           "Fielded questions: point of contact after distribution for field values, data expectations and entry rules"
         ],
-        "learned": "Most migration risk is in definitions, not data — agreeing what a field means comes first."
+        "learned": "Before moving any data, everyone has to agree on what each field means. Most problems came from that, not from the data itself."
       }
     },
     {
@@ -146,7 +153,7 @@
           "Compared households served to pounds received to classify each partner as overserving, underserving or just right",
           "Interactive dashboard so stakeholders can explore the results themselves"
         ],
-        "learned": "The agency ID key was the unglamorous part — and the part that made every report joinable."
+        "learned": "Giving every agency one shared ID was the boring step, and it's what let two dozen separate reports line up."
       }
     },
     {
@@ -184,7 +191,7 @@
           "Met with Transportation to approve and confirm the changes",
           "Imported 1,200+ updates manually"
         ],
-        "learned": "Fixing data that several teams depend on takes agreement from each of them — the corrections only stuck because every rep and Transportation signed off."
+        "learned": "Data that several teams rely on only stays fixed when every team signs off on the change."
       }
     },
     {
@@ -203,6 +210,44 @@
           "Corrected stale records and added new agency sites across the 76,000-square-mile service area"
         ],
         "learned": "A public directory needs an owner — accuracy starts slipping the moment nobody's checking."
+      }
+    },
+    {
+      "id": "vivery-connector",
+      "name": "Vivery API Connector",
+      "constellation": "fieldwork",
+      "kind": "API integration",
+      "work": true,
+      "description": "The first direct connection to Vivery's API we'd ever set up. A flow on the free tier of Power Automate pulls an organization's full agency data on demand. It's now shared with Vivery to offer to partner food banks across the US.",
+      "stack": ["Power Automate", "Python", "Vivery API"],
+      "caseStudy": {
+        "why": "The food bank had used Vivery for years, but every audit started with manual exports. A direct API pull makes the whole network's agency data one click away, with no paid connectors.",
+        "highlights": [
+          "Built on the free tier of Power Automate, so any organization can run it at no cost",
+          "Pulls every agency's locations, distribution hours, programs, claimed status and other agency-level fields",
+          "Paired with a Python script that writes the same pull to a local folder, ready to audit",
+          "Handed both to the Vivery team to share with the food banking organizations they partner with nationwide"
+        ],
+        "learned": "When a tool is easy for someone else to run, it can help far more people than the team it was built for."
+      }
+    },
+    {
+      "id": "vivery-claims",
+      "name": "Vivery Claim Outreach",
+      "constellation": "fieldwork",
+      "kind": "API workflow automation",
+      "work": true,
+      "description": "Turned a weekly manual export-and-flyer job into a Friday automation. It finds unclaimed Vivery locations, matches each to its agency advocate in the ERP and emails them a ready-to-use outreach packet.",
+      "stack": ["Power Automate", "Vivery API", "NetSuite", "Outlook"],
+      "caseStudy": {
+        "why": "Vivery helps neighbors find the closest food pantry instead of driving to a distant one. It works best when each agency claims and manages its own listing. Chasing unclaimed listings used to be a manual job every week: export, filter, then make flyers for each advocate's caseload.",
+        "highlights": [
+          "Runs every Friday: pulls claim status from the Vivery API and checks it against ERP agency data to find the responsible advocate",
+          "Emails each advocate only their unclaimed locations, with phone, email and the claim link or code",
+          "Attaches a flyer customized to each location, explaining what Vivery is and why the food bank uses it",
+          "Monday and Wednesday check-ins track new claims, and locations started claiming within days of the first send"
+        ],
+        "learned": "Automating the report wasn't enough on its own. Sending each advocate only their own list is what got locations claimed."
       }
     },
     {
@@ -225,7 +270,7 @@
           "Walk-in rooms, real textures, photo-to-building and graffiti tagging",
           "Built on 48 research reports into the engine's formats"
         ],
-        "learned": "Reverse engineering is the slow part; once the formats are understood, a friendly editor is the fun part."
+        "learned": "Figuring out the game's file formats took the longest. Once that was done, building an easy editor on top was the fun part."
       }
     },
     {
@@ -246,7 +291,7 @@
           "Skin, hair and eye shaders ported from the game's own pixel shaders",
           "Photo fit: 478 face landmarks per photo solve one set of face sliders across several photos"
         ],
-        "learned": "Matching a 2006 renderer means mirroring its quirks exactly — including its load-time fix-ups."
+        "learned": "To make characters look right, I had to copy the old game's quirks exactly, even the odd fixes it makes while loading."
       }
     },
     {
@@ -337,6 +382,119 @@
       }
     },
     {
+      "id": "sr-coop",
+      "name": "Saints Reborn Co-op",
+      "constellation": "upstream",
+      "repo": "whompay/SaintsReborn",
+      "kind": "Multiplayer netcode",
+      "flagship": true,
+      "started": "2026-10",
+      "description": "Built co-op multiplayer for the Saints Reborn revival of Saints Row: one shared world, story missions every player can finish, and fixes for freezes found by reading the game's own machine code.",
+      "stack": ["C++", "Reverse engineering", "Networking", "Epic Online Services"],
+      "caseStudy": {
+        "about": "Saints Reborn is an unofficial Windows port of the original Saints Row, a 2006 open-world crime game that only ever came out on Xbox 360. The game's code is recompiled to run as a normal PC program, not an emulator, and players build it from their own disc. Co-op is a mod on top that lets friends play it together.",
+        "highlights": [
+          {"text": "Built the shared world: up to 8 players in one city, with a network protocol that turns away mismatched game versions when someone joins", "links": ["https://github.com/whompay/SaintsReborn/pull/38", "https://github.com/whompay/SaintsReborn/pull/56"]},
+          {"text": "Fixed players who joined a game getting stuck on a black loading screen after a story mission's opening cutscene, so missions now play through for everyone", "links": ["https://github.com/whompay/SaintsReborn/pull/41"]},
+          {"text": "Fixed whole-game freezes in busy sessions at shops and in fights, by tracing them through the game's disassembly to two deadlocks in how it draws character shadows and clothing", "links": ["https://github.com/whompay/SaintsReborn/pull/39", "https://github.com/whompay/SaintsReborn/pull/42"]},
+          "Five pull requests merged, about 36,000 lines added"
+        ]
+      }
+    },
+    {
+      "id": "photocraft",
+      "name": "PhotoCraft",
+      "constellation": "upstream",
+      "repo": "storytold/photocraft",
+      "kind": "GPU reliability",
+      "flagship": true,
+      "started": "2026-10",
+      "description": "Seven merged fixes to an open-source photo editor in Rust: it now survives losing the GPU without losing work, starts almost twice as fast on DX12, and draws correctly on AMD.",
+      "stack": ["Rust", "wgpu", "DX12", "Vulkan"],
+      "caseStudy": {
+        "about": "PhotoCraft is a free, open-source photo editor built from scratch in Rust, a clean-room take on Photoshop. It has layers, masks, adjustment layers, type, brushes and real PSD files, and it runs offline. With over 77,000 stars, it's one of the most-followed creative apps on GitHub. It's part of ArtCraft, a suite of open-source creative apps.",
+        "highlights": [
+          {"text": "Crash when the GPU disappears (for example, after a driver reset): it now saves unsaved work for recovery and closes cleanly", "links": ["https://github.com/storytold/photocraft/pull/6464"]},
+          {"text": "Slow start-up on Windows DX12: building the GPU pipelines in parallel cut start-up from 13.2 s to 7.3 s", "links": ["https://github.com/storytold/photocraft/pull/8118"]},
+          {"text": "Corrupted canvas on AMD graphics cards using Vulkan: small image levels are now redrawn whole after an edit", "links": ["https://github.com/storytold/photocraft/pull/6438"]},
+          {"text": "Retry GPU after an error now rebuilds the canvas without restarting the app", "links": ["https://github.com/storytold/photocraft/pull/6897"]},
+          {"text": "Smaller fixes: custom shortcuts on Page Up/Page Down work again, an Export As preset survives a damaged preset file, and a broken build", "links": ["https://github.com/storytold/photocraft/pull/6912", "https://github.com/storytold/photocraft/pull/7576", "https://github.com/storytold/photocraft/pull/6906"]}
+        ]
+      }
+    },
+    {
+      "id": "filmcraft",
+      "name": "FilmCraft",
+      "constellation": "upstream",
+      "repo": "storytold/filmcraft",
+      "kind": "Video editor fixes",
+      "started": "2026-10",
+      "description": "Fixes to an open-source video editor in Rust: color grading, timeline edits, export jobs and the automation API.",
+      "stack": ["Rust", "Color grading", "Automation API"],
+      "caseStudy": {
+        "about": "FilmCraft is a free, open-source video editor built from scratch in Rust, for editing, color and sound in the style of Premiere Pro. You cut clips on a timeline, grade color, add effects and export finished video, on Mac, Windows, Linux or in the browser. Scripts and AI assistants can drive it through an automation API.",
+        "highlights": [
+          {"text": "Color grading: lifting the shadows turned near-black areas into blue specks — fixed", "links": ["https://github.com/storytold/filmcraft/pull/2153"]},
+          {"text": "Timeline: moving a clip that was selected twice left one clip on two tracks; the move is now refused", "links": ["https://github.com/storytold/filmcraft/pull/2132"]},
+          {"text": "Automation API: applying an effect or starting an export now reports back what happened and where to follow the export", "links": ["https://github.com/storytold/filmcraft/pull/1841", "https://github.com/storytold/filmcraft/pull/2125"]}
+        ]
+      }
+    },
+    {
+      "id": "vectorcraft",
+      "name": "VectorCraft",
+      "constellation": "upstream",
+      "repo": "storytold/vectorcraft",
+      "kind": "Vector editor fixes",
+      "started": "2026-10",
+      "description": "Fixes to an open-source vector art tool in Rust: PDF export presets that keep their colors, PDF import that says what it left out, and copies with large images that stay off the clipboard as text.",
+      "stack": ["Rust", "PDF", "SVG"],
+      "caseStudy": {
+        "about": "VectorCraft is a free, open-source vector illustration app built from scratch in Rust, in the style of Illustrator. Designers use it for logos, illustrations and print work that scales to any size, then export to PDF and SVG. It runs on Mac, Windows, Linux and in the browser.",
+        "highlights": [
+          {"text": "PDF export: the Press Quality preset now converts colors to the document's CMYK while keeping their exact values for print", "links": ["https://github.com/storytold/vectorcraft/pull/3012"]},
+          {"text": "PDF import: tells you when invisible text in the file was left out, instead of dropping it silently", "links": ["https://github.com/storytold/vectorcraft/pull/2988"]},
+          {"text": "Copy and paste: copying artwork with a large image no longer dumps its whole SVG code onto the clipboard as text", "links": ["https://github.com/storytold/vectorcraft/pull/2575"]}
+        ]
+      }
+    },
+    {
+      "id": "effectcraft",
+      "name": "EffectCraft",
+      "constellation": "upstream",
+      "repo": "storytold/effectcraft",
+      "kind": "GPU effects",
+      "started": "2026-10",
+      "description": "GPU fixes to an open-source motion graphics tool in Rust: effects that match the CPU on AMD and Intel, kernels built on first use, and a memory cap sized to the card.",
+      "stack": ["Rust", "GPU compute", "WGSL"],
+      "caseStudy": {
+        "about": "EffectCraft is a free, open-source motion graphics and visual effects studio built from scratch in Rust, in the style of After Effects. It layers footage, keyframed animation, 3D cameras and over 300 effects into finished shots, with effects rendered on the GPU.",
+        "highlights": [
+          {"text": "The Posterize and CC Grid Wipe effects looked different on AMD and Intel graphics cards than on the CPU; they now match", "links": ["https://github.com/storytold/effectcraft/pull/1836"]},
+          {"text": "Effects' GPU code is now built the first time each effect is used, one family at a time, instead of all at once", "links": ["https://github.com/storytold/effectcraft/pull/1705"]},
+          {"text": "On Linux, the GPU memory limit is sized from the card's actual video memory", "links": ["https://github.com/storytold/effectcraft/pull/1706"]}
+        ]
+      }
+    },
+    {
+      "id": "craft-anything",
+      "name": "Craft Anything",
+      "constellation": "upstream",
+      "repo": "storytold/craft-anything",
+      "kind": "Windows start-up",
+      "started": "2026-11",
+      "description": "Windows start-up fixes for the Craft app runtime: when a start can't draw, the next one falls back to a renderer that works.",
+      "stack": ["Rust", "Windows", "WARP"],
+      "caseStudy": {
+        "about": "Craft Anything studies how a website, app or game works, then has an AI coding agent build your own version from scratch. It checks the result against the original and keeps refining it. It's the clean-room engine behind the ArtCraft suite.",
+        "highlights": [
+          {"text": "Windows: when the app can't draw at start-up, the next start falls back to Microsoft's WARP software renderer and opens", "links": ["https://github.com/storytold/craft-anything/pull/911", "https://github.com/storytold/craft-anything/pull/1071"]},
+          {"text": "A hand-off that ends just before the app is closed now reports its exit, with a Windows test that waits for the launcher", "links": ["https://github.com/storytold/craft-anything/pull/910"]},
+          {"text": "Measured how much idle CPU AMD's Radeon driver uses, and kept the project's notes to exactly the setup that was tested", "links": ["https://github.com/storytold/craft-anything/pull/1072"]}
+        ]
+      }
+    },
+    {
       "id": "chronoticker",
       "name": "Chronoticker",
       "constellation": "ledger",
@@ -354,7 +512,7 @@
           "Models rebalancing strategies and DCA schedules",
           "Charts the full growth path, not just the end number"
         ],
-        "learned": "Financial simulations live or die on edge cases — contribution timing and rebalance rules matter more than they look."
+        "learned": "In money simulations, small rules, like the day a contribution lands, change the result more than you'd expect."
       }
     },
     {
@@ -374,7 +532,7 @@
           "Comparisons that give the numbers scale — gold, the US national debt",
           "Fails gracefully when any upstream API is down"
         ],
-        "learned": "Building resilient dashboards on free, keyless APIs — caching, fallbacks, and honest handling when upstream data goes stale."
+        "learned": "Free data sources go down. A good dashboard says when its numbers are out of date instead of passing them off as live."
       }
     },
     {
@@ -394,7 +552,7 @@
           "Excel import and export via SheetJS — meet budgets where they already live",
           "Projection engine kept separate from the UI, so features land cleanly"
         ],
-        "learned": "Separating the engine from the interface paid for itself with every feature added afterward."
+        "learned": "Keeping the math separate from the screens made every new feature quicker to add."
       }
     },
     {
@@ -515,7 +673,7 @@
           "Explorer to switch fits (linear, log-linear, median) and outlier handling and watch the model move",
           "A 'model report card' grading the original regression against alternatives — and reality"
         ],
-        "learned": "The level-50 wall capped every level-based model; admitting where the first model failed became the most interesting result."
+        "learned": "My first model hit a ceiling at level 50. Explaining why it failed turned out to be the most interesting finding."
       }
     },
     {
@@ -535,7 +693,7 @@
           "Tracks post frequency and delivery latency per feed",
           "Static analytics dashboard on the same $0 footprint"
         ],
-        "learned": "Even a hobby automation deserves observability — measuring latency changed how the relay was tuned."
+        "learned": "Even a hobby bot is worth measuring. Tracking its delay showed exactly what to speed up."
       }
     },
     {
@@ -555,7 +713,7 @@
           "Auto-fills artwork, catch CP, and shiny availability",
           "Output formatted and ready to paste into Campfire"
         ],
-        "learned": "Automating the boring 20% of community organizing keeps the fun 80% sustainable."
+        "learned": "Automating the tedious parts of running a community leaves more energy for the fun parts."
       }
     },
     {
@@ -596,8 +754,7 @@
           "249 AI commanders that play by the same rules you do",
           "One persistent galaxy that simulates a live MMO server, single-player",
           "Three incarnations: a TypeScript prototype, an online Unity build, and this final form"
-        ],
-        "learned": "Started as Novacore and became Galaxy Royale — the rename is part of the story. Rough edges are part of the artifact."
+        ]
       }
     },
     {
@@ -646,16 +803,18 @@
       "private": true,
       "started": "2026-08-29",
       "flagship": true,
-      "description": "A household planner and journal — tasks, calendar, money, meals, people and a daily journal — shipped for web and iPhone in five weeks.",
+      "description": "A household planner for web and iPhone. Tasks, calendar, meals, groceries, money, people and a daily journal live in one place, and AI assistants can help plan the week.",
       "stack": ["TypeScript", "Supabase", "iOS", "MCP"],
       "caseStudy": {
-        "why": "One app for running a home: tasks, calendar, money, meals, people, places, wardrobe and a journal — offline-first, shared with the household.",
+        "why": "Running a home is spread across a dozen apps: a calendar here, a grocery list there, notes everywhere. Drafter puts it all in one place, shared with the household and working offline, so planning the week takes one look instead of six.",
         "highlights": [
-          "Web and iPhone app shipped in five weeks",
-          "MCP server with ~47 tools, so AI assistants can work with your records — with the permissions you give them",
-          "LLM-powered Q&A over personal records; Google and Outlook calendar sync"
+          "Plan the week in one view: tasks, calendar events and meals side by side, with Google and Outlook calendars synced in",
+          "A grocery list, budget, contacts, places, wardrobe and a daily journal sit next to the plan, so nothing gets lost in another app",
+          "Shared with the household and works offline, then syncs when you're back online",
+          "An MCP server with about 47 tools lets AI assistants like Claude read and update your plan, from adding a task to drafting the week's meals, only with the permissions you give them",
+          "Ask questions in plain English across your own records, like what's due this week or when you last saw someone"
         ],
-        "learned": "Local-first sync needs an honest conflict story — 'Keep mine' beats silently losing an edit."
+        "learned": "When two devices change the same thing offline, ask which version to keep instead of quietly overwriting one."
       }
     },
     {
@@ -675,7 +834,7 @@
           "Video and audio multiplexed over USB bulk transfers",
           "libretro client in RetroArch, native on Apple Silicon"
         ],
-        "learned": "Capturing one channel gives you part of a soundtrack — mixing every channel on a real-time timeline is what makes it sound right."
+        "learned": "Recording one sound channel only gives you part of the music. Mixing every channel together in real time is what makes it sound right."
       }
     },
     {
@@ -713,7 +872,7 @@
           "Drag-and-drop ordering with instant preview",
           "Everything stays local — images never leave the machine"
         ],
-        "learned": "The Canvas API is enough for a real image tool; the hard part is making layout behavior predictable."
+        "learned": "The browser alone is enough for a real image tool. The hard part is making the layout behave the way people expect."
       }
     },
     {

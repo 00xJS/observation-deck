@@ -179,6 +179,8 @@
         .btn.ghost { background: transparent; color: var(--text); border-color: var(--line-2); }
         .btn.ghost:hover { border-color: var(--accent); }
         .note { font-size: 12.5px; color: var(--faint); }
+        .pr { font-family: var(--mono); font-size: 11.5px; color: var(--c); text-decoration: none; margin-left: 6px; white-space: nowrap; }
+        .pr:hover { text-decoration: underline; }
 
         /* ---------- Footer ---------- */
 
@@ -239,6 +241,7 @@
             <div class="search">
                 <input id="q" type="search" placeholder="Search name or stack…" aria-label="Search projects">
                 <select id="sort" aria-label="Sort projects">
+                    <option value="shuffle">Shuffle</option>
                     <option value="featured">Featured</option>
                     <option value="newest">Newest</option>
                     <option value="name">A–Z</option>
@@ -263,7 +266,6 @@
 
     <script>
         const $ = (id) => document.getElementById(id);
-        const GH = 'https://github.com/00xJS/';
         const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         const load = (p) => fetch(p, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
         const rel = (iso) => {
@@ -278,15 +280,29 @@
         const CAT = new Map();
         const BY_ID = new Map();
         let filter = 'all';
+        const rank = new Map();   // this visit's shuffled order, so filtering keeps it steady
+
+        function reshuffle() {
+            const ids = D.projects.map((p) => p.id);
+            for (let i = ids.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [ids[i], ids[j]] = [ids[j], ids[i]];
+            }
+            ids.forEach((id, i) => rank.set(id, i));
+        }
         let lastTile = null;
 
         const img = (p) => (p.image ? p.image : p.url ? 'images/' + p.id + '.webp' : null);
         const stat = (p) => (p.url && S && S.projects ? S.projects[p.id] : null);
         const repo = (p) => (p.repo && G && G.repos ? G.repos[p.repo] : null);
+        // "owner/name" is someone else's repo I contribute to; a bare name is one of mine
+        const upstream = (p) => !!p.repo && p.repo.includes('/');
+        const repoPath = (p) => (upstream(p) ? p.repo : '00xJS/' + p.repo);
 
         function status(p) {
             if (p.work) return '';   // the At Work section label already says it
             if (p.private) return '<span class="st priv">private</span>';
+            if (upstream(p)) return '<span class="st oss">contributor</span>';
             const s = stat(p);
             if (s) return s.up ? '<span class="st live">live</span>' : '<span class="st down">down</span>';
             return '<span class="st oss">open source</span>';
@@ -349,6 +365,7 @@
             let list = D.projects
                 .filter((p) => filter === 'all' || p.constellation === filter)
                 .filter((p) => !q || [p.name, p.description, p.kind, ...(p.stack || [])].join(' ').toLowerCase().includes(q));
+            if (sort === 'shuffle') list = [...list].sort((a, b) => rank.get(a.id) - rank.get(b.id));
             if (sort === 'newest') list = [...list].sort((a, b) => (b.started || '').localeCompare(a.started || ''));
             if (sort === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name));
             const grid = $('grid');
@@ -365,7 +382,7 @@
             const checked = sites.filter(stat);
             const up = checked.filter((p) => stat(p).up).length;
             const allUp = checked.length > 0 && up === checked.length;
-            const pushed = P.filter(repo).sort((a, b) => repo(b).pushedAt.localeCompare(repo(a).pushedAt))[0];
+            const pushed = P.filter((p) => repo(p) && !upstream(p)).sort((a, b) => repo(b).pushedAt.localeCompare(repo(a).pushedAt))[0];
             // Live count from github.json when the weekly sync has one; the manifest's figure otherwise
             const contrib = G && G.contributions
                 ? { value: G.contributions.total.toLocaleString('en-US') }
@@ -416,6 +433,16 @@
 
         const drawer = $('drawer');
 
+        /* A highlight is text, or {text, links} where each link is the merged PR behind it */
+        function highlight(h) {
+            if (typeof h === 'string') return `<li>${esc(h)}</li>`;
+            const proof = (h.links || []).map((u) => {
+                const n = u.match(/\/(\d+)$/);
+                return `<a class="pr" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Merged pull request ${n ? n[1] : ''} on GitHub">#${n ? n[1] : ''} ↗</a>`;
+            }).join('');
+            return `<li>${esc(h.text)}${proof}</li>`;
+        }
+
         function openDrawer(p, from) {
             const c = CAT.get(p.constellation);
             const cs = p.caseStudy || {};
@@ -424,10 +451,11 @@
 
             const facts = [['Kind', p.kind]];
             if (s) facts.push(['Response', s.responseMs + ' ms']);
-            if (r) facts.push(['Last push', rel(r.pushedAt)]);
-            if (facts.length < 3 && r && r.stars) facts.push(['Stars', '★ ' + r.stars]);
+            if (r && upstream(p)) facts.push(['Stars', '★ ' + r.stars.toLocaleString('en-US')]);   // their last push isn't mine
+            else if (r) facts.push(['Last push', rel(r.pushedAt)]);
+            if (facts.length < 3 && r && r.stars && !upstream(p)) facts.push(['Stars', '★ ' + r.stars]);
             if (facts.length < 3) facts.push(['Started', p.started ? p.started.slice(0, 7) : (p.work ? 'At work' : '—')]);
-            const where = p.url ? new URL(p.url).hostname : p.repo ? 'github.com/00xJS/' + p.repo : p.work ? 'internal work project' : 'private build';
+            const where = p.url ? new URL(p.url).hostname : p.repo ? 'github.com/' + repoPath(p) : p.work ? 'internal work project' : 'private build';
 
             drawer.style.setProperty('--c', c.color);
             drawer.innerHTML = `
@@ -436,13 +464,15 @@
                 <div class="body">
                     <div><div class="top"><span>${esc(c.name)} · ${esc(c.subtitle)}</span>${status(p)}</div><h2 id="dTitle">${esc(p.name)}</h2></div>
                     <div class="facts">${facts.slice(0, 3).map(([l, v]) => `<div class="fact"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('')}</div>
-                    <div><h4>Why it exists</h4><p>${esc(cs.why || p.description)}</p></div>
-                    ${(cs.highlights || []).length ? `<div><h4>Highlights</h4><ul>${cs.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul></div>` : ''}
+                    ${cs.about ? `<div><h4>About the project</h4><p>${esc(cs.about)}</p></div>` : ''}
+                    ${upstream(p) ? '' : `<div><h4>Why it exists</h4><p>${esc(cs.why || p.description)}</p></div>`}
+                    ${(cs.highlights || []).length ? `<div><h4>${upstream(p) ? 'What I fixed and added' : 'Highlights'}</h4><ul>${cs.highlights.map(highlight).join('')}</ul></div>` : ''}
                     ${cs.learned ? `<div><h4>What it taught me</h4><p><em>${esc(cs.learned)}</em></p></div>` : ''}
                     <div class="chips">${(p.stack || []).map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div>
                     <div class="actions">
                         ${p.url ? `<a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">Open site ↗</a>` : ''}
-                        ${p.repo ? `<a class="btn ${p.url ? 'ghost' : ''}" href="${GH + esc(p.repo)}" target="_blank" rel="noopener">Source on GitHub ↗</a>` : ''}
+                        ${p.repo ? `<a class="btn ${p.url ? 'ghost' : ''}" href="https://github.com/${esc(repoPath(p))}" target="_blank" rel="noopener">${upstream(p) ? 'Repository' : 'Source on GitHub'} ↗</a>` : ''}
+                        ${upstream(p) ? `<a class="btn ghost" href="https://github.com/${esc(p.repo)}/pulls?q=is%3Apr+is%3Amerged+author%3A00xJS" target="_blank" rel="noopener">My merged pull requests ↗</a>` : ''}
                         ${p.work ? '<span class="note">Internal work project — no public link.</span>' : p.private ? '<span class="note">Private repository — source isn\'t public.</span>' : ''}
                     </div>
                 </div>`;
@@ -482,7 +512,10 @@
             }
         });
         $('q').addEventListener('input', render);
-        $('sort').addEventListener('change', render);
+        $('sort').addEventListener('change', () => {
+            if ($('sort').value === 'shuffle') reshuffle();   // picking Shuffle again deals a new order
+            render();
+        });
 
         /* ---------- Boot ---------- */
 
@@ -493,6 +526,7 @@
                 return;
             }
             D.projects = D.projects.filter((p) => !p.hidden);   // hidden: kept in the manifest, not shown
+            reshuffle();
             D.constellations.forEach((c) => CAT.set(c.id, c));
             D.projects.forEach((p) => BY_ID.set(p.id, p));
             if (D.profile) $('who').textContent = `${D.profile.name} · ${D.profile.handle}`;

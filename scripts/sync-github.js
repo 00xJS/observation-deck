@@ -16,7 +16,7 @@ async function syncGithub() {
 
   for (const repo of repos) {
     try {
-      const res = await fetch(`https://api.github.com/repos/${OWNER}/${repo}`, { headers });
+      const res = await fetch(`https://api.github.com/repos/${repo.includes('/') ? repo : `${OWNER}/${repo}`}`, { headers });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const r = await res.json();
       out.repos[repo] = {
