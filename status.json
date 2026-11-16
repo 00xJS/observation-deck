@@ -1,89 +1,90 @@
 {
-  "generatedAt": "2026-11-09T15:24:36.129Z",
+  "generatedAt": "2026-11-16T14:59:34.150Z",
   "projects": {
     "sr1-map-studio": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1335,
-      "capturedAt": "2026-11-09T15:24:39.533Z"
+      "responseMs": 1016,
+      "capturedAt": "2026-11-16T14:59:37.218Z"
     },
     "sr1-creator": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1216,
-      "capturedAt": "2026-11-09T15:24:42.833Z"
+      "responseMs": 1131,
+      "capturedAt": "2026-11-16T14:59:40.554Z"
     },
     "chronoticker": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2646,
-      "capturedAt": "2026-11-09T15:24:47.779Z"
+      "responseMs": 3195,
+      "capturedAt": "2026-11-16T14:59:45.978Z"
     },
     "blockwatch": {
-      "up": true,
-      "httpStatus": 200,
-      "responseMs": 7310,
-      "capturedAt": "2026-11-09T15:24:57.453Z"
+      "up": false,
+      "httpStatus": null,
+      "responseMs": null,
+      "capturedAt": "2026-11-16T15:00:16.035Z",
+      "error": "Navigation timeout of 30000 ms exceeded"
     },
     "cashflow-comp": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1809,
-      "capturedAt": "2026-11-09T15:25:01.626Z"
+      "responseMs": 1839,
+      "capturedAt": "2026-11-16T15:00:20.132Z"
     },
     "project401k": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2118,
-      "capturedAt": "2026-11-09T15:25:06.063Z"
+      "responseMs": 1505,
+      "capturedAt": "2026-11-16T15:00:23.914Z"
     },
     "calculat-bur": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2168,
-      "capturedAt": "2026-11-09T15:25:10.555Z"
+      "responseMs": 2926,
+      "capturedAt": "2026-11-16T15:00:29.082Z"
     },
     "dca": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2809,
-      "capturedAt": "2026-11-09T15:25:15.674Z"
+      "responseMs": 1546,
+      "capturedAt": "2026-11-16T15:00:32.873Z"
     },
     "pogo-metrics": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1846,
-      "capturedAt": "2026-11-09T15:25:20.204Z"
+      "responseMs": 1855,
+      "capturedAt": "2026-11-16T15:00:37.224Z"
     },
     "trainer-model": {
       "up": true,
       "httpStatus": 304,
-      "responseMs": 2003,
-      "capturedAt": "2026-11-09T15:25:24.559Z"
+      "responseMs": 2002,
+      "capturedAt": "2026-11-16T15:00:41.505Z"
     },
     "silph-relay": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1472,
-      "capturedAt": "2026-11-09T15:25:28.345Z"
+      "responseMs": 3669,
+      "capturedAt": "2026-11-16T15:00:47.426Z"
     },
     "degen": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1975,
-      "capturedAt": "2026-11-09T15:25:32.646Z"
+      "responseMs": 2064,
+      "capturedAt": "2026-11-16T15:00:51.818Z"
     },
     "mickeys": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 2001,
-      "capturedAt": "2026-11-09T15:25:37.010Z"
+      "responseMs": 1283,
+      "capturedAt": "2026-11-16T15:00:55.371Z"
     },
     "icombo": {
       "up": true,
       "httpStatus": 200,
-      "responseMs": 1313,
-      "capturedAt": "2026-11-09T15:25:40.608Z"
+      "responseMs": 1469,
+      "capturedAt": "2026-11-16T15:00:59.062Z"
     }
   }
 }
