@@ -50,6 +50,38 @@ async function syncGithub() {
     console.log('  no GITHUB_TOKEN, skipping contributions');
   }
 
+  // Drift check: my own public repos that have no card on the deck. Forks are
+  // skipped (they are covered by `owner/name` cards), and so is anything in
+  // profile.ignoreRepos. Only public repos are listed, because github.json and
+  // the Actions log are public; private projects still have to be added by hand.
+  try {
+    const tracked = new Set(
+      [...repos, ...(manifest.profile.ignoreRepos || [])].map((r) => r.toLowerCase())
+    );
+    const mine = [];
+    for (let page = 1; ; page++) {
+      const res = await fetch(`https://api.github.com/users/${OWNER}/repos?type=owner&per_page=100&page=${page}`, { headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const batch = await res.json();
+      mine.push(...batch);
+      if (batch.length < 100) break;
+    }
+    out.untracked = mine
+      .filter((r) => !r.fork && !r.private && !tracked.has(r.name.toLowerCase()))
+      .map((r) => ({ name: r.name, pushedAt: r.pushed_at, description: r.description || '' }))
+      .sort((a, b) => b.pushedAt.localeCompare(a.pushedAt));
+    if (out.untracked.length) {
+      const names = out.untracked.map((r) => r.name).join(', ');
+      console.log(`  ${out.untracked.length} public repo(s) with no card: ${names}`);
+      // Shows as a warning on the workflow run without failing it
+      if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Repos missing from the deck::${names}`);
+    } else {
+      console.log('  every public repo has a card');
+    }
+  } catch (err) {
+    console.error(`  Error checking for untracked repos: ${err.message}`);
+  }
+
   fs.writeFileSync(path.join(ROOT, 'github.json'), JSON.stringify(out, null, 2) + '\n');
   console.log('Wrote github.json');
 }

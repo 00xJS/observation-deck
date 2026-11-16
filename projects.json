@@ -5,7 +5,8 @@
     "stats": [
       {"value": "2,500+", "label": "contributions in the last year"}
     ],
-    "links": {"github": "https://github.com/00xJS"}
+    "links": {"github": "https://github.com/00xJS"},
+    "ignoreRepos": ["observation-deck"]
   },
   "constellations": [
     {
@@ -20,7 +21,7 @@
       "name": "Saints Row Modding",
       "subtitle": "Reverse engineering & mods",
       "color": "#c79bff",
-      "blurb": "The Saints Row (2006) engine, reverse-engineered into 48 research reports — then a map editor, a character creator, mods and a Mac port."
+      "blurb": "The Saints Row (2006) engine, reverse-engineered into 48 research reports — then a map editor, a character creator, mods and a Mac port. The cheat menu and save editor now reach Saints Row 2 and the 2022 reboot too."
     },
     {
       "id": "upstream",
@@ -55,7 +56,7 @@
       "name": "Tools & Experiments",
       "subtitle": "Utilities, ports & hacks",
       "color": "#6ee7a8",
-      "blurb": "Small tools and deep dives: an image combiner, a browser extension, old games ported to Apple Silicon, a PSP audio streamer and an early data notebook."
+      "blurb": "Small tools and deep dives: remote control between a PC, a Mac and an iPhone, an image combiner, a browser extension, old games ported to Apple Silicon, a PSP audio streamer and an early data notebook."
     }
   ],
   "projects": [
@@ -299,7 +300,7 @@
       "name": "SR Save Editor",
       "constellation": "stilwater",
       "kind": "Desktop app",
-      "private": true,
+      "repo": "SR-Save-Editor",
       "started": "2026-10-04",
       "description": "Save editor for Saints Reborn on Mac and Windows: cash, weapons, wardrobe, garage, neighbourhoods, homies and the online character.",
       "stack": ["C#", "Mac + Windows"],
@@ -313,11 +314,35 @@
       }
     },
     {
+      "id": "sr5-save-editor",
+      "name": "SR5 Save Editor",
+      "constellation": "stilwater",
+      "kind": "Desktop app",
+      "repo": "SR5-Save-Editor",
+      "started": "2026-11-02",
+      "description": "Save editor for Saints Row (2022) on Windows: cash, weapons, garage, character, unlocks and missions, with a backup made every time you save.",
+      "stack": [
+        "C#",
+        "Windows",
+        "Save format"
+      ],
+      "caseStudy": {
+        "why": "The reboot's save holds far more than its menus let you change. This opens all of it, using the game's own names and limits.",
+        "highlights": [
+          "Garage: every part, wrap, rim, tire and sound for each car, from the game's own tables",
+          "Weapons, character, loadout and unlocks, each on its own screen",
+          "Tests rewrite every sample save byte for byte, and a separate decoder that shares no code reads the editor's output"
+        ],
+        "learned": "Reading a save and writing it back unchanged, byte for byte, is the test that makes every later edit safe."
+      }
+    },
+    {
       "id": "sr-tweak-menu",
       "name": "SR Tweak Menu",
       "constellation": "stilwater",
       "kind": "Game mod",
       "repo": "SR-Tweak-Menu",
+      "image": "images/sr-tweak-menu.webp",
       "started": "2026-10-09",
       "description": "An in-game cheat menu for Saints Reborn: god mode, wanted level, rocket ammo, vehicle and people spawner, bodyguards, emotes, free camera and more.",
       "stack": ["Lua", "Keyboard + controller"],
@@ -331,11 +356,59 @@
       }
     },
     {
+      "id": "sr2-tweak-menu",
+      "name": "SR2 Tweak Menu",
+      "constellation": "stilwater",
+      "kind": "Game mod",
+      "repo": "SR2-Tweak-Menu",
+      "started": "2026-10-23",
+      "description": "The SR Tweak Menu running in Saints Row 2 on PC: the same menu and layout files, unchanged, over rows built for SR2. An early preview.",
+      "stack": [
+        "Lua",
+        "C++",
+        "Steam + GOG"
+      ],
+      "caseStudy": {
+        "why": "The menu was written for Saints Row 1. If it was built well, a second game should only need new rows underneath.",
+        "highlights": [
+          "SR Tweak Menu 2.5.0's menu and layout files run unchanged, so tabs, keys and look match SR1",
+          "Rows built on SR2's mission-script functions, phone cheats and engine",
+          "Runs with or without Juiced Patch",
+          "Early preview: every row passes the offline test, but most are not yet played in game"
+        ]
+      }
+    },
+    {
+      "id": "sr5-tweak-menu",
+      "name": "SR5 Tweak Menu",
+      "constellation": "stilwater",
+      "kind": "Game mod",
+      "repo": "SR5-Tweak-Menu",
+      "image": "images/sr5-tweak-menu.webp",
+      "started": "2026-10-29",
+      "description": "An in-game cheat menu for Saints Row (2022) on PC: the SR Tweak Menu idea brought to the reboot, on keyboard or controller. Work in progress.",
+      "stack": [
+        "C",
+        "DirectX 12",
+        "Keyboard + controller"
+      ],
+      "caseStudy": {
+        "why": "The 2022 reboot is a different engine from the 2006 game. This is the same menu idea, rebuilt for it.",
+        "highlights": [
+          "Opens on F5, or RB + D-pad Down on a controller",
+          "Pages for health, movement, wingsuit, Flow, skills, money, unlocks, clothing, face and body, emotes and more",
+          "Favourites, and a help line on every row",
+          "Epic build on DirectX 12 for now; on DirectX 11 or Vulkan the menu stays off and the game runs as normal"
+        ]
+      }
+    },
+    {
       "id": "sr-teleport",
       "name": "Teleport to Waypoint",
       "constellation": "stilwater",
       "kind": "Game mod",
       "repo": "SR-Teleport-to-Waypoint",
+      "image": "images/sr-teleport.webp",
       "started": "2026-10-10",
       "description": "Drop a waypoint on the map and you're there — on the rooftop, with your car and homies. No more driving across Stilwater.",
       "stack": ["Lua", "C++ add-on"],
@@ -386,6 +459,7 @@
       "name": "Saints Reborn Co-op",
       "constellation": "upstream",
       "repo": "whompay/SaintsReborn",
+      "image": "images/sr-coop.webp",
       "kind": "Multiplayer netcode",
       "flagship": true,
       "started": "2026-10",
@@ -835,6 +909,29 @@
           "libretro client in RetroArch, native on Apple Silicon"
         ],
         "learned": "Recording one sound channel only gives you part of the music. Mixing every channel together in real time is what makes it sound right."
+      }
+    },
+    {
+      "id": "glassbridge",
+      "name": "GlassBridge",
+      "constellation": "tools",
+      "kind": "Remote desktop",
+      "private": true,
+      "started": "2026-10-31",
+      "description": "See and control a Windows PC and a Mac from each other and from an iPhone, with no account or cloud service.",
+      "stack": [
+        "Electron",
+        "WebSockets",
+        "iOS",
+        "WireGuard"
+      ],
+      "caseStudy": {
+        "why": "Remote-control apps usually send your screen through someone else's account and servers. GlassBridge connects your own devices directly.",
+        "highlights": [
+          "On the PC or Mac, one window shows both screens side by side; click one to control it",
+          "On the iPhone: trackpad or tap-where-you-touch modes, a key bar and clipboard sync",
+          "Away from home it uses a WireGuard tunnel you run yourself"
+        ]
       }
     },
     {
